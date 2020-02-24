@@ -4,7 +4,6 @@ import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -13,35 +12,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.GroupAdapter;
-import info.androidhive.loginandregistration.app.Grupo;
 
 public class Chats extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-/**
- * The {@link android.support.v4.view.PagerAdapter} that will provide
- * fragments for each of the sections. We use a
- * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which will keep every
- * loaded fragment in memory. If this becomes too memory intensive, it
- * may be best to switch to a
- * {@link android.support.v4.app.FragmentStatePagerAdapter}.
- */
-private SectionsPagerAdapter mSectionsPagerAdapter;
-
-/**
- * The {@link android.support.v4.view.ViewPager} that will host the section contents.
- */
-private ViewPager mViewPager;
+    /**
+     * The {@link android.support.v4.view.ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
 
 
-@Override
-protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats);
 
@@ -59,41 +51,36 @@ protected void onCreate(Bundle savedInstanceState) {
         tabLayout.setupWithViewPager(mViewPager);
 
 
-        }
+    }
 
-// Métodos de la interfaz ActionBar.TabListener
-@Override
-public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    // Métodos de la interfaz ActionBar.TabListener
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         mViewPager.setCurrentItem(tab.getPosition());
 
-        }
+    }
 
-@Override
-public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) { }
 
-        }
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) { }
 
-@Override
-public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+    // Métodos de la interfaz ViewPager.OnPageChangeListener
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
-        }
-
-// Métodos de la interfaz ViewPager.OnPageChangeListener
-@Override
-public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
-
-@Override
-public void onPageSelected(int position) {
+    @Override
+    public void onPageSelected(int position) {
         getSupportActionBar().setSelectedNavigationItem(position);
 
-        }
+    }
 
-@Override
-public void onPageScrollStateChanged(int state) {
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
-        }
+    }
 
 /**
  * A placeholder fragment containing a simple view.
