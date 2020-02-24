@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.mcxiaoke.volley:library-aar:1.0.1'
 
+    compile 'com.android.support.constraint:constraint-layout:1.1.3'
 }

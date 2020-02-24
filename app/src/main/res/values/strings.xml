@@ -2,6 +2,9 @@
 <resources>
 
     <string name="app_name">InstantM</string>
+    <string name="title_activity_tabs">InstantM</string>
+    <string name="chats">Chats</string>
+    <string name="contacts">Contactos</string>
     <string name="hint_username">Usuario</string>
     <string name="hint_password">Contraseña</string>
     <string name="hint_repeat_password">Repetir contraseña</string>

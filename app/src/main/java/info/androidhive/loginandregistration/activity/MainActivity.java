@@ -27,6 +27,25 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		// session manager
+        session = new SessionManager(getApplicationContext());
+		db = new SQLiteHandler(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        } else {
+            Intent i = new Intent(MainActivity.this, Chats.class);
+            startActivity(i);
+        }
+
+	}
+	/*
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
 		btnLogout = (Button) findViewById(R.id.button_logout);
 
 		// session manager
@@ -61,7 +80,7 @@ public class MainActivity extends Activity {
 */
 
 		// Logout button click event
-		btnLogout.setOnClickListener(new View.OnClickListener() {
+		/*btnLogout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				logoutUser();
@@ -69,7 +88,7 @@ public class MainActivity extends Activity {
 		});
 
 
-	}
+	}*/
 
 	/**
 	 * Logging out the user. Will set isLoggedIn flag to false in shared
