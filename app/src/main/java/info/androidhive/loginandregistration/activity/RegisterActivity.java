@@ -119,7 +119,7 @@ public class RegisterActivity extends Activity {
 
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
-                        String email = user.getString("email");
+                        String email = user.getString("mail");
 
                         db.addUser(name, email);
 
