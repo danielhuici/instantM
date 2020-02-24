@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="80dp"
+        android:textColor="@color/white"
+        android:text="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/iconomf" />
+
+    <LinearLayout
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <EditText
+            android:id="@+id/login_username"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input"
+            android:hint="@string/hint_username"
+            android:inputType="text"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_hint"
+            android:textColorHint="@color/input_hint" />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_hint"
+            android:textColorHint="@color/input_hint" />
+
+        <!-- Login Button -->
+
+        <!-- Botón registrarse -->
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="313dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="20dip"
+            android:background="@color/input"
+            android:text="@string/button_login"
+            android:textColor="@color/background"
+            android:textAllCaps="false"
+            android:textSize="25dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_link_register"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dip"
+        android:background="@color/button_register"
+        android:text="@string/button_register"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
+
+</LinearLayout>

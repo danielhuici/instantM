@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">InstantM</string>
+    <string name="hint_username">Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_repeat_password">Repetir contraseña</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_email">E-mail</string>
+    <string name="button_login">Iniciar sesión</string>
+    <string name="btn_register">REGISTRAR</string>
+    <string name="button_register">Registrarse</string>
+    <string name="button_logout">Logout</string>
+
+
+</resources>
