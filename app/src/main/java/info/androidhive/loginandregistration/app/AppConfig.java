@@ -6,4 +6,7 @@ public class AppConfig {
 
 	// Server user register url
 	public static String URL_REGISTER = "http://centralteruel.ddns.net/instantm/registrar.php";
+
+	// Server create group url
+	public static String URL_CREATE_GROUP = "http://centralteruel.ddns.net/instantm/create_group.php";
 }

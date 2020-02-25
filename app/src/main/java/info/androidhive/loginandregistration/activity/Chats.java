@@ -32,6 +32,7 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
     private ViewPager mViewPager;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,13 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
 
     }
-
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+*/
 
     // Métodos de la interfaz ActionBar.TabListener
     @Override

@@ -48,9 +48,12 @@ public class GroupAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.grupo, null);
             holder = new ViewHolder();
-            //Creamos un objeto de la clase ViewHolder y hacemos que cada atributo referencie
-            //a un elemento del laout. Esta referencia se mantiene y cuando reutilicemos la vista
-            //convertView ya no tendrá que llamar al método findViewById()
+            /**
+             *  Creamos un objeto de la clase ViewHolder y hacemos que cada atributo haga referencia
+             *  a un elemento del laoyut. Esta referencia se mantiene y cuando reutilicemos la vista
+             *  convertView ya no tendrá que llamar al método findViewById()
+             */
+
             holder.movil = (TextView) convertView.findViewById(R.id.tvTelefonoMovil);
             holder.fijo = (TextView) convertView.findViewById(R.id.tvTelefonoFijo);
             holder.nombreApellidos = (TextView) convertView.findViewById(R.id.tvNombreApellidos);
