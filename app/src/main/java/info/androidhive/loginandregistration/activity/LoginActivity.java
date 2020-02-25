@@ -100,7 +100,7 @@ public class LoginActivity extends Activity {
     /**
      * Comprobar datos conrrectos con MySQL
      * */
-    private void checkLogin(final String email, final String password) {
+    private void checkLogin(final String username, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -159,7 +159,7 @@ public class LoginActivity extends Activity {
             protected Map<String, String> getParams() {
                 // Parámetros para la solicitud POST <columna_db, variable>
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("mail", email);
+                params.put("name", username);
                 params.put("password", password);
 
                 return params;
