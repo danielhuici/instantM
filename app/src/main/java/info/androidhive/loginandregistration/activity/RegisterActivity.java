@@ -107,12 +107,14 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
+
         birthdayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
             }
         });
+
 
 
 
@@ -140,21 +142,20 @@ public class RegisterActivity extends AppCompatActivity{
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
-                        // Store en SQLite
+                        // Insertar en SQLite
 
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
-                        String email = user.getString("email");
+                        String email = user.getString("mail");
 
-                        // Inserting row in users table
                         db.addUser(name, email);
 
                         Toast.makeText(getApplicationContext(), "¡Usuario registrado exitosamente!", Toast.LENGTH_LONG).show();
 
-                        // Launch login activity
+                        // Launch chat activity
                         Intent intent = new Intent(
                                 RegisterActivity.this,
-                                LoginActivity.class);
+                                Chats.class);
                         startActivity(intent);
                         finish();
                     } else {
@@ -174,6 +175,7 @@ public class RegisterActivity extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
+
             }
         }) {
 
