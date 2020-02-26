@@ -1,5 +1,6 @@
 package info.androidhive.loginandregistration.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import info.androidhive.loginandregistration.R;
 
@@ -25,6 +28,8 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private static final int MENU_CREATE_GROUP_ID = Menu.FIRST;
+    private static final int MENU_LOGOUT_ID = Menu.FIRST + 1;
 
     /**
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
@@ -53,13 +58,34 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
 
     }
-    /*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
+        boolean result = super.onCreateOptionsMenu(menu);
+        menu.add(Menu.NONE, Menu.FIRST, MENU_CREATE_GROUP_ID, "Crear grupo");
+        menu.add(Menu.NONE, MENU_LOGOUT_ID + 1, Menu.NONE, "Logout");
+        return result;
     }
-*/
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+
+        switch (item.getItemId()) {
+            case MENU_CREATE_GROUP_ID:
+                intent = new Intent(Chats.this, EditGroupActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+
+            case MENU_LOGOUT_ID:
+                 intent = new Intent(Chats.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     // Métodos de la interfaz ActionBar.TabListener
     @Override

@@ -41,10 +41,9 @@ public class EditGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_group);
 
         inputGroupName = (EditText) findViewById(R.id.group_name);
+        buttonConfirm =  (Button) findViewById(R.id.button_edit_group);
 
-
-
-        // Botón login
+        // Botón editar grupo
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {

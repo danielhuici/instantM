@@ -2,6 +2,7 @@ package info.androidhive.loginandregistration.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,8 @@ public class TabBFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab_a, container, false);
         vGrupos = new ArrayList<>();
-        adaptador =  new GroupAdapter(super.getActivity(), vGrupos);
+        adaptador =  new GroupAdapter(super.getActivity(), vGrupos) ;
+
         lvLista = (ListView) v.findViewById(R.id.listaGrupos);
         lvLista.setAdapter(adaptador);
 
@@ -47,8 +49,12 @@ public class TabBFragment extends Fragment {
         vGrupos.add(new Grupo("Concha","Ult Con: 14:00"));
         vGrupos.add(new Grupo("",""));
 
+        vGrupos.indexOf(1);
+
 
         adaptador.notifyDataSetChanged();
         return v;
     }
 }
+
+
