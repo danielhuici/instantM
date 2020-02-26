@@ -30,8 +30,8 @@
     <color name="bright_foreground_inverse_material_light">@color/bright_foreground_material_dark</color>
     <color name="bright_foreground_material_dark">@android:color/white</color>
     <color name="bright_foreground_material_light">@android:color/black</color>
-    <color name="btn_login">#26ae90</color>
-    <color name="btn_login_bg">#eceef1</color>
+    <color name="btn_login">#26AE90</color>
+    <color name="btn_login_bg">#ECEEF1</color>
     <color name="btn_logut_bg">#ff6861</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
@@ -282,6 +282,7 @@
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="app_name">InstantM</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="birthday">Fecha de nacimiento</string>
     <string name="btn_register">REGISTRAR</string>
     <string name="button_login">Iniciar sesión</string>
     <string name="button_logout">Logout</string>

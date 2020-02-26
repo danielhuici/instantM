@@ -1,13 +1,18 @@
 package info.androidhive.loginandregistration.activity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -18,25 +23,34 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
+import info.androidhive.loginandregistration.dialog.DatePickerFragment;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 import info.androidhive.loginandregistration.helper.SessionManager;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends AppCompatActivity{
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button buttonRegister;
     private EditText inputUsername;
     private EditText inputEmail;
     private EditText inputPassword;
     private EditText inputRepeatPassword;
+    private EditText birthdayDate;
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
+
+    private Calendar calendar;
+    private DatePickerDialog datePickerDialog;
+
+    private Date birthday;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +61,7 @@ public class RegisterActivity extends Activity {
         inputEmail = (EditText) findViewById(R.id.register_email);
         inputPassword = (EditText) findViewById(R.id.register_password);
         inputRepeatPassword = (EditText) findViewById(R.id.register_repeat_password);
+        birthdayDate = (EditText) findViewById(R.id.birthdayDate);
         buttonRegister = (Button) findViewById(R.id.btnRegister);
 
         // Progress dialog
@@ -89,6 +104,13 @@ public class RegisterActivity extends Activity {
                             "¡Introduce los datos!", Toast.LENGTH_LONG)
                             .show();
                 }
+            }
+        });
+
+        birthdayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
             }
         });
 
@@ -184,5 +206,18 @@ public class RegisterActivity extends Activity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                birthdayDate.setText(selectedDate);
+            }
+        });
+
+        newFragment.show(getFragmentManager(), "date");
     }
 }
