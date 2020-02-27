@@ -1,9 +1,11 @@
 package info.androidhive.loginandregistration.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +28,7 @@ import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 
-public class EditGroupActivity extends AppCompatActivity {
+public class EditGroupActivity extends Activity {
 
     private EditText inputGroupName;
     private SQLiteHandler db;
@@ -38,11 +40,12 @@ public class EditGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_group);
+        setContentView(R.layout.activity_create_group);
 
-        inputGroupName = (EditText) findViewById(R.id.group_name);
-        buttonConfirm =  (Button) findViewById(R.id.button_edit_group);
 
+     //   inputGroupName = (EditText) findViewById(R.id.group_name);
+//        buttonConfirm =  (Button) findViewById(R.id.button_edit_group);
+/*
         // Botón editar grupo
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
 
@@ -63,6 +66,8 @@ public class EditGroupActivity extends AppCompatActivity {
         });
 
         db = new SQLiteHandler(getApplicationContext());
+
+        */
     }
 
     private void storeGroup(final String name) {
