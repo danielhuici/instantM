@@ -40,12 +40,12 @@ public class EditGroupActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_group);
+        setContentView(R.layout.activity_edit_group);
 
 
-     //   inputGroupName = (EditText) findViewById(R.id.group_name);
-//        buttonConfirm =  (Button) findViewById(R.id.button_edit_group);
-/*
+       inputGroupName = (EditText) findViewById(R.id.group_name);
+       buttonConfirm =  (Button) findViewById(R.id.button_edit_group);
+
         // Botón editar grupo
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
 
@@ -66,16 +66,17 @@ public class EditGroupActivity extends Activity {
         });
 
         db = new SQLiteHandler(getApplicationContext());
-
-        */
     }
 
     private void storeGroup(final String name) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
+        pDialog = new ProgressDialog(this);
         pDialog.setMessage("Creando grupo...");
         showDialog();
+
+        final String username =  db.getCurrentUsername();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_CREATE_GROUP, new Response.Listener<String>() {
@@ -88,12 +89,6 @@ public class EditGroupActivity extends Activity {
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
                         // Insertar en SQLite
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-
-
-                        db.addGroup(name);
 
                         Toast.makeText(getApplicationContext(), "¡Grupo creado exitosamente!", Toast.LENGTH_LONG).show();
 
@@ -128,6 +123,7 @@ public class EditGroupActivity extends Activity {
                 // Parámetros para la consulta POST <columna_db, variables>
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("name", name);
+                params.put("username", username);
 
                 return params;
             }

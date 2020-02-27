@@ -103,6 +103,27 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		return user;
 	}
 
+	public String getCurrentUsername() {
+		String username;
+		String selectQuery = "SELECT  * FROM " + TABLE_USER;
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		// Move to first row
+		cursor.moveToFirst();
+		if (cursor.getCount() > 0) {
+			username = cursor.getString(1);
+		} else {
+			username = null;
+		}
+		cursor.close();
+		db.close();
+
+		Log.v(TAG, "Username: " + username);
+
+		return username;
+	}
+
 	/**
 	 * Re crate database Delete all tables and create them again
 	 * */

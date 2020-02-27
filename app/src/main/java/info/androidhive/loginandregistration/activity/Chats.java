@@ -54,7 +54,7 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override

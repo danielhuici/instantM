@@ -22,6 +22,8 @@ public class TabAFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class TabAFragment extends Fragment {
         vGrupos.add(new Grupo("Alicia","Ult Con: 14:00"));
         vGrupos.add(new Grupo("Roberto","Ult Con: 14:00"));
         vGrupos.add(new Grupo("Marisa","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Concha","Ult Con: 14:00"));
+        vGrupos.add(new Grupo("Concho","Ult Con: 14:00"));
         vGrupos.add(new Grupo("",""));
 
 

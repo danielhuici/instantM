@@ -47,11 +47,6 @@ public class RegisterActivity extends AppCompatActivity{
     private SessionManager session;
     private SQLiteHandler db;
 
-    private Calendar calendar;
-    private DatePickerDialog datePickerDialog;
-
-    private Date birthday;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
