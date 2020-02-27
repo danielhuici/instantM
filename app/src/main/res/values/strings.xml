@@ -13,8 +13,12 @@
     <string name="hint_email">E-mail</string>
     <string name="button_login">Iniciar sesión</string>
     <string name="button_register">Registrarse</string>
-    <string name="button_create_group">Crear grupo</string>
+    <string name="create_group">Crear grupo</string>
     <string name="button_logout">Logout</string>
+    <string name="button_edit_group">Editar grupo</string>
+    <string name="description">Descripción</string>
+    <string name="name_group">Nombre del grupo</string>
+
 
 
 </resources>

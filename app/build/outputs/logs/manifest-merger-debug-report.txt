@@ -80,11 +80,11 @@ MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Eduardo\.gradle\cac
 	android:name
 		ADDED from C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:12:9-42
 activity#info.androidhive.loginandregistration.activity.EditGroupActivity
-ADDED from C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:17:9-73
+ADDED from C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:17:9-64
 	android:name
 		ADDED from C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:17:19-61
 activity#info.androidhive.loginandregistration.activity.LoginActivity
-ADDED from C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:18:9-22:64
+ADDED from C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:18:9-22:55
 	android:label
 		ADDED from C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:20:13-45
 	android:launchMode

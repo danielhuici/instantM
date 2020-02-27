@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.helper.SQLiteHandler;
 
 public class Chats extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
     /**
@@ -35,11 +36,14 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private SQLiteHandler db;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new SQLiteHandler(getApplicationContext());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats);
 
@@ -77,7 +81,8 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
                 return true;
 
             case MENU_LOGOUT_ID:
-                 intent = new Intent(Chats.this, MainActivity.class);
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                intent = new Intent(Chats.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 return true;

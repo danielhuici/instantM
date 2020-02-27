@@ -3,11 +3,13 @@ package info.androidhive.loginandregistration.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.LabeledIntent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -30,7 +32,7 @@ import info.androidhive.loginandregistration.helper.SessionManager;
 public class LoginActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnLogin;
-    private Button btnLinkToRegister;
+    private TextView txtLinkToRegister;
     private EditText inputUsername;
     private EditText inputPassword;
     private ProgressDialog pDialog;
@@ -39,13 +41,14 @@ public class LoginActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         inputUsername = (EditText) findViewById(R.id.login_username);
         inputPassword = (EditText) findViewById(R.id.login_password);
         btnLogin = (Button) findViewById(R.id.button_login);
-        btnLinkToRegister = (Button) findViewById(R.id.button_link_register);
+        txtLinkToRegister = (TextView) findViewById(R.id.lbRegister);
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -86,7 +89,7 @@ public class LoginActivity extends Activity {
         });
 
         // Botón link a registro
-        btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
+        txtLinkToRegister.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 Intent i = new Intent(LoginActivity.this,
@@ -94,7 +97,6 @@ public class LoginActivity extends Activity {
                 startActivity(i);
             }
         });
-
     }
 
     /**

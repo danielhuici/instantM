@@ -27,6 +27,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+
+		btnLogout = (Button) findViewById(R.id.button_logout);
+
 		// session manager
         session = new SessionManager(getApplicationContext());
 		db = new SQLiteHandler(getApplicationContext());
@@ -38,6 +41,12 @@ public class MainActivity extends Activity {
             startActivity(i);
         }
 
+			btnLogout.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					logoutUser();
+				}
+			});
 	}
 	/*
 
@@ -95,6 +104,7 @@ public class MainActivity extends Activity {
 	 * preferences Clears the user data from sqlite users table
 	 * */
 	private void logoutUser() {
+		System.out.println("ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 		session.setLogin(false);
 
 		db.deleteUsers();
