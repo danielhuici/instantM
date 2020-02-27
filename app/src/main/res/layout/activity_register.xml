@@ -25,8 +25,8 @@
         android:background="@drawable/iconomf" />
 
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="287dp"
+        android:layout_width="430dp"
+        android:layout_height="400dp"
         android:gravity="bottom"
         android:orientation="vertical"
         android:paddingLeft="50dp"
@@ -83,15 +83,18 @@
             android:singleLine="true"
             android:textColor="@color/input_hint"
             android:textColorHint="@color/input_hint" />
+
         <EditText
             android:id="@+id/birthdayDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/input"
-            android:inputType="date"
-            android:hint="@string/birthday"
-            android:focusable="false"
             android:clickable="true"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:focusable="false"
+            android:hint="@string/birthday"
+            android:inputType="date"
             android:maxLines="1" />
     </LinearLayout>
 
