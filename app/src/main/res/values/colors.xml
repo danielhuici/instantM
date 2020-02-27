@@ -13,9 +13,9 @@
     <color name="input_register">#888888</color>
     <color name="input_register_bg">#3b4148</color>
     <color name="input_hint">#5e6266</color>
-    <color name="btn_login">#26ae90</color>
+    <color name="btn_login">#26AE90</color>
     <color name="button_register">#FF0000</color>
-    <color name="btn_login_bg">#eceef1</color>
+    <color name="btn_login_bg">#ECEEF1</color>
     <color name="lbl_name">#fefcfc</color>
     <color name="btn_logut_bg">#ff6861</color>
 

@@ -649,9 +649,11 @@ id always
 id appbar
 id barrier
 id beginning
+id birthdayDate
 id bottom
 id btnRegister
 id buttonPanel
+id button_edit_group
 id button_link_register
 id button_login
 id button_logout
@@ -691,6 +693,8 @@ id fill_horizontal
 id fill_vertical
 id fixed
 id gone
+id group_description
+id group_name
 id groups
 id home
 id homeAsUp
@@ -821,6 +825,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout activity_chats
+layout activity_edit_group
 layout activity_login
 layout activity_main
 layout activity_register
@@ -838,6 +843,7 @@ layout design_navigation_menu_item
 layout fragment_tab_a
 layout fragment_tab_b
 layout grupo
+layout menu
 layout notification_media_action
 layout notification_media_cancel_action
 layout notification_template_big_media
@@ -871,7 +877,8 @@ string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string app_name
 string appbar_scrolling_view_behavior
-string btn_register
+string birthday
+string button_create_group
 string button_login
 string button_logout
 string button_register

@@ -21,9 +21,12 @@
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
 <<<<<<< HEAD
         <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/build/generated/res/rs/debug" />
+<<<<<<< HEAD
+=======
 =======
         <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/build/generated/res/resValues/debug" />
 >>>>>>> 29f743d0d433624f7d21527ed3c4afe81d47c8c0
+>>>>>>> 376fcc61da0afc6eeab82fca8abdd9f85293a423
         <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
