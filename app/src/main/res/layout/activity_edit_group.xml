@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:label="Crear grupo"
+        android:label="@string/create_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crear grupo"
+            android:text="@string/button_edit_group"
             android:textColor="#ffffff"
             android:textSize="25dp" />
     </android.support.v7.widget.Toolbar>
@@ -47,7 +47,7 @@
         android:layout_marginTop="308dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nombre grupo"
+        android:text="@string/name_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
         android:layout_marginTop="376dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Descripción"
+        android:text="@string/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +71,7 @@
         android:layout_height="45dp"
         android:layout_marginBottom="52dp"
         android:background="@color/colorPrimary"
-        android:text="@string/button_create_group"
+        android:text="@string/create_group"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
