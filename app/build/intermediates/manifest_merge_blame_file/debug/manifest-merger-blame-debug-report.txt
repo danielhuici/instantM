@@ -26,59 +26,58 @@
 17-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:14:9-45
 18        android:label="@string/app_name"
 18-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:15:9-41
-19        android:testOnly="true"
-20        android:theme="@style/AppTheme" >
-20-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:16:9-40
-21        <activity android:name="info.androidhive.loginandregistration.activity.EditGroupActivity" />
-21-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:17:9-64
-21-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:17:19-61
-22        <activity
-22-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:18:9-22:55
-23            android:name="info.androidhive.loginandregistration.activity.LoginActivity"
-23-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:19:13-51
-24            android:label="@string/app_name"
-24-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:20:13-45
-25            android:launchMode="singleTop"
-25-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:21:13-43
-26            android:windowSoftInputMode="adjustPan" />
-26-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:22:13-52
-27        <activity
-27-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:23:9-27:55
-28            android:name="info.androidhive.loginandregistration.activity.RegisterActivity"
-28-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:24:13-54
-29            android:label="@string/app_name"
-29-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:25:13-45
-30            android:launchMode="singleTop"
-30-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:26:13-43
-31            android:windowSoftInputMode="adjustPan" />
-31-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:27:13-52
-32        <activity
-32-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:28:9-37:20
-33            android:name="info.androidhive.loginandregistration.activity.MainActivity"
-33-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:29:13-50
-34            android:label="@string/app_name"
-34-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:30:13-45
-35            android:launchMode="singleTop" >
-35-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:31:13-43
-36            <intent-filter>
-36-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:32:13-36:29
-37                <action android:name="android.intent.action.MAIN" />
-37-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:33:17-69
-37-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:33:25-66
-38
-39                <category android:name="android.intent.category.LAUNCHER" />
-39-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:35:17-77
-39-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:35:27-74
-40            </intent-filter>
-41        </activity>
-42        <activity
-42-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:38:9-41:59
-43            android:name="info.androidhive.loginandregistration.activity.Chats"
-43-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:39:13-43
-44            android:label="@string/title_activity_tabs"
-44-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:40:13-56
-45            android:theme="@style/AppTheme.NoActionBar" />
-45-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:41:13-56
-46    </application>
-47
-48</manifest>
+19        android:theme="@style/AppTheme" >
+19-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:16:9-40
+20        <activity android:name="info.androidhive.loginandregistration.activity.EditGroupActivity" />
+20-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:17:9-64
+20-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:17:19-61
+21        <activity
+21-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:18:9-22:55
+22            android:name="info.androidhive.loginandregistration.activity.LoginActivity"
+22-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:19:13-51
+23            android:label="@string/app_name"
+23-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:20:13-45
+24            android:launchMode="singleTop"
+24-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:21:13-43
+25            android:windowSoftInputMode="adjustPan" />
+25-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:22:13-52
+26        <activity
+26-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:23:9-27:55
+27            android:name="info.androidhive.loginandregistration.activity.RegisterActivity"
+27-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:24:13-54
+28            android:label="@string/app_name"
+28-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:25:13-45
+29            android:launchMode="singleTop"
+29-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:26:13-43
+30            android:windowSoftInputMode="adjustPan" />
+30-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:27:13-52
+31        <activity
+31-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:28:9-37:20
+32            android:name="info.androidhive.loginandregistration.activity.MainActivity"
+32-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:29:13-50
+33            android:label="@string/app_name"
+33-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:30:13-45
+34            android:launchMode="singleTop" >
+34-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:31:13-43
+35            <intent-filter>
+35-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:32:13-36:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:33:17-69
+36-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:33:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:35:17-77
+38-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:35:27-74
+39            </intent-filter>
+40        </activity>
+41        <activity
+41-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:38:9-41:59
+42            android:name="info.androidhive.loginandregistration.activity.Chats"
+42-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:39:13-43
+43            android:label="@string/title_activity_tabs"
+43-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:40:13-56
+44            android:theme="@style/AppTheme.NoActionBar" />
+44-->C:\Users\Eduardo\instantM\app\src\main\AndroidManifest.xml:41:13-56
+45    </application>
+46
+47</manifest>
