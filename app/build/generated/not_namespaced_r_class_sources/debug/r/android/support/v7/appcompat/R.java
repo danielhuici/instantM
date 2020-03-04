@@ -470,7 +470,7 @@ public final class R {
         public static final int abc_textfield_search_activated_mtrl_alpha = 0x7f060042;
         public static final int abc_textfield_search_default_mtrl_alpha = 0x7f060043;
         public static final int abc_textfield_search_material = 0x7f060044;
-        public static final int notification_template_icon_bg = 0x7f06004b;
+        public static final int notification_template_icon_bg = 0x7f06004d;
     }
     public static final class id {
         private id() {}
@@ -495,27 +495,27 @@ public final class R {
         public static final int always = 0x7f070011;
         public static final int beginning = 0x7f070014;
         public static final int buttonPanel = 0x7f070018;
-        public static final int cancel_action = 0x7f07001d;
-        public static final int checkbox = 0x7f070022;
-        public static final int chronometer = 0x7f070023;
-        public static final int collapseActionView = 0x7f070026;
-        public static final int contentPanel = 0x7f070028;
-        public static final int custom = 0x7f070029;
-        public static final int customPanel = 0x7f07002a;
-        public static final int decor_content_parent = 0x7f07002b;
-        public static final int default_activity_button = 0x7f07002c;
-        public static final int disableHome = 0x7f070033;
-        public static final int edit_query = 0x7f070034;
-        public static final int end = 0x7f070035;
-        public static final int end_padder = 0x7f070036;
-        public static final int expand_activities_button = 0x7f07003a;
-        public static final int expanded_menu = 0x7f07003b;
-        public static final int home = 0x7f070044;
-        public static final int homeAsUp = 0x7f070045;
-        public static final int icon = 0x7f070046;
-        public static final int ifRoom = 0x7f070047;
-        public static final int image = 0x7f070048;
-        public static final int info = 0x7f07004a;
+        public static final int cancel_action = 0x7f07001c;
+        public static final int checkbox = 0x7f070021;
+        public static final int chronometer = 0x7f070022;
+        public static final int collapseActionView = 0x7f070025;
+        public static final int contentPanel = 0x7f070027;
+        public static final int custom = 0x7f070028;
+        public static final int customPanel = 0x7f070029;
+        public static final int decor_content_parent = 0x7f07002a;
+        public static final int default_activity_button = 0x7f07002b;
+        public static final int disableHome = 0x7f070032;
+        public static final int edit_query = 0x7f070033;
+        public static final int end = 0x7f070034;
+        public static final int end_padder = 0x7f070035;
+        public static final int expand_activities_button = 0x7f070039;
+        public static final int expanded_menu = 0x7f07003a;
+        public static final int home = 0x7f070043;
+        public static final int homeAsUp = 0x7f070044;
+        public static final int icon = 0x7f070045;
+        public static final int ifRoom = 0x7f070046;
+        public static final int image = 0x7f070047;
+        public static final int info = 0x7f070049;
         public static final int line1 = 0x7f07004f;
         public static final int line3 = 0x7f070050;
         public static final int listMode = 0x7f070051;
@@ -641,7 +641,7 @@ public final class R {
         public static final int abc_shareactionprovider_share_with = 0x7f0a0010;
         public static final int abc_shareactionprovider_share_with_application = 0x7f0a0011;
         public static final int abc_toolbar_collapse_description = 0x7f0a0012;
-        public static final int status_bar_notification_info_overflow = 0x7f0a0022;
+        public static final int status_bar_notification_info_overflow = 0x7f0a0025;
     }
     public static final class style {
         private style() {}

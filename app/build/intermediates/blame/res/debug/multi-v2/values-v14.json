@@ -25,9 +25,12 @@
                 {
                     "source": "C:\\Users\\danie\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\values-v14\\values-v14.xml",
                     "from": {
-                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
-                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
-                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
+                        "startLines": "4,11,12,13,19,27,28,29,32,33",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "239,694,765,848,1258,1854,1974,2037,2191,2254",
+                        "endLines": "8,11,12,18,24,27,28,31,32,33",
+                        "endColumns": "12,70,82,12,12,119,62,12,62,131",
+                        "endOffsets": "510,760,843,1253,1675,1969,2032,2186,2249,2381"
                     },
                     "to": {
                         "startLines": "5,10,11,12,18,24,25,26,29,30",
