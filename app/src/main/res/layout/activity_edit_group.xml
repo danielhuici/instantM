@@ -47,7 +47,7 @@
         android:layout_marginTop="308dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/name_group"
+        android:hint="@string/name_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
         android:layout_marginTop="376dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/description"
+        android:hint="@string/description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent"
