@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import info.androidhive.loginandregistration.AddContact;
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 
@@ -31,6 +32,7 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static final int MENU_CREATE_GROUP_ID = Menu.FIRST;
     private static final int MENU_LOGOUT_ID = Menu.FIRST + 1;
+    private static final int MENU_ADD_CONTACT_ID = Menu.FIRST + 2;
 
     /**
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
@@ -64,8 +66,10 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        menu.add(Menu.NONE, Menu.FIRST, MENU_CREATE_GROUP_ID, "Crear grupo");
-        menu.add(Menu.NONE, MENU_LOGOUT_ID + 1, Menu.NONE, "Logout");
+        menu.add(Menu.NONE,  MENU_CREATE_GROUP_ID, MENU_CREATE_GROUP_ID,"Crear grupo");
+        menu.add(Menu.NONE, MENU_LOGOUT_ID, MENU_LOGOUT_ID, R.string.menu_item_logout);
+        menu.add(Menu.NONE, MENU_ADD_CONTACT_ID, MENU_ADD_CONTACT_ID, R.string.menu_item_anadir_contacto);
+
         return result;
     }
 
@@ -75,16 +79,23 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
         switch (item.getItemId()) {
             case MENU_CREATE_GROUP_ID:
-                intent = new Intent(Chats.this, EditGroupActivity.class);
+                intent = new Intent(this, EditGroupActivity.class);
                 startActivity(intent);
-                finish();
+
                 return true;
 
             case MENU_LOGOUT_ID:
                 System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                intent = new Intent(Chats.this, LoginActivity.class);
+                intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+
+                return true;
+            case MENU_ADD_CONTACT_ID:
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                intent = new Intent(this, AddContact.class);
+                startActivity(intent);
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

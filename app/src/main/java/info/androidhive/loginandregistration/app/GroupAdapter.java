@@ -46,7 +46,7 @@ public class GroupAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.grupo, null);
+            convertView = mInflater.inflate(R.layout.custom_item, null);
             holder = new ViewHolder();
             /**
              *  Creamos un objeto de la clase ViewHolder y hacemos que cada atributo haga referencia
@@ -54,10 +54,9 @@ public class GroupAdapter extends BaseAdapter {
              *  convertView ya no tendrá que llamar al método findViewById()
              */
 
-            holder.movil = (TextView) convertView.findViewById(R.id.tvTelefonoMovil);
-            holder.fijo = (TextView) convertView.findViewById(R.id.tvTelefonoFijo);
-            holder.nombreApellidos = (TextView) convertView.findViewById(R.id.tvNombreApellidos);
-            holder.fotoImageView = (ImageView) convertView.findViewById(R.id.ivFoto);
+            holder.topSubtitle = (TextView) convertView.findViewById(R.id.tvTelefonoMovil);
+            holder.title = (TextView) convertView.findViewById(R.id.tvNombreApellidos);
+            holder.pic = (ImageView) convertView.findViewById(R.id.ivFoto);
 
             convertView.setTag(holder);
         }
@@ -67,16 +66,15 @@ public class GroupAdapter extends BaseAdapter {
 
         Grupo grupo = vGrupos.get(position);
 
-        holder.nombreApellidos.setText(grupo.getNombre());
-        holder.movil.setText(grupo.getApellido());
-        holder.fijo.setText(grupo.getApellido());
-        holder.fotoImageView.setImageBitmap(grupo.getFoto());
+        holder.title.setText(grupo.getName());
+        holder.topSubtitle.setText(grupo.getLastConnectionText());
+        holder.pic.setImageBitmap(grupo.getFoto());
 
 
         return convertView;
     }
     private static class ViewHolder {
-        private TextView movil, fijo, nombreApellidos;
-        private ImageView fotoImageView;
+        private TextView title, topSubtitle;
+        private ImageView pic;
     }
 }

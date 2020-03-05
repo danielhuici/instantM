@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import info.androidhive.loginandregistration.R;
@@ -37,18 +38,20 @@ public class TabBFragment extends Fragment {
 
         lvLista = (ListView) v.findViewById(R.id.listaGrupos);
         lvLista.setAdapter(adaptador);
-
-        vGrupos.add(new Grupo("Juan","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Mauricio","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Paloma","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Carlos","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Fernando","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Alicia","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Roberto","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Marisa","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Concha","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("",""));
-
+        try {
+            vGrupos.add(new Grupo("Juan","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Mauricio","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Paloma","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Carlos","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Fernando","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Alicia","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Roberto","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Marisa","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Concho","15-10-96 17:00"));
+            vGrupos.add(new Grupo("",""));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         vGrupos.indexOf(1);
 
 

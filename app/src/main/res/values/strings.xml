@@ -18,7 +18,10 @@
     <string name="button_edit_group">Editar grupo</string>
     <string name="description">Descripción</string>
     <string name="name_group">Nombre del grupo</string>
-
+    <string name="menu_item_anadir_contacto">Añadir contacto</string>
+    <string name="menu_item_logout">Cerrar sesión</string>
+    <string name="menu_item_crear_grupo">Crear grupo</string>
+    <string name="search_contact">Buscar contacto</string>
 
 
 </resources>
