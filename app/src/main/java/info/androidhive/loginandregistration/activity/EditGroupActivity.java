@@ -3,6 +3,8 @@ package info.androidhive.loginandregistration.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,12 +31,13 @@ import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 
 public class EditGroupActivity extends Activity {
+    private final String TAG = "CREATE_GROUP";
 
     private EditText inputGroupName;
-    private SQLiteHandler db;
     private Button buttonConfirm;
+    private SQLiteHandler db;
+
     private ProgressDialog pDialog;
-    private final String TAG = "CREATE_GROUP";
 
 
     @Override
@@ -58,8 +61,7 @@ public class EditGroupActivity extends Activity {
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
-                            "Por favor, introduce los datos", Toast.LENGTH_LONG)
-                            .show();
+                            "Por favor, introduce los datos", Toast.LENGTH_LONG).show();
                 }
             }
 

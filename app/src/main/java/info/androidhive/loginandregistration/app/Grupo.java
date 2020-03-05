@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 public class Grupo {
  String nombre;
  String apellido;
- Bitmap foto;
+    Bitmap foto;
 
     public String getApellido() {
         return apellido;

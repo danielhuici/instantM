@@ -785,7 +785,6 @@ id time
 id title
 id title_template
 id toolbar
-id toolbar2
 id top
 id topPanel
 id tvNombreApellidos
@@ -829,7 +828,6 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout activity_chats
-layout activity_create_group
 layout activity_edit_group
 layout activity_login
 layout activity_main
@@ -897,6 +895,7 @@ string hint_name
 string hint_password
 string hint_repeat_password
 string hint_username
+string logout
 string name_group
 string status_bar_notification_info_overflow
 string title_activity_tabs

@@ -40,12 +40,12 @@
         "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\drawable-hdpi\\abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_textfield_search_material.xml.flat",
-        "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\drawable\\abc_textfield_search_material.xml"
-    },
-    {
         "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_bar.xml.flat",
         "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_textfield_search_material.xml.flat",
+        "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\drawable\\abc_textfield_search_material.xml"
     },
     {
         "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_light_button.xml.flat",
@@ -228,12 +228,12 @@
         "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\layout\\abc_activity_chooser_view_list_item.xml"
     },
     {
-        "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_abc_scrubber_control_off_mtrl_alpha.png.flat",
-        "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\drawable-xxhdpi\\abc_scrubber_control_off_mtrl_alpha.png"
-    },
-    {
         "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_edit_group.xml.flat",
         "source": "C:\\Users\\Eduardo\\instantM\\app\\src\\main\\res\\layout\\activity_edit_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_abc_scrubber_control_off_mtrl_alpha.png.flat",
+        "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\drawable-xxhdpi\\abc_scrubber_control_off_mtrl_alpha.png"
     },
     {
         "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_abc_ic_menu_selectall_mtrl_alpha.png.flat",
@@ -702,10 +702,6 @@
     {
         "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_popup_exit.xml.flat",
         "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\anim\\abc_popup_exit.xml"
-    },
-    {
-        "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_create_group.xml.flat",
-        "source": "C:\\Users\\Eduardo\\instantM\\app\\src\\main\\res\\layout\\activity_create_group.xml"
     },
     {
         "merged": "C:\\Users\\Eduardo\\instantM\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_abc_ic_voice_search_api_mtrl_alpha.png.flat",
