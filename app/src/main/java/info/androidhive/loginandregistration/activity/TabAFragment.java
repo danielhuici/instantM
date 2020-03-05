@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,6 @@ public class TabAFragment extends Fragment {
     private final String TAG = "CHATS";
 
     public TabAFragment() {
-        // Required empty public constructor
     }
 
 
@@ -59,19 +59,20 @@ public class TabAFragment extends Fragment {
         lvLista = (ListView) v.findViewById(R.id.listaGrupos);
         lvLista.setAdapter(adaptador);
 
-        vGrupos.add(new Grupo("Juan","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Mauricio","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Paloma","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Carlos","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Fernando","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Alicia","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Roberto","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Marisa","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("Concho","Ult Con: 14:00"));
-        vGrupos.add(new Grupo("",""));
-
-        getGroups(37);
-
+        try {
+            vGrupos.add(new Grupo("Juan","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Mauricio","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Paloma","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Carlos","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Fernando","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Alicia","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Roberto","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Marisa","15-10-96 17:00"));
+            vGrupos.add(new Grupo("Concho","15-10-96 17:00"));
+            vGrupos.add(new Grupo("",""));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         adaptador.notifyDataSetChanged();
         return v;

@@ -16,8 +16,8 @@
         android:debuggable="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="info.androidhive.loginandregistration.activity.AddContact" />
         <activity android:name="info.androidhive.loginandregistration.activity.EditGroupActivity" />
         <activity
             android:name="info.androidhive.loginandregistration.activity.LoginActivity"
@@ -32,17 +32,17 @@
         <activity
             android:name="info.androidhive.loginandregistration.activity.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop" />
+        <activity
+            android:name="info.androidhive.loginandregistration.activity.Chats"
+            android:label="@string/title_activity_tabs"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="info.androidhive.loginandregistration.activity.Chats"
-            android:label="@string/title_activity_tabs"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

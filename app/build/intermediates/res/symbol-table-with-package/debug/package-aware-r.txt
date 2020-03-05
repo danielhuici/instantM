@@ -687,6 +687,7 @@ id end
 id end_padder
 id enterAlways
 id enterAlwaysCollapsed
+id etSearchContact
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -717,6 +718,7 @@ id list_item
 id listaGrupos
 id login_password
 id login_username
+id lvContacts
 id main_content
 id media_actions
 id middle
@@ -785,10 +787,10 @@ id time
 id title
 id title_template
 id toolbar
+id toolbar2
 id top
 id topPanel
 id tvNombreApellidos
-id tvTelefonoFijo
 id tvTelefonoMovil
 id up
 id useLogo
@@ -827,11 +829,13 @@ layout abc_screen_toolbar
 layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
+layout activity_add_contact
 layout activity_chats
 layout activity_edit_group
 layout activity_login
 layout activity_main
 layout activity_register
+layout custom_item
 layout design_layout_snackbar
 layout design_layout_snackbar_include
 layout design_layout_tab_icon
@@ -845,7 +849,6 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout fragment_tab_a
 layout fragment_tab_b
-layout grupo
 layout menu
 layout notification_media_action
 layout notification_media_cancel_action
@@ -895,8 +898,11 @@ string hint_name
 string hint_password
 string hint_repeat_password
 string hint_username
-string logout
+string menu_item_anadir_contacto
+string menu_item_crear_grupo
+string menu_item_logout
 string name_group
+string search_contact
 string status_bar_notification_info_overflow
 string title_activity_tabs
 style AlertDialog_AppCompat

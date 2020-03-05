@@ -45,11 +45,11 @@ public class EditGroupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
 
-
+        System.out.println("Gone");
        inputGroupName = (EditText) findViewById(R.id.group_name);
        buttonConfirm =  (Button) findViewById(R.id.button_edit_group);
 
-        // Botón editar grupo
+        // Botón editar custom_item
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -75,7 +75,7 @@ public class EditGroupActivity extends Activity {
         String tag_string_req = "req_register";
 
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Creando grupo...");
+        pDialog.setMessage("Creando custom_item...");
         showDialog();
 
         final String username =  db.getCurrentUsername();
