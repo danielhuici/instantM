@@ -57,4 +57,6 @@ public class TabAFragment extends Fragment {
         adaptador.notifyDataSetChanged();
         return v;
     }
+
+
 }

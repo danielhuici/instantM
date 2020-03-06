@@ -63,7 +63,7 @@ public class LoginActivity extends Activity {
         // Comprobar si el usuuario está dentro...
         if (session.isLoggedIn()) {
             // Lo llevamos a la Main Activity!!!
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, Chats.class);
             startActivity(intent);
             finish();
         }

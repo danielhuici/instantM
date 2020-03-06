@@ -1,5 +1,6 @@
 package info.androidhive.loginandregistration.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
@@ -13,11 +14,27 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.app.AppConfig;
+import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
+import info.androidhive.loginandregistration.helper.SessionManager;
 
 public class Chats extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
     /**
@@ -38,8 +55,9 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
      */
     private ViewPager mViewPager;
     private SQLiteHandler db;
-
-
+    private ProgressDialog pDialog;
+    private SessionManager session;
+    private static final String TAG = "CHATS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +78,18 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
+        // SQLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+
+        getGroups(1);
     }
 
     @Override
@@ -84,14 +114,10 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
                 return true;
 
             case MENU_LOGOUT_ID:
-                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                logoutUser();
 
                 return true;
             case MENU_ADD_CONTACT_ID:
-                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 intent = new Intent(this, AddContact.class);
                 startActivity(intent);
 
@@ -206,4 +232,98 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
 }
+
+    /**
+     * Comprobar datos conrrectos con MySQL
+     * */
+    private void getGroups(final int idUser) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        pDialog.setMessage("Obteniendo información ...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_GET_GROUPS, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Login Response: " + response);
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // JSON error node?
+                    if (!error) { // No hay error
+                        session.setLogin(true);
+
+                        JSONObject groups = jObj.getJSONObject("groups");
+                        Log.v(TAG, groups.toString());
+
+                        // Inserting row in users table
+                        // db.addUser(name, email);
+
+                    } else { // Error
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error. No debería venir nunca aquí
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Parámetros para la solicitud POST <columna_db, variable>
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_user", String.valueOf(idUser));
+
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    /*
+     * Mostrar y ocultar el diálogo
+     **/
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     * */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Lanzar actividad de login
+        Intent intent = new Intent(Chats.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 }

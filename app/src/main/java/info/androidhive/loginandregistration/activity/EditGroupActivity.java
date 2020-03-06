@@ -73,7 +73,7 @@ public class EditGroupActivity extends Activity {
         String tag_string_req = "req_register";
 
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Creando custom_item...");
+        pDialog.setMessage("Creando grupo...");
         showDialog();
 
         final String username =  db.getCurrentUsername();
