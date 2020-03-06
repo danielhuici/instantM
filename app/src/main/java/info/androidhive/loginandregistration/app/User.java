@@ -7,17 +7,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Grupo {
+public class User {
     private String name;
     private Date lastConnection;
     private Bitmap foto;
 
-    public Grupo(String name, String lastConnectionText) throws ParseException {
+    public User(String name, String lastConnectionText) throws ParseException {
         this.name = name;
         this.lastConnection = new SimpleDateFormat("dd-MM-yyyy").parse(lastConnectionText);
         this.foto = foto;
     }
-
     public String getName() {
         return name;
     }
@@ -44,5 +43,9 @@ public class Grupo {
 
     public void setFoto(Bitmap foto) {
         this.foto = foto;
+    }
+
+    public boolean nameLike(String name) {
+        return this.name.toLowerCase().startsWith(name.toLowerCase()) || name.equals("");
     }
 }

@@ -104,7 +104,6 @@ public class MainActivity extends Activity {
 	 * preferences Clears the user data from sqlite users table
 	 * */
 	private void logoutUser() {
-		System.out.println("ENTROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 		session.setLogin(false);
 
 		db.deleteUsers();
