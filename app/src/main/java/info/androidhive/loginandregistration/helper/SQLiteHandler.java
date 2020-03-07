@@ -8,8 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
 
@@ -148,4 +154,37 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 		Log.d(TAG, "New group inserted into sqlite: " + id);
 	}
+
+	/*
+	 * Add multiple groups to SQLite
+	 */
+	public void addGroups(JSONArray groupsListJSON) throws JSONException {
+		for (int i = 0; i< groupsListJSON.length(); i++) {
+			addGroup(groupsListJSON.getString(i));
+			Log.v(TAG, "ADDED GROUP, " + groupsListJSON.getString(i));
+		}
+	}
+
+	public List<String> getGroups() {
+		String selectQuery = "SELECT " + KEY_GROUP_NAME + " FROM " + TABLE_GROUP;
+		List<String> groups = new ArrayList<>();
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// Move to first row
+		cursor.moveToFirst();
+		Log.v(TAG, cursor.getString(0));
+		while (cursor.moveToNext()) {
+			Log.v(TAG, cursor.getString(0));
+			groups.add(cursor.getString(0));
+		}
+		cursor.close();
+		db.close();
+
+		Log.v(TAG, "Groups: " + groups);
+
+		return groups;
+	}
+
 }
