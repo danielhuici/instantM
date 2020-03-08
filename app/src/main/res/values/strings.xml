@@ -22,4 +22,6 @@
     <string name="menu_item_logout">Cerrar sesión</string>
     <string name="menu_item_crear_grupo">Crear grupo</string>
     <string name="search_contact">Buscar contacto</string>
+    <string name="add_member">Añadir integrante</string>
+    <string name="btn_create_group">Crear grupo</string>
 </resources>

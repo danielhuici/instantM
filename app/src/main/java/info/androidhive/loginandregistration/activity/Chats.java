@@ -93,7 +93,6 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
                 return true;
 
             case MENU_ADD_CONTACT_ID:
-                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 intent = new Intent(this, AddContact.class);
                 startActivity(intent);
                 return true;

@@ -1,7 +1,5 @@
 package info.androidhive.loginandregistration.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -56,7 +53,7 @@ public class TabAFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_tab_a, container, false);
         vGrupos = new ArrayList<>();
         adaptador =  new GroupAdapter(super.getActivity(), vGrupos);
-        lvLista = (ListView) v.findViewById(R.id.listaGrupos);
+        lvLista = (ListView) v.findViewById(R.id.listMembers);
         lvLista.setAdapter(adaptador);
 
         try {

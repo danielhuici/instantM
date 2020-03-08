@@ -3,15 +3,13 @@ package info.androidhive.loginandregistration.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,12 +20,16 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
+import info.androidhive.loginandregistration.app.User;
+import info.androidhive.loginandregistration.app.UserAdapter;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 
 public class EditGroupActivity extends Activity {
@@ -37,6 +39,10 @@ public class EditGroupActivity extends Activity {
     private Button buttonConfirm;
     private SQLiteHandler db;
 
+    private ArrayList<User> members;
+    private UserAdapter userAdapter;
+    private ListView lvMembers;
+
     private ProgressDialog pDialog;
 
 
@@ -45,9 +51,8 @@ public class EditGroupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
 
-        System.out.println("Gone");
        inputGroupName = (EditText) findViewById(R.id.group_name);
-       buttonConfirm =  (Button) findViewById(R.id.button_edit_group);
+       buttonConfirm =  (Button) findViewById(R.id.btn_create_group);
 
         // Botón editar custom_item
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +73,51 @@ public class EditGroupActivity extends Activity {
         });
 
         db = new SQLiteHandler(getApplicationContext());
+
+        members = new ArrayList<>();
+        userAdapter =  new UserAdapter(this, members);
+        lvMembers = (ListView) findViewById(R.id.listMembers);
+        lvMembers.setAdapter(userAdapter);
+
+        try {
+            members.add(new User("Juan","15-10-96 17:00"));
+            members.add(new User("Mauricio","15-10-96 17:00"));
+            members.add(new User("Paloma","15-10-96 17:00"));
+            members.add(new User("Carlos","15-10-96 17:00"));
+            members.add(new User("Fernando","15-10-96 17:00"));
+            members.add(new User("Alicia","15-10-96 17:00"));
+            members.add(new User("Roberto","15-10-96 17:00"));
+            members.add(new User("Marisa","15-10-96 17:00"));
+            members.add(new User("Concho","15-10-96 17:00"));
+            members.add(new User("",""));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        userAdapter.notifyDataSetChanged();
+        setListViewHeightBasedOnChildren(lvMembers, userAdapter);
+    }
+
+
+    public static void setListViewHeightBasedOnChildren(ListView listView, UserAdapter userAdapter) {
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+        View.MeasureSpec.UNSPECIFIED);int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < userAdapter.getCount(); i++) {
+            view = userAdapter.getView(i, view, listView);if (i == 0) view.setLayoutParams(new
+                    ViewGroup.LayoutParams(desiredWidth,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+
+        params.height = totalHeight + (listView.getDividerHeight() * (userAdapter.getCount() - 1));
+
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     private void storeGroup(final String name) {

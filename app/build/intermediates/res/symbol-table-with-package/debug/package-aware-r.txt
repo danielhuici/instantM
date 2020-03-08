@@ -655,8 +655,9 @@ id beginning
 id birthdayDate
 id bottom
 id btnRegister
+id btn_add_member
+id btn_create_group
 id buttonPanel
-id button_edit_group
 id button_login
 id button_logout
 id cancel_action
@@ -708,14 +709,13 @@ id imageView
 id info
 id invisible
 id item_touch_helper_previous_elevation
-id ivFoto
 id lbRegister
 id left
 id line1
 id line3
+id listMembers
 id listMode
 id list_item
-id listaGrupos
 id login_password
 id login_username
 id lvContacts
@@ -733,6 +733,7 @@ id parallax
 id parent
 id parentPanel
 id percent
+id pic
 id pin
 id progress_circular
 id progress_horizontal
@@ -790,8 +791,8 @@ id toolbar
 id toolbar2
 id top
 id topPanel
-id tvNombreApellidos
-id tvTelefonoMovil
+id tvSubtitle
+id tvTitle
 id up
 id useLogo
 id view_offset_helper
@@ -881,9 +882,11 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string add_member
 string app_name
 string appbar_scrolling_view_behavior
 string birthday
+string btn_create_group
 string button_edit_group
 string button_login
 string button_logout
