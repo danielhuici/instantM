@@ -46,6 +46,9 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    private  static final String CREATE_GROUP = "Crear grupo";
+    private  static final String LOGOUT = "Salir de sesión";
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static final int MENU_CREATE_GROUP_ID = Menu.FIRST;
     private static final int MENU_LOGOUT_ID = Menu.FIRST + 1;
@@ -56,9 +59,15 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
      */
     private ViewPager mViewPager;
     private SQLiteHandler db;
+<<<<<<< HEAD
+    private SessionManager session;
+
+
+=======
     private ProgressDialog pDialog;
     private SessionManager session;
     private static final String TAG = "CHATS";
+>>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +75,7 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats);
-
+        session = new SessionManager(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -95,10 +104,10 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
+
         menu.add(Menu.NONE,  MENU_CREATE_GROUP_ID, MENU_CREATE_GROUP_ID,"Crear grupo");
         menu.add(Menu.NONE, MENU_LOGOUT_ID, MENU_LOGOUT_ID, R.string.menu_item_logout);
         menu.add(Menu.NONE, MENU_ADD_CONTACT_ID, MENU_ADD_CONTACT_ID, R.string.menu_item_anadir_contacto);
-
         return result;
     }
 
@@ -115,17 +124,29 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
             case MENU_LOGOUT_ID:
                 logoutUser();
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
                 return true;
+
             case MENU_ADD_CONTACT_ID:
                 intent = new Intent(this, AddContact.class);
                 startActivity(intent);
-
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void logoutUser() {
+        session.setLogin(false);
+        db.deleteUsers();
+
+        // Lanzar actividad de login
+        Intent intent = new Intent(Chats.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
     // Métodos de la interfaz ActionBar.TabListener
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -232,6 +253,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 }
 
+<<<<<<< HEAD
+=======
     /**
      * Logging out the user. Will set isLoggedIn flag to false in shared
      * preferences Clears the user data from sqlite users table
@@ -247,4 +270,5 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         startActivity(intent);
         finish();
     }
+>>>>>>> origin/master
 }

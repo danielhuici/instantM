@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import info.androidhive.loginandregistration.R;
 
@@ -60,9 +59,9 @@ public class UserAdapter extends BaseAdapter implements Filterable {
              *  convertView ya no tendrá que llamar al método findViewById()
              */
 
-            holder.title = (TextView) convertView.findViewById(R.id.tvNombreApellidos);
-            holder.topSubtitle = (TextView) convertView.findViewById(R.id.tvTelefonoMovil);
-            holder.pic = (ImageView) convertView.findViewById(R.id.ivFoto);
+            holder.title = (TextView) convertView.findViewById(R.id.tvTitle);
+            holder.topSubtitle = (TextView) convertView.findViewById(R.id.tvSubtitle);
+            holder.pic = (ImageView) convertView.findViewById(R.id.pic);
 
             convertView.setTag(holder);
         } else {
