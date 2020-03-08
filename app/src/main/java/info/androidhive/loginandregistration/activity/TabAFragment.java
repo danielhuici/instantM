@@ -2,9 +2,11 @@ package info.androidhive.loginandregistration.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.text.ParseException;
@@ -40,6 +42,14 @@ public class TabAFragment extends Fragment {
         lvLista.setAdapter(adaptador);
 
         adaptador.notifyDataSetChanged();
+
+        lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("GRUPO:", "Tocado" + position);
+            }
+        });
+
         return v;
     }
 
