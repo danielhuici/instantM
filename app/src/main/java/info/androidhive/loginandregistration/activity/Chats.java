@@ -59,15 +59,10 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
      */
     private ViewPager mViewPager;
     private SQLiteHandler db;
-<<<<<<< HEAD
     private SessionManager session;
 
-
-=======
     private ProgressDialog pDialog;
-    private SessionManager session;
     private static final String TAG = "CHATS";
->>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,10 +119,6 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
             case MENU_LOGOUT_ID:
                 logoutUser();
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
                 return true;
 
             case MENU_ADD_CONTACT_ID:
@@ -138,15 +129,6 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
         return super.onOptionsItemSelected(item);
     }
 
-    private void logoutUser() {
-        session.setLogin(false);
-        db.deleteUsers();
-
-        // Lanzar actividad de login
-        Intent intent = new Intent(Chats.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
     // Métodos de la interfaz ActionBar.TabListener
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -253,8 +235,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 }
 
-<<<<<<< HEAD
-=======
     /**
      * Logging out the user. Will set isLoggedIn flag to false in shared
      * preferences Clears the user data from sqlite users table
@@ -270,5 +250,4 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         startActivity(intent);
         finish();
     }
->>>>>>> origin/master
 }

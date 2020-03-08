@@ -20,13 +20,9 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-=======
-import java.util.List;
->>>>>>> origin/master
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.app.AppConfig;
@@ -56,16 +52,9 @@ public class TabAFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab_a, container, false);
         vGrupos = new ArrayList<>();
-<<<<<<< HEAD
-        adaptador =  new GroupAdapter(super.getActivity(), vGrupos);
-        lvLista = (ListView) v.findViewById(R.id.listMembers);
-=======
         adaptador =  new GroupAdapter(super.getActivity(), showGroups());
-        lvLista = (ListView) v.findViewById(R.id.listaGrupos);
->>>>>>> origin/master
+        lvLista = (ListView) v.findViewById(R.id.listMembers);
         lvLista.setAdapter(adaptador);
-
-        adaptador.notifyDataSetChanged();
 
         lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,7 +66,6 @@ public class TabAFragment extends Fragment {
         return v;
     }
 
-<<<<<<< HEAD
 
     private void getGroups(final int id_creator_user) {
         // Tag used to cancel the request
@@ -139,9 +127,6 @@ public class TabAFragment extends Fragment {
     }
 
 
-
-
-=======
     private ArrayList<Grupo> showGroups() {
         List<String> groups;
         groups = db.getGroups();
@@ -157,5 +142,4 @@ public class TabAFragment extends Fragment {
         return vGrupos;
     }
 
->>>>>>> origin/master
 }
