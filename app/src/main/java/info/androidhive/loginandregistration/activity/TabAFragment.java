@@ -39,27 +39,12 @@ public class TabAFragment extends Fragment {
         lvLista = (ListView) v.findViewById(R.id.listaGrupos);
         lvLista.setAdapter(adaptador);
 
-        try {
-            vGrupos.add(new Grupo("Juan","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Mauricio","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Paloma","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Carlos","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Fernando","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Alicia","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Roberto","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Marisa","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Concho","15-10-96 17:00"));
-            vGrupos.add(new Grupo("",""));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
         adaptador.notifyDataSetChanged();
         return v;
     }
 
     private ArrayList<Grupo> showGroups() {
-        List<String> groups = new ArrayList<>();
+        List<String> groups;
         groups = db.getGroups();
         ArrayList<Grupo> vGrupos = new ArrayList<>();
 
