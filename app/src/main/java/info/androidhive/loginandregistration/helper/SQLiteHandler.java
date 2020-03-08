@@ -8,8 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
 
@@ -136,6 +142,18 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		Log.d(TAG, "Deleted all user info from sqlite");
 	}
 
+    /**
+     * Re crate database Delete all tables and create them again
+     * */
+    public void deleteGroups() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        db.delete(TABLE_GROUP, null, null);
+        db.close();
+
+        Log.d(TAG, "Deleted all user info from sqlite");
+    }
+
 	public void addGroup(String name) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -148,4 +166,40 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 		Log.d(TAG, "New group inserted into sqlite: " + id);
 	}
+
+	/*
+	 * Add multiple groups to SQLite
+	 */
+	public void addGroups(JSONArray groupsListJSON) throws JSONException {
+
+        // Hay que hace una movida un poco rara porque PHP lo parsea raro
+        // {"data": {"name", "nombregroup"}} <- Algo así
+
+		for (int i = 0; i< groupsListJSON.length(); i++) {
+            JSONObject groups = groupsListJSON.getJSONObject(i);
+            JSONObject data = groups.getJSONObject("data");
+			addGroup(data.getString("name"));
+			Log.v(TAG, "ADDED GROUP, " + data.getString("name"));
+		}
+	}
+
+	public List<String> getGroups() {
+		String selectQuery = "SELECT " + KEY_GROUP_NAME + " FROM " + TABLE_GROUP;
+		List<String> groups = new ArrayList<>();
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+        while (cursor.moveToNext()) {
+            groups.add(cursor.getString(0));
+        }
+
+		cursor.close();
+		db.close();
+
+		Log.v(TAG, "Groups: " + groups);
+
+		return groups;
+	}
+
 }

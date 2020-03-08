@@ -1,5 +1,6 @@
 package info.androidhive.loginandregistration.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
@@ -13,10 +14,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.app.AppConfig;
+import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 import info.androidhive.loginandregistration.helper.SessionManager;
 
@@ -42,9 +59,15 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
      */
     private ViewPager mViewPager;
     private SQLiteHandler db;
+<<<<<<< HEAD
     private SessionManager session;
 
 
+=======
+    private ProgressDialog pDialog;
+    private SessionManager session;
+    private static final String TAG = "CHATS";
+>>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +88,17 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
+        // SQLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+
     }
 
     @Override
@@ -90,6 +124,10 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
 
             case MENU_LOGOUT_ID:
                 logoutUser();
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
                 return true;
 
             case MENU_ADD_CONTACT_ID:
@@ -213,7 +251,24 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
         return section;
     }
-
 }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     * */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+        db.deleteGroups();
+
+        // Lanzar actividad de login
+        Intent intent = new Intent(Chats.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+>>>>>>> origin/master
 }

@@ -12,11 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,7 +65,7 @@ public class LoginActivity extends Activity {
         // Comprobar si el usuuario está dentro...
         if (session.isLoggedIn()) {
             // Lo llevamos a la Main Activity!!!
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, Chats.class);
             startActivity(intent);
             finish();
         }
@@ -131,6 +133,7 @@ public class LoginActivity extends Activity {
 
                         // Inserting row in users table
                         db.addUser(name, email);
+                        getGroups();
 
                         // Lanzar Main Activity
                         Intent intent = new Intent(LoginActivity.this,
@@ -171,6 +174,69 @@ public class LoginActivity extends Activity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
+
+    /**
+     * Obtener grupos desde MySQL
+     * */
+    private void getGroups() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_login";
+
+        pDialog.setMessage("Obteniendo información ...");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_GET_GROUPS, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    // JSON error node?
+                    if (!error) { // No hay error
+                        JSONArray groups = jObj.getJSONArray("groups");
+
+                        // Inserting row in users table
+                        db.addGroups(groups);
+
+                    } else { // Error
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error. No debería venir nunca aquí
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Parámetros para la solicitud POST <columna_db, variable>
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", db.getCurrentUsername());
+                Log.v(TAG, db.getCurrentUsername());
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 
     /*
     * Mostrar y ocultar el diálogo

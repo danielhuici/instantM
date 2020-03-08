@@ -35,18 +35,12 @@ public class MainActivity extends Activity {
 		db = new SQLiteHandler(getApplicationContext());
 
         if (!session.isLoggedIn()) {
-            logoutUser();
+            //logoutUser();
         } else {
-            Intent i = new Intent(MainActivity.this, Chats.class);
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(i);
         }
 
-			btnLogout.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					logoutUser();
-				}
-			});
 	}
 	/*
 
@@ -99,18 +93,5 @@ public class MainActivity extends Activity {
 
 	}*/
 
-	/**
-	 * Logging out the user. Will set isLoggedIn flag to false in shared
-	 * preferences Clears the user data from sqlite users table
-	 * */
-	private void logoutUser() {
-		session.setLogin(false);
 
-		db.deleteUsers();
-
-		// Lanzar actividad de login
-		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-		startActivity(intent);
-		finish();
-	}
 }

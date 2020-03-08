@@ -19,62 +19,56 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> origin/master
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.app.GroupAdapter;
 import info.androidhive.loginandregistration.app.Grupo;
+import info.androidhive.loginandregistration.helper.SQLiteHandler;
 
 public class TabAFragment extends Fragment {
     private ArrayList<Grupo> vGrupos;
     private GroupAdapter adaptador;
     private ListView lvLista;
+    private SQLiteHandler db;
 
     private final String TAG = "CHATS";
 
     public TabAFragment() {
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        db = new SQLiteHandler(getActivity());
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab_a, container, false);
         vGrupos = new ArrayList<>();
+<<<<<<< HEAD
         adaptador =  new GroupAdapter(super.getActivity(), vGrupos);
         lvLista = (ListView) v.findViewById(R.id.listMembers);
+=======
+        adaptador =  new GroupAdapter(super.getActivity(), showGroups());
+        lvLista = (ListView) v.findViewById(R.id.listaGrupos);
+>>>>>>> origin/master
         lvLista.setAdapter(adaptador);
-
-        try {
-            vGrupos.add(new Grupo("Juan","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Mauricio","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Paloma","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Carlos","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Fernando","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Alicia","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Roberto","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Marisa","15-10-96 17:00"));
-            vGrupos.add(new Grupo("Concho","15-10-96 17:00"));
-            vGrupos.add(new Grupo("",""));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         adaptador.notifyDataSetChanged();
         return v;
     }
 
+<<<<<<< HEAD
 
     private void getGroups(final int id_creator_user) {
         // Tag used to cancel the request
@@ -138,4 +132,21 @@ public class TabAFragment extends Fragment {
 
 
 
+=======
+    private ArrayList<Grupo> showGroups() {
+        List<String> groups;
+        groups = db.getGroups();
+        ArrayList<Grupo> vGrupos = new ArrayList<>();
+
+        for (String group : groups) {
+            try {
+                vGrupos.add(new Grupo(group, "07-03-2020"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return vGrupos;
+    }
+
+>>>>>>> origin/master
 }
