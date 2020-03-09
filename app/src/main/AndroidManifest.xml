@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MessajeActivity"></activity>
+        <activity android:name=".activity.MessageActivity"></activity>
         <activity android:name=".activity.AddContact" />
         <activity android:name=".activity.EditGroupActivity" />
         <activity

@@ -61,7 +61,7 @@ public class TabAFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("GRUPO:", "Tocado" + position);
-                Intent intent = new Intent(getActivity(), MessajeActivity.class);
+                Intent intent = new Intent(getActivity(), MessageActivity.class);
                 startActivity(intent);
             }
         });
