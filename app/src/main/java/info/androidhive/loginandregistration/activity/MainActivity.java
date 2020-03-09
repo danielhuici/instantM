@@ -3,11 +3,8 @@ package info.androidhive.loginandregistration.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.HashMap;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;

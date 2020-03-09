@@ -14,7 +14,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddContact"></activity>
+        <activity android:name=".activity.MessajeActivity"></activity>
+        <activity android:name=".activity.AddContact" />
         <activity android:name=".activity.EditGroupActivity" />
         <activity
             android:name=".activity.MainActivity"
@@ -29,7 +30,8 @@
         <activity
             android:name=".activity.Chats"
             android:label="@string/app_name"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
+
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_tabs"
