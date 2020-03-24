@@ -27,11 +27,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.AppConfig;
-import info.androidhive.loginandregistration.app.AppController;
-import info.androidhive.loginandregistration.app.User;
-import info.androidhive.loginandregistration.app.UserAdapter;
-import info.androidhive.loginandregistration.helper.SQLiteHandler;
+import info.androidhive.loginandregistration.controller.AppConfig;
+import info.androidhive.loginandregistration.controller.AppController;
+import info.androidhive.loginandregistration.model.User;
+import info.androidhive.loginandregistration.model.UserAdapter;
+import info.androidhive.loginandregistration.controller.SQLiteHandler;
 
 public class EditGroupActivity extends Activity {
     private final String TAG = "CREATE_GROUP";

@@ -8,10 +8,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaledrone.lib.Listener;
-import com.scaledrone.lib.Member;
 import com.scaledrone.lib.Room;
 import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
@@ -19,9 +17,9 @@ import com.scaledrone.lib.Scaledrone;
 import java.util.Random;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.MemberData;
-import info.androidhive.loginandregistration.app.Message;
-import info.androidhive.loginandregistration.app.MessageAdapter;
+import info.androidhive.loginandregistration.model.MemberData;
+import info.androidhive.loginandregistration.model.Message;
+import info.androidhive.loginandregistration.model.MessageAdapter;
 
 
 public class MessageActivity extends AppCompatActivity  implements RoomListener {

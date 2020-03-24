@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="instantM/app" />
-      <module fileurl="file://$PROJECT_DIR$/instantM.iml" filepath="$PROJECT_DIR$/instantM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/instantM.iml" filepath="$PROJECT_DIR$/instantM.iml" group="instantM" />
     </modules>
   </component>
 </project>

@@ -1,9 +1,7 @@
 package info.androidhive.loginandregistration.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -23,17 +20,15 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.AppConfig;
-import info.androidhive.loginandregistration.app.AppController;
-import info.androidhive.loginandregistration.dialog.DatePickerFragment;
-import info.androidhive.loginandregistration.helper.SQLiteHandler;
-import info.androidhive.loginandregistration.helper.SessionManager;
+import info.androidhive.loginandregistration.controller.AppConfig;
+import info.androidhive.loginandregistration.controller.AppController;
+import info.androidhive.loginandregistration.controller.DatePickerFragment;
+import info.androidhive.loginandregistration.controller.SQLiteHandler;
+import info.androidhive.loginandregistration.controller.SessionManager;
 
 public class RegisterActivity extends AppCompatActivity{
     private static final String TAG = RegisterActivity.class.getSimpleName();

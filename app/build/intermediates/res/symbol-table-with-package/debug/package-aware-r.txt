@@ -622,15 +622,19 @@ drawable abc_textfield_default_mtrl_alpha
 drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
+drawable circle
 drawable custom_button
 drawable degradado
 drawable descargar
 drawable design_fab_background
 drawable design_snackbar_background
 drawable ic_launcher
+drawable ic_send_black_24dp
 drawable iconomf
 drawable light_button
+drawable my_message
 drawable notification_template_icon_bg
+drawable their_message
 id action0
 id action_bar
 id action_bar_activity_content
@@ -650,6 +654,7 @@ id activity_chooser_view_content
 id alertTitle
 id always
 id appbar
+id avatar
 id barrier
 id beginning
 id birthdayDate
@@ -683,6 +688,7 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id editText
 id edit_query
 id end
 id end_padder
@@ -721,9 +727,12 @@ id login_username
 id lvContacts
 id main_content
 id media_actions
+id message_body
+id messages_view
 id middle
 id mini
 id multiply
+id name
 id navigation_header_container
 id never
 id none
@@ -835,6 +844,7 @@ layout activity_chats
 layout activity_edit_group
 layout activity_login
 layout activity_main
+layout activity_message
 layout activity_register
 layout custom_item
 layout design_layout_snackbar
@@ -851,6 +861,7 @@ layout design_navigation_menu_item
 layout fragment_tab_a
 layout fragment_tab_b
 layout menu
+layout my_message
 layout notification_media_action
 layout notification_media_cancel_action
 layout notification_template_big_media
@@ -863,6 +874,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+layout their_message
 string abc_action_bar_home_description
 string abc_action_bar_home_description_format
 string abc_action_bar_home_subtitle_description_format

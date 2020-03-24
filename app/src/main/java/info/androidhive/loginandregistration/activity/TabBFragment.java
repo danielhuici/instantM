@@ -11,8 +11,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.GroupAdapter;
-import info.androidhive.loginandregistration.app.Grupo;
+import info.androidhive.loginandregistration.model.GroupAdapter;
+import info.androidhive.loginandregistration.model.Grupo;
 
 public class TabBFragment extends Fragment {
     private ArrayList<Grupo> vGrupos;

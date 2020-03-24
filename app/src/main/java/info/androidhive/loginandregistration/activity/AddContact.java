@@ -4,17 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.User;
-import info.androidhive.loginandregistration.app.UserAdapter;
+import info.androidhive.loginandregistration.model.User;
+import info.androidhive.loginandregistration.model.UserAdapter;
 
 public class AddContact extends AppCompatActivity implements TextWatcher{
     private ArrayList<User> contacts;

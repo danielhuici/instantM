@@ -26,11 +26,11 @@ import java.util.List;
 import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.AppConfig;
-import info.androidhive.loginandregistration.app.AppController;
-import info.androidhive.loginandregistration.app.GroupAdapter;
-import info.androidhive.loginandregistration.app.Grupo;
-import info.androidhive.loginandregistration.helper.SQLiteHandler;
+import info.androidhive.loginandregistration.controller.AppConfig;
+import info.androidhive.loginandregistration.controller.AppController;
+import info.androidhive.loginandregistration.model.GroupAdapter;
+import info.androidhive.loginandregistration.model.Grupo;
+import info.androidhive.loginandregistration.controller.SQLiteHandler;
 
 public class TabAFragment extends Fragment {
     private ArrayList<Grupo> vGrupos;

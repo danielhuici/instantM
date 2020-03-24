@@ -3,7 +3,6 @@ package info.androidhive.loginandregistration.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,10 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.app.AppConfig;
-import info.androidhive.loginandregistration.app.AppController;
-import info.androidhive.loginandregistration.helper.SQLiteHandler;
-import info.androidhive.loginandregistration.helper.SessionManager;
+import info.androidhive.loginandregistration.controller.AppConfig;
+import info.androidhive.loginandregistration.controller.AppController;
+import info.androidhive.loginandregistration.controller.SQLiteHandler;
+import info.androidhive.loginandregistration.controller.SessionManager;
 
 public class LoginActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();

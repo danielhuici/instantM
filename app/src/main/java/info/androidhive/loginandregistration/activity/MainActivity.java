@@ -7,8 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.helper.SQLiteHandler;
-import info.androidhive.loginandregistration.helper.SessionManager;
+import info.androidhive.loginandregistration.controller.SQLiteHandler;
+import info.androidhive.loginandregistration.controller.SessionManager;
 
 public class MainActivity extends Activity {
 
