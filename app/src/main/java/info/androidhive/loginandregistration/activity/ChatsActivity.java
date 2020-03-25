@@ -21,7 +21,7 @@ import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
 import info.androidhive.loginandregistration.controller.SessionManager;
 
-public class Chats extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+public class ChatsActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener{
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -106,13 +106,22 @@ public class Chats extends AppCompatActivity implements ActionBar.TabListener, V
                 return true;
 
             case MENU_ADD_CONTACT_ID:
-                intent = new Intent(this, AddContact.class);
-                startActivity(intent);
+                intent = new Intent(this, AddContactActivity.class);
+                startActivityForResult(intent, 2);//(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if(requestCode==2)
+        {
+            //fragmentCommunicator.passDataToFragment("someString");
+        }
+    }
     // Métodos de la interfaz ActionBar.TabListener
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -230,7 +239,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         db.deleteGroups();
 
         // Lanzar actividad de login
-        Intent intent = new Intent(Chats.this, LoginActivity.class);
+        Intent intent = new Intent(ChatsActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

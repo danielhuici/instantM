@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.model;
+package info.androidhive.loginandregistration.controller;
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,11 +44,11 @@ public class GroupAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        ChatViewHolder holder;
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.custom_item, null);
-            holder = new ViewHolder();
+            holder = new ChatViewHolder();
             /**
              *  Creamos un objeto de la clase ViewHolder y hacemos que cada atributo haga referencia
              *  a un elemento del laoyut. Esta referencia se mantiene y cuando reutilicemos la vista
@@ -62,7 +62,7 @@ public class GroupAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ChatViewHolder) convertView.getTag();
         }
 
         Grupo grupo = vGrupos.get(position);
@@ -73,8 +73,5 @@ public class GroupAdapter extends BaseAdapter {
 
         return convertView;
     }
-    private static class ViewHolder {
-        private TextView title, topSubtitle;
-        private ImageView pic;
-    }
+
 }

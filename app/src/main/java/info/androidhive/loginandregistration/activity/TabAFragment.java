@@ -28,7 +28,7 @@ import java.util.Map;
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.controller.AppConfig;
 import info.androidhive.loginandregistration.controller.AppController;
-import info.androidhive.loginandregistration.model.GroupAdapter;
+import info.androidhive.loginandregistration.controller.GroupAdapter;
 import info.androidhive.loginandregistration.model.Grupo;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
 
@@ -48,6 +48,7 @@ public class TabAFragment extends Fragment {
         super.onCreate(savedInstanceState);
         db = new SQLiteHandler(getActivity());
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

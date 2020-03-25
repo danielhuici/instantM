@@ -29,6 +29,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	// Login table name
 	private static final String TABLE_USER = "user_account";
 	private static final String TABLE_GROUP = "chat_group";
+	private static final String TABLE_CONTACT = "contact";
 
 	// Login Table Columns names
 	private static final String KEY_ID_USER = "id_user";
@@ -36,6 +37,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	private static final String KEY_USERNAME = "name";
 	private static final String KEY_GROUP_NAME = "name";
 	private static final String KEY_EMAIL = "email";
+	private static final String KEY_CONTACT_NAME = "name";
+
+	private static final String KEY_ID_CONTACT = "id_contact";
 
 	public SQLiteHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,14 +49,17 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
-				+ KEY_ID_USER + " INTEGER PRIMARY KEY," + KEY_USERNAME + " TEXT,"
+				+ KEY_ID_USER + " INTEGER PRIMARY KEY,"
+				+ KEY_USERNAME + " TEXT,"
 				+ KEY_EMAIL + " TEXT UNIQUE" + ")";
 
 		String CREATE_GROUP_TABLE = "CREATE TABLE " + TABLE_GROUP + "("
 				+ KEY_ID_GROUP + " INTEGER PRIMARY KEY," + KEY_GROUP_NAME + " TEXT" + ")";
-
+		String CREATE_CONTACT_TABLE = "CREATE TABLE " + TABLE_CONTACT + "("
+				+ KEY_ID_CONTACT + " INTEGER PRIMARY KEY," + KEY_CONTACT_NAME + " TEXT" + ")";
 		db.execSQL(CREATE_LOGIN_TABLE);
 		db.execSQL(CREATE_GROUP_TABLE);
+		db.execSQL(CREATE_CONTACT_TABLE);
 
 		Log.d(TAG, "Database tables created");
 	}
@@ -110,7 +117,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 	public String getCurrentUsername() {
 		String username;
-		String selectQuery = "SELECT  * FROM " + TABLE_USER;
+		String selectQuery = "SELECT * FROM " + TABLE_USER;
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -127,6 +134,25 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		Log.v(TAG, "Username: " + username);
 
 		return username;
+	}
+
+	public int getCurrentID() {
+		int id;
+		String selectQuery = "SELECT  " + KEY_ID_USER + " FROM " + TABLE_USER;
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		// Move to first row
+		cursor.moveToFirst();
+		if (cursor.getCount() > 0) {
+			id = cursor.getInt(1);
+		} else {
+			id = -1;
+		}
+		cursor.close();
+		db.close();
+
+		return id;
 	}
 
 	/**
@@ -199,5 +225,25 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		Log.v(TAG, "Groups: " + groups);
 
 		return groups;
+	}
+
+	public List<String> getContacts() {
+		String selectQuery = "SELECT " + KEY_CONTACT_NAME + " FROM " + TABLE_CONTACT;
+		List<String> contacts = new ArrayList<>();
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		while (cursor.moveToNext()) {
+			contacts.add(cursor.getString(0));
+		}
+
+		cursor.close();
+		db.close();
+
+		Log.v(TAG, "Groups: " + contacts);
+
+		return contacts;
+
 	}
 }

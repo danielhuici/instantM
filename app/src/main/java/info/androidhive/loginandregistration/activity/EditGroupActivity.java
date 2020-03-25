@@ -52,8 +52,8 @@ public class EditGroupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
 
-       inputGroupName = (EditText) findViewById(R.id.group_name);
-       buttonConfirm =  (Button) findViewById(R.id.btn_create_group);
+        inputGroupName = (EditText) findViewById(R.id.group_name);
+        buttonConfirm = (Button) findViewById(R.id.btn_create_group);
 
         // Botón editar custom_item
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
@@ -77,21 +77,21 @@ public class EditGroupActivity extends Activity {
         db = new SQLiteHandler(getApplicationContext());
 
         members = new ArrayList<>();
-        userAdapter =  new UserAdapter(this, members);
+        userAdapter = new UserAdapter(this, members);
         lvMembers = (ListView) findViewById(R.id.listMembers);
         lvMembers.setAdapter(userAdapter);
 
         try {
-            members.add(new User("Juan","15-10-96 17:00"));
-            members.add(new User("Mauricio","15-10-96 17:00"));
-            members.add(new User("Paloma","15-10-96 17:00"));
-            members.add(new User("Carlos","15-10-96 17:00"));
-            members.add(new User("Fernando","15-10-96 17:00"));
-            members.add(new User("Alicia","15-10-96 17:00"));
-            members.add(new User("Roberto","15-10-96 17:00"));
-            members.add(new User("Marisa","15-10-96 17:00"));
-            members.add(new User("Concho","15-10-96 17:00"));
-            members.add(new User("",""));
+            members.add(new User("Juan", "15-10-96 17:00"));
+            members.add(new User("Mauricio", "15-10-96 17:00"));
+            members.add(new User("Paloma", "15-10-96 17:00"));
+            members.add(new User("Carlos", "15-10-96 17:00"));
+            members.add(new User("Fernando", "15-10-96 17:00"));
+            members.add(new User("Alicia", "15-10-96 17:00"));
+            members.add(new User("Roberto", "15-10-96 17:00"));
+            members.add(new User("Marisa", "15-10-96 17:00"));
+            members.add(new User("Concho", "15-10-96 17:00"));
+            members.add(new User("", ""));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -103,10 +103,12 @@ public class EditGroupActivity extends Activity {
 
     public static void setListViewHeightBasedOnChildren(ListView listView, UserAdapter userAdapter) {
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
-        View.MeasureSpec.UNSPECIFIED);int totalHeight = 0;
+                View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
         View view = null;
         for (int i = 0; i < userAdapter.getCount(); i++) {
-            view = userAdapter.getView(i, view, listView);if (i == 0) view.setLayoutParams(new
+            view = userAdapter.getView(i, view, listView);
+            if (i == 0) view.setLayoutParams(new
                     ViewGroup.LayoutParams(desiredWidth,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -129,48 +131,11 @@ public class EditGroupActivity extends Activity {
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Creando grupo...");
         showDialog();
-
-        final String username =  db.getCurrentUsername();
+        CreateGroupListener createGroupListener = new CreateGroupListener();
+        final String username = db.getCurrentUsername();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_CREATE_GROUP, new Response.Listener<String>() {
-
-            public void onResponse(String response) {
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        Toast.makeText(getApplicationContext(), "¡Grupo creado exitosamente!", Toast.LENGTH_LONG).show();
-
-
-                        // Launch chat activity
-                        Intent intent = new Intent(
-                                EditGroupActivity.this,
-                                Chats.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        // Ha ocurrido un error
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-
-            }
-        }) {
+                AppConfig.URL_CREATE_GROUP, createGroupListener, createGroupListener) {
 
             protected Map<String, String> getParams() {
                 // Parámetros para la consulta POST <columna_db, variables>
@@ -191,51 +156,16 @@ public class EditGroupActivity extends Activity {
 
     /**
      * Obtener grupos desde MySQL
-     * */
+     */
     private void getGroups() {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
         pDialog.setMessage("Obteniendo información ...");
         showDialog();
-
+        GetGroupListener getGroupListener = new GetGroupListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_GET_GROUPS, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // JSON error node?
-                    if (!error) { // No hay error
-                        JSONArray groups = jObj.getJSONArray("groups");
-
-                        // Inserting row in users table
-                        db.addGroups(groups);
-                    } else { // Error
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    // JSON error. No debería venir nunca aquí
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
+                AppConfig.URL_GET_GROUPS,getGroupListener, getGroupListener) {
             @Override
             protected Map<String, String> getParams() {
                 // Parámetros para la solicitud POST <columna_db, variable>
@@ -268,5 +198,77 @@ public class EditGroupActivity extends Activity {
             pDialog.dismiss();
     }
 
+    class GetGroupListener implements Response.Listener<String>, Response.ErrorListener{
+        @Override
+        public void onResponse(String response) {
+            hideDialog();
+
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+
+                // JSON error node?
+                if (!error) { // No hay error
+                    JSONArray groups = jObj.getJSONArray("groups");
+
+                    // Inserting row in users table
+                    db.addGroups(groups);
+                } else { // Error
+                    String errorMsg = jObj.getString("error_msg");
+                    Toast.makeText(getApplicationContext(),
+                            errorMsg, Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                // JSON error. No debería venir nunca aquí
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.e(TAG, "Login Error: " + error.getMessage());
+            Toast.makeText(getApplicationContext(),
+                    error.getMessage(), Toast.LENGTH_LONG).show();
+            hideDialog();
+        }
+    }
+    class CreateGroupListener implements Response.Listener<String>, Response.ErrorListener{
+
+        @Override
+        public void onResponse(String response) {
+            hideDialog();
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+                if (!error) {
+                    Toast.makeText(getApplicationContext(), "¡Grupo creado exitosamente!", Toast.LENGTH_LONG).show();
+
+
+                    // Launch chat activity
+                    Intent intent = new Intent(
+                            EditGroupActivity.this,
+                            ChatsActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Ha ocurrido un error
+                    String errorMsg = jObj.getString("error_msg");
+                    Toast.makeText(getApplicationContext(),
+                            errorMsg, Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.e(TAG, "Registration Error: " + error.getMessage());
+            Toast.makeText(getApplicationContext(),
+                    error.getMessage(), Toast.LENGTH_LONG).show();
+            hideDialog();
+        }
+    }
 
 }

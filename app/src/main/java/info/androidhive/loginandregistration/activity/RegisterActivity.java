@@ -145,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity{
                         // Launch chat activity
                         Intent intent = new Intent(
                                 RegisterActivity.this,
-                                Chats.class);
+                                ChatsActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
