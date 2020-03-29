@@ -17,11 +17,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Observable;
+
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
 import info.androidhive.loginandregistration.controller.SessionManager;
 
-public class ChatsActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener{
+public class ChatsActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -97,7 +99,7 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         switch (item.getItemId()) {
             case MENU_CREATE_GROUP_ID:
                 intent = new Intent(this, EditGroupActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 2);//(intent);
 
                 return true;
 
@@ -119,7 +121,11 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==2)
         {
-            //fragmentCommunicator.passDataToFragment("someString");
+            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(mViewPager);
         }
     }
     // Métodos de la interfaz ActionBar.TabListener
@@ -150,39 +156,8 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
 
     }
 
-/**
- * A placeholder fragment containing a simple view.
 
- public static class PlaceholderFragment extends Fragment {
- /**
- * The fragment argument representing the section number for this
- * fragment.
 
- private static final String ARG_SECTION_NUMBER = "section_number";
-
- public PlaceholderFragment() {
- }
-
- /**
- * Returns a new instance of this fragment for the given section
- * number.
- */
-/**
- public static PlaceholderFragment newInstance(int sectionNumber) {
- PlaceholderFragment fragment = new PlaceholderFragment();
- Bundle args = new Bundle();
- args.putInt(ARG_SECTION_NUMBER, sectionNumber);
- fragment.setArguments(args);
- return fragment;
- }
-
- }
- */
-
-/**
- * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
- * one of the sections/tabs/pages.
- */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public SectionsPagerAdapter(FragmentManager fm) {
@@ -243,4 +218,5 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         startActivity(intent);
         finish();
     }
+
 }

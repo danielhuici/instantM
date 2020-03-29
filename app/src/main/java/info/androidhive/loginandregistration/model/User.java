@@ -8,21 +8,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
-    private String name;
+    private String username;
+    private String email;
     private Date lastConnection;
     private Bitmap foto;
 
-    public User(String name, String lastConnectionText) throws ParseException {
-        this.name = name;
-        this.lastConnection = new SimpleDateFormat("dd-MM-yyyy").parse(lastConnectionText);
+
+    public User(String username, String email) {
+        this.username = username;
+        this.email = email;
         this.foto = foto;
     }
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Date getLastConnection() {
@@ -45,7 +47,11 @@ public class User {
         this.foto = foto;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public boolean nameLike(String name) {
-        return this.name.toLowerCase().startsWith(name.toLowerCase()) || name.equals("");
+        return this.username.toLowerCase().startsWith(name.toLowerCase()) || name.equals("");
     }
 }

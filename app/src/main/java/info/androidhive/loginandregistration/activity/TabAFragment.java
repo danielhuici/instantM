@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,37 +25,43 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.controller.AppConfig;
 import info.androidhive.loginandregistration.controller.AppController;
 import info.androidhive.loginandregistration.controller.GroupAdapter;
-import info.androidhive.loginandregistration.model.Grupo;
+import info.androidhive.loginandregistration.controller.GroupCommunication;
+import info.androidhive.loginandregistration.model.Group;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
+import info.androidhive.loginandregistration.model.Tupla;
 
-public class TabAFragment extends Fragment {
-    private ArrayList<Grupo> vGrupos;
+public class TabAFragment extends Fragment implements Observer {
+    private ArrayList<Group> vGroups;
     private GroupAdapter adaptador;
     private ListView lvLista;
     private SQLiteHandler db;
 
     private final String TAG = "CHATS";
+    private GroupCommunication communication;
 
     public TabAFragment() {
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new SQLiteHandler(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab_a, container, false);
-        vGrupos = new ArrayList<>();
-        adaptador =  new GroupAdapter(super.getActivity(), showGroups());
+        db = new SQLiteHandler(getActivity());
+        vGroups = new ArrayList<>();
+        adaptador =  new GroupAdapter(super.getActivity(), vGroups);
         lvLista = (ListView) v.findViewById(R.id.listMembers);
         lvLista.setAdapter(adaptador);
 
@@ -66,84 +73,49 @@ public class TabAFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        communication = new GroupCommunication();
+        communication.addObserver(this);
+        getGroups();
         return v;
     }
 
 
-    private void getGroups(final int id_creator_user) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_RETRIVE_GROUPS, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Chats response: " + response);
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // JSON error node?
-                    if (!error) { // No hay error
-                        JSONArray groupsJson = jObj.getJSONArray("groups");
-                        List<String> groupList = new ArrayList<String>();
-
-                        for (int i = 0; i < groupsJson.length(); i++) {
-                            groupList.add(groupsJson.getString(i));
-                        }
-
-                        Log.v(TAG, groupList.toString());
-
-                        // Inserting row in users table
-                        // db.addGroup(name);
-
-                    } else { // Error
-                        String errorMsg = jObj.getString("error_msg");
-                        Log.v(TAG, errorMsg);
-                    }
-                } catch (JSONException e) {
-                    // JSON error. No debería venir nunca aquí
-                    e.printStackTrace();
-                    Log.v(TAG, "Json error: " + e.getMessage());
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id_creator_user", String.valueOf(id_creator_user));
-
-                return params;
-            }
-
-        };
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    /**
+     * Obtener grupos desde MySQL
+     * */
+    private void getGroups() {
+        communication.getUserGroups(db.getCurrentUsername());
 
     }
 
-
-    private ArrayList<Grupo> showGroups() {
+    private ArrayList<Group> loadGroupsToLocalDB() {
         List<String> groups;
         groups = db.getGroups();
-        ArrayList<Grupo> vGrupos = new ArrayList<>();
+        ArrayList<Group> vGroups = new ArrayList<>();
 
         for (String group : groups) {
-            try {
-                vGrupos.add(new Grupo(group, "07-03-2020"));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+                vGroups.add(new Group(group, "07-03-2020"));
         }
-        return vGrupos;
+        return vGroups;
     }
 
+    @Override
+    public void update(Observable observable, Object o) {
+        Tupla<String, Object> tupla = (Tupla<String, Object>) o;
+        switch (tupla.a){
+            case GroupCommunication.GET_USER_GROUPS_OK:
+
+                db.deleteGroups();
+                db.addGroups((List<Group>) tupla.b);
+                vGroups.clear();
+                vGroups.addAll(loadGroupsToLocalDB());
+                adaptador.notifyDataSetChanged();
+
+                break;
+            case GroupCommunication.GET_USER_GROUPS_ERROR:
+                Toast.makeText(getActivity().getApplicationContext(),
+                        (String) tupla.b, Toast.LENGTH_LONG).show();
+                break;
+        }
+    }
 }

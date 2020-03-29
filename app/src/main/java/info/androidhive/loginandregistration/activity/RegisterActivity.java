@@ -22,15 +22,20 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.controller.AppConfig;
 import info.androidhive.loginandregistration.controller.AppController;
 import info.androidhive.loginandregistration.controller.DatePickerFragment;
+import info.androidhive.loginandregistration.controller.RegisterCommunication;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
 import info.androidhive.loginandregistration.controller.SessionManager;
+import info.androidhive.loginandregistration.model.Tupla;
+import info.androidhive.loginandregistration.model.User;
 
-public class RegisterActivity extends AppCompatActivity{
+public class RegisterActivity extends AppCompatActivity implements Observer {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button buttonRegister;
     private EditText inputUsername;
@@ -41,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity{
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
-
+    private RegisterCommunication communication;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,9 @@ public class RegisterActivity extends AppCompatActivity{
         inputRepeatPassword = (EditText) findViewById(R.id.register_repeat_password);
         birthdayDate = (EditText) findViewById(R.id.birthdayDate);
         buttonRegister = (Button) findViewById(R.id.btnRegister);
+
+        communication = new RegisterCommunication();
+        communication.addObserver(this);
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -68,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity{
         if (session.isLoggedIn()) {
             // Dentro!
             Intent intent = new Intent(RegisterActivity.this,
-                    MainActivity.class);
+                    ChatsActivity.class);
             startActivity(intent);
             finish();
         }
@@ -113,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity{
     /*
      * Función para registrar al usuario en la base de datos MySQL
      */
-    private void registerUser(final String name, final String mail,
+    private void registerUser(final String username, final String email,
                               final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
@@ -121,69 +129,8 @@ public class RegisterActivity extends AppCompatActivity{
         pDialog.setMessage("Registrando.. ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.URL_REGISTER, new Response.Listener<String>() {
+        communication.register(username, email, password);
 
-            public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response);
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        // Insertar en SQLite
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("mail");
-
-                        db.addUser(name, email);
-
-                        Toast.makeText(getApplicationContext(), "¡Usuario registrado exitosamente!", Toast.LENGTH_LONG).show();
-
-                        // Launch chat activity
-                        Intent intent = new Intent(
-                                RegisterActivity.this,
-                                ChatsActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        // Ha ocurrido un error
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-
-            }
-        }) {
-
-            protected Map<String, String> getParams() {
-                // Parámetros para la consulta POST <columna_db, variables>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("name", name);
-                params.put("password", password);
-                params.put("mail", mail);
-
-                return params;
-            }
-        };
-
-        Log.d(TAG, strReq.toString());
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
     /*
@@ -211,5 +158,30 @@ public class RegisterActivity extends AppCompatActivity{
         });
 
         newFragment.show(getFragmentManager(), "date");
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        Tupla<String, Object> tupla = (Tupla<String, Object>) o;
+        switch (tupla.a){
+            case RegisterCommunication.OK:
+                User user = (User) tupla.b;
+                db.addUser(user.getUsername(), user.getEmail());
+
+                Toast.makeText(getApplicationContext(), "¡Usuario registrado exitosamente!", Toast.LENGTH_LONG).show();
+
+                // Launch chat activity
+                Intent intent = new Intent(
+                        RegisterActivity.this,
+                        ChatsActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case RegisterCommunication.ERROR:
+                Toast.makeText(getApplicationContext(),
+                        (String) tupla.b, Toast.LENGTH_LONG).show();
+                hideDialog();
+                break;
+        }
     }
 }

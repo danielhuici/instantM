@@ -12,29 +12,29 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.model.Grupo;
+import info.androidhive.loginandregistration.model.Group;
 
 
 public class GroupAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mInflater;
-    private ArrayList<Grupo> vGrupos;
+    private ArrayList<Group> vGroups;
 
-    public GroupAdapter(Activity context, ArrayList<Grupo> vGrupos) {
+    public GroupAdapter(Activity context, ArrayList<Group> vGroups) {
         this.context = context;
-        this.vGrupos = vGrupos;
+        this.vGroups = vGroups;
         this.mInflater = LayoutInflater.from(context);
     }
 
 
     @Override
     public int getCount() {
-        return vGrupos.size();
+        return vGroups.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return vGrupos.get(position);
+        return vGroups.get(position);
     }
 
     @Override
@@ -65,11 +65,11 @@ public class GroupAdapter extends BaseAdapter {
             holder = (ChatViewHolder) convertView.getTag();
         }
 
-        Grupo grupo = vGrupos.get(position);
+        Group group = vGroups.get(position);
 
-        holder.title.setText(grupo.getName());
-        holder.topSubtitle.setText(grupo.getLastConnectionText());
-        holder.pic.setImageBitmap(grupo.getFoto());
+        holder.title.setText(group.getName());
+        holder.topSubtitle.setText(group.getLastConnectionText());
+        holder.pic.setImageBitmap(group.getFoto());
 
         return convertView;
     }

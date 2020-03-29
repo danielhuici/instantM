@@ -1,56 +1,47 @@
 package info.androidhive.loginandregistration.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.controller.AppConfig;
-import info.androidhive.loginandregistration.controller.AppController;
 import info.androidhive.loginandregistration.controller.ContactAdapter;
+import info.androidhive.loginandregistration.controller.ContactCommunication;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
 import info.androidhive.loginandregistration.model.Contact;
+import info.androidhive.loginandregistration.model.Tupla;
 
 
-public class AddContactActivity extends AppCompatActivity implements TextWatcher, AdapterView.OnItemClickListener {
+public class AddContactActivity extends AppCompatActivity implements TextWatcher, AdapterView.OnItemClickListener, Observer {
     private ArrayList<Contact> contacts;
     private ContactAdapter contactAdapter;
     private ListView lvContacts;
     private SQLiteHandler db;
-
+    private ContactCommunication communication;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
         contacts = new ArrayList<>();
-        contacts.add(new Contact("uno"));
-        contacts.add(new Contact("dos"));
-        contacts.add(new Contact("tres"));
-        contacts.add(new Contact("cuatro"));
+        db = new SQLiteHandler(getApplicationContext());
+
+
+        communication = new ContactCommunication();
+        communication.addObserver(this);
 
         getContactsFromServer();
 
@@ -58,8 +49,6 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
         lvContacts = (ListView) findViewById(R.id.lvContacts);
         lvContacts.setAdapter(contactAdapter);
         lvContacts.setOnItemClickListener(this);
-        db = new SQLiteHandler(getApplicationContext());
-
 
 
         EditText filter = (EditText) findViewById(R.id.etSearchContact);
@@ -68,21 +57,8 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
         }
 
     private void getContactsFromServer() {
-        String tag_string_req = "";
-        GetContactListener getContactListener = new GetContactListener();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa");
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_GET_CONTACTS, getContactListener,getContactListener){
-            @Override
-            protected Map<String, String> getParams() {
-                System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", db.getCurrentUsername());
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        communication.getContacts(db.getCurrentUsername());
+
     }
 
     @Override
@@ -92,7 +68,6 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            //TODO Dos opciones, modificar el array que ya tenemos o hacer una consulta al server
              contactAdapter.getFilter().filter(String.valueOf(charSequence));
         }
 
@@ -105,85 +80,27 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final String contact_name = contactAdapter.getContactName(position);
 
-        String tag_string_req = "";
-        CreateContactListener createContactListener = new CreateContactListener();
+        communication.createContact(db.getCurrentUsername(), contact_name);
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ADD_CONTACT, createContactListener,createContactListener){
-            @Override
-            protected Map<String, String> getParams() {
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", db.getCurrentUsername());
-                params.put("contact_name", contact_name);
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    class GetContactListener implements Response.Listener<String>, Response.ErrorListener{
-        @Override
-        public void onResponse(String response) {
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-
-                // JSON error node?
-                if (!error) { // No hay error
-                    // Inserting row in users table
-                    contacts.clear();
-                    contacts.addAll(Contact.JSONToContact(jObj.getJSONArray("contacts")));
-                    contactAdapter.notifyDataSetChanged();
-                } else { // Error
-                    String errorMsg = jObj.getString("error_msg");
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-                }
-            } catch (JSONException e) {
-                // JSON error. No debería venir nunca aquí
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Toast.makeText(getApplicationContext(),
-                    error.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-    class CreateContactListener implements Response.Listener<String>, Response.ErrorListener{
-
-        @Override
-        public void onResponse(String response) {
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-                if (!error) {
-                    Toast.makeText(getApplicationContext(), "¡Grupo creado exitosamente!", Toast.LENGTH_LONG).show();
-
-
-                    // Launch chat activity
-                   // Intent intent = new Intent(
-                      //      AddContactActivity.this,
-                        //    ChatsActivity.class);
-                    //startActivity(intent);
-                    finish();
-                } else {
-                    String errorMsg = jObj.getString("error_msg");
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Toast.makeText(getApplicationContext(),
-                    error.getMessage(), Toast.LENGTH_LONG).show();
+    @Override
+    public void update(Observable observable, Object o) {
+        Tupla<String, Object> tupla = (Tupla<String, Object>) o;
+        switch (tupla.a){
+            case ContactCommunication.GET_CONTACTS_OK:
+                contacts.clear();
+                contacts.addAll((List<Contact>) tupla.b);
+                contactAdapter.notifyDataSetChanged();
+                break;
+            case ContactCommunication.CREATE_CONTACT_OK:
+                Toast.makeText(getApplicationContext(), "¡Contacto creado exitosamente!", Toast.LENGTH_LONG).show();
+                finish();
+                break;
+            case ContactCommunication.CREATE_CONTACT__ERROR:
+                Toast.makeText(getApplicationContext(),
+                        (String) tupla.b, Toast.LENGTH_LONG).show();
+                break;
         }
     }
 }

@@ -53,7 +53,7 @@
                     android:src="@drawable/descargar" />
 
                 <EditText
-                    android:id="@+id/group_name"
+                    android:id="@+id/etGroupName"
                     android:layout_width="match_parent"
                     android:layout_height="67dp"
                     android:ems="10"
@@ -64,7 +64,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/group_description"
+                    android:id="@+id/etGroupDescription"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:ems="10"
@@ -76,7 +76,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/btn_add_member"
+                    android:id="@+id/btAddMember"
                     android:layout_width="390dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"></ListView>
 
                 <Button
-                    android:id="@+id/btn_create_group"
+                    android:id="@+id/btCreateGroup"
                     android:layout_width="390dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center"

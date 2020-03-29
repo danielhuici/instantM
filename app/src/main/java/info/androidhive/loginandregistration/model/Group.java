@@ -2,20 +2,38 @@ package info.androidhive.loginandregistration.model;
 
 import android.graphics.Bitmap;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class Grupo {
+import java.text.DateFormat;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Group {
     private String name;
     private Date lastConnection;
+    private String description;
     private Bitmap foto;
 
-    public Grupo(String name, String lastConnectionText) throws ParseException {
+    public Group(String name, String description)  {
         this.name = name;
-        this.lastConnection = new SimpleDateFormat("dd-MM-yyyy").parse(lastConnectionText);
+        this.description = description;
         this.foto = foto;
+    }
+
+    public static List<Group> JSONToGroups(JSONArray groupsListJSON) throws JSONException {
+        List<Group> vGroups = new ArrayList<>();
+        for (int i = 0; i< groupsListJSON.length(); i++) {
+            JSONObject groups = groupsListJSON.getJSONObject(i);
+            JSONObject data = groups.getJSONObject("data");
+            Group group = new Group(data.getString("name"), data.getString("description"));
+            vGroups.add(group);
+        }
+        return vGroups;
     }
 
     public String getName() {
@@ -31,7 +49,7 @@ public class Grupo {
     }
     public String getLastConnectionText() {
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
-        return dateFormat.format(lastConnection);
+        return dateFormat.format(new Date());
     }
 
     public void setLastConnection(Date lastConnection) {

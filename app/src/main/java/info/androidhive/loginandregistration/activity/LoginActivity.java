@@ -23,14 +23,19 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.controller.AppConfig;
 import info.androidhive.loginandregistration.controller.AppController;
+import info.androidhive.loginandregistration.controller.LoginCommunication;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
 import info.androidhive.loginandregistration.controller.SessionManager;
+import info.androidhive.loginandregistration.model.Tupla;
+import info.androidhive.loginandregistration.model.User;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity  implements Observer {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnLogin;
     private TextView txtLinkToRegister;
@@ -39,6 +44,7 @@ public class LoginActivity extends Activity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
+    private LoginCommunication communication;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,10 @@ public class LoginActivity extends Activity {
 
         // Session manager
         session = new SessionManager(getApplicationContext());
+
+        communication = new LoginCommunication();
+        communication.addObserver((Observer)this);
+
 
         // Comprobar si el usuuario está dentro...
         if (session.isLoggedIn()) {
@@ -105,137 +115,12 @@ public class LoginActivity extends Activity {
      * */
     private void checkLogin(final String username, final String password) {
         // Tag used to cancel the request
-        String tag_string_req = "req_login";
 
         pDialog.setMessage("Entrando ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.POST,
-                AppConfig.URL_LOGIN, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Login Response: " + response);
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // JSON error node?
-                    if (!error) { // No hay error
-                        session.setLogin(true);
-
-                        JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("mail");
-
-                        // Inserting row in users table
-                        db.addUser(name, email);
-                        getGroups();
-
-                        // Lanzar Main Activity
-                        Intent intent = new Intent(LoginActivity.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else { // Error
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    // JSON error. No debería venir nunca aquí
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("name", username);
-                params.put("password", password);
-
-                return params;
-            }
-
-        };
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        communication.login(username, password);
     }
-
-
-    /**
-     * Obtener grupos desde MySQL
-     * */
-    private void getGroups() {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
-
-        pDialog.setMessage("Obteniendo información ...");
-        showDialog();
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_GET_GROUPS, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                hideDialog();
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-
-                    // JSON error node?
-                    if (!error) { // No hay error
-                        JSONArray groups = jObj.getJSONArray("groups");
-
-                        // Inserting row in users table
-                        db.addGroups(groups);
-
-                    } else { // Error
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    // JSON error. No debería venir nunca aquí
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Login Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-                hideDialog();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", db.getCurrentUsername());
-                Log.v(TAG, db.getCurrentUsername());
-                return params;
-            }
-        };
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
 
     /*
     * Mostrar y ocultar el diálogo
@@ -248,5 +133,32 @@ public class LoginActivity extends Activity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        Tupla<String, Object> tupla = (Tupla<String, Object>) o;
+        switch (tupla.a){
+            case LoginCommunication.OK:
+                hideDialog();
+                session.setLogin(true);
+                User user = (User) tupla.b;
+
+                // Inserting row in users table
+                db.addUser(user.getUsername(), user.getEmail());
+
+                // Lanzar Main Activity
+                Intent intent = new Intent(this,
+                        ChatsActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case LoginCommunication.ERROR:
+                String errorMsg = (String) tupla.b;
+                hideDialog();
+                Toast.makeText(getApplicationContext(),
+                        errorMsg, Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 }

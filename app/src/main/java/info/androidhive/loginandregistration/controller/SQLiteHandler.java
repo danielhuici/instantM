@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import info.androidhive.loginandregistration.model.Group;
+
 public class SQLiteHandler extends SQLiteOpenHelper {
 
 	private static final String TAG = SQLiteHandler.class.getSimpleName();
@@ -179,11 +181,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Deleted all user info from sqlite");
     }
 
-	public void addGroup(String name) {
+	public void addGroup(Group group) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(KEY_GROUP_NAME, name); // Name
+		values.put(KEY_GROUP_NAME, group.getName()); // Name
 
 		// Inserting Row
 		long id = db.insert(TABLE_GROUP, null, values);
@@ -203,11 +205,17 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		for (int i = 0; i< groupsListJSON.length(); i++) {
             JSONObject groups = groupsListJSON.getJSONObject(i);
             JSONObject data = groups.getJSONObject("data");
-			addGroup(data.getString("name"));
+			addGroup(new Group(data.getString("name"), data.getString("description")));
 			Log.v(TAG, "ADDED GROUP, " + data.getString("name"));
 		}
 	}
-
+	/*
+	 * Add multiple groups to SQLite
+	 */
+	public void addGroups(List<Group> vGroups) {
+		for (Group g: vGroups)
+			addGroup(g);
+	}
 	public List<String> getGroups() {
 		String selectQuery = "SELECT " + KEY_GROUP_NAME + " FROM " + TABLE_GROUP;
 		List<String> groups = new ArrayList<>();

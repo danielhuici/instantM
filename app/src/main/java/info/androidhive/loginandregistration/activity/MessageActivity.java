@@ -19,7 +19,7 @@ import java.util.Random;
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.model.MemberData;
 import info.androidhive.loginandregistration.model.Message;
-import info.androidhive.loginandregistration.model.MessageAdapter;
+import info.androidhive.loginandregistration.controller.MessageAdapter;
 
 
 public class MessageActivity extends AppCompatActivity  implements RoomListener {

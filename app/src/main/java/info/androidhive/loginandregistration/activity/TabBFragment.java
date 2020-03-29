@@ -20,24 +20,31 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.controller.AppConfig;
 import info.androidhive.loginandregistration.controller.AppController;
 import info.androidhive.loginandregistration.controller.ContactAdapter;
+import info.androidhive.loginandregistration.controller.ContactCommunication;
 import info.androidhive.loginandregistration.controller.SQLiteHandler;
 
 import info.androidhive.loginandregistration.model.Contact;
+import info.androidhive.loginandregistration.model.Tupla;
 
-public class TabBFragment extends Fragment {
+public class TabBFragment extends Fragment implements Observer {
     private ArrayList<Contact> vContacts;
     private ContactAdapter contactAdapter;
     private ListView lvLista;
     private SQLiteHandler db;
     Activity mActivity;
+
+    ContactCommunication communication;
     public TabBFragment() {
         // Required empty public constructor
     }
@@ -57,11 +64,9 @@ public class TabBFragment extends Fragment {
 
         lvLista = (ListView) v.findViewById(R.id.listMembers);
         lvLista.setAdapter(contactAdapter);
-        vContacts.add(new Contact("uno"));
-        vContacts.add(new Contact("uno"));
-        vContacts.add(new Contact("dos"));
-        vContacts.add(new Contact("tres"));
-        vContacts.add(new Contact("cuatro"));
+
+        communication = new ContactCommunication();
+        communication.addObserver(this);
         getContactsFromServer();
         vContacts.indexOf(1);
 
@@ -72,53 +77,10 @@ public class TabBFragment extends Fragment {
 
     private void getContactsFromServer() {
         String tag_string_req = "";
-        GetContactListener getContactListener = new GetContactListener();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_GET_USER_CONTACTS, getContactListener,getContactListener){
-            @Override
-            protected Map<String, String> getParams() {
+        communication.getContactsFromUser(db.getCurrentUsername());
 
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", db.getCurrentUsername());
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
-
-    class GetContactListener implements Response.Listener<String>, Response.ErrorListener{
-        @Override
-        public void onResponse(String response) {
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-
-                // JSON error node?
-                if (!error) { // No hay error
-                    // Inserting row in users table
-                    vContacts.clear();
-                    vContacts.addAll(Contact.JSONToContact(jObj.getJSONArray("contacts")));
-                    contactAdapter.notifyDataSetChanged();
-                } else { // Error
-                    String errorMsg = jObj.getString("error_msg");
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-                }
-            } catch (JSONException e) {
-                // JSON error. No debería venir nunca aquí
-                e.printStackTrace();
-                Toast.makeText(getActivity().getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Toast.makeText(getActivity().getApplicationContext(),
-                    error.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
 
     private ArrayList<Contact> showContacts() {
         List<String> contacts;
@@ -130,6 +92,23 @@ public class TabBFragment extends Fragment {
                 vContacts.add(new Contact(contact));
         }
         return vContacts;
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        Tupla<String, Object> tupla = (Tupla<String, Object>) o;
+        switch (tupla.a){
+            case ContactCommunication.GET_USER_CONTACTS_OK:
+                vContacts.clear();
+                vContacts.addAll((List<Contact>) tupla.b);
+                contactAdapter.notifyDataSetChanged();
+                break;
+            case ContactCommunication.GET_USER_CONTACTS_ERROR:
+                String errorMsg = (String) tupla.b;
+                Toast.makeText(getActivity().getApplicationContext(),
+                        errorMsg, Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 }
 

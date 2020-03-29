@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.model;
+package info.androidhive.loginandregistration.controller;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.model.Message;
 
 public class MessageAdapter extends BaseAdapter {
 
