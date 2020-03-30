@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.session;
 
 import android.content.Context;
 import android.content.SharedPreferences;

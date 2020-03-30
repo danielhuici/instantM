@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.EditGroupActivity">
+    tools:context=".group.EditGroupActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -45,7 +45,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/ivGroupImage"
                     android:layout_width="165dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center_horizontal"

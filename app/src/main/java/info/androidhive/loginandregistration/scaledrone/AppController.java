@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.scaledrone;
 
 import android.app.Application;
 import android.text.TextUtils;

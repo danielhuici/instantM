@@ -1,9 +1,8 @@
-package info.androidhive.loginandregistration.model;
+package info.androidhive.loginandregistration.session;
 
 import android.graphics.Bitmap;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

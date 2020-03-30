@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.activity;
+package info.androidhive.loginandregistration.chats;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,11 +17,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Observable;
-
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.controller.SQLiteHandler;
-import info.androidhive.loginandregistration.controller.SessionManager;
+import info.androidhive.loginandregistration.utils.SQLiteHandler;
+import info.androidhive.loginandregistration.contact.AddContactActivity;
+import info.androidhive.loginandregistration.group.EditGroupActivity;
+import info.androidhive.loginandregistration.session.LoginActivity;
+import info.androidhive.loginandregistration.session.SessionManager;
 
 public class ChatsActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
     /**

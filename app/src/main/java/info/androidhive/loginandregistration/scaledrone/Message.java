@@ -1,4 +1,6 @@
-package info.androidhive.loginandregistration.model;
+package info.androidhive.loginandregistration.scaledrone;
+
+import info.androidhive.loginandregistration.scaledrone.MemberData;
 
 public class Message {
     private String text; // message body

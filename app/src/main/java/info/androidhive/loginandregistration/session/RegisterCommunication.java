@@ -1,9 +1,5 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.session;
 
-
-import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,14 +12,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
-import java.util.Observer;
 
-import info.androidhive.loginandregistration.activity.ChatsActivity;
-import info.androidhive.loginandregistration.activity.LoginActivity;
-
-import info.androidhive.loginandregistration.activity.RegisterActivity;
-import info.androidhive.loginandregistration.model.Tupla;
-import info.androidhive.loginandregistration.model.User;
+import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.Tupla;
 
 public class RegisterCommunication extends Observable implements Response.Listener<String>, Response.ErrorListener {
     public static final String ERROR = "ERROR";

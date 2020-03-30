@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.model;
+package info.androidhive.loginandregistration.scaledrone;
 
 public class MemberData {
     private String name;

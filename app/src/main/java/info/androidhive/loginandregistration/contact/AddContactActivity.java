@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.activity;
+package info.androidhive.loginandregistration.contact;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +18,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.controller.ContactAdapter;
-import info.androidhive.loginandregistration.controller.ContactCommunication;
-import info.androidhive.loginandregistration.controller.SQLiteHandler;
-import info.androidhive.loginandregistration.model.Contact;
-import info.androidhive.loginandregistration.model.Tupla;
+import info.androidhive.loginandregistration.utils.SQLiteHandler;
+import info.androidhive.loginandregistration.utils.Tupla;
 
 
 public class AddContactActivity extends AppCompatActivity implements TextWatcher, AdapterView.OnItemClickListener, Observer {

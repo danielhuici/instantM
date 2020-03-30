@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.activity;
+package info.androidhive.loginandregistration.chats;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,9 +17,8 @@ import com.scaledrone.lib.Scaledrone;
 import java.util.Random;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.model.MemberData;
-import info.androidhive.loginandregistration.model.Message;
-import info.androidhive.loginandregistration.controller.MessageAdapter;
+import info.androidhive.loginandregistration.scaledrone.MemberData;
+import info.androidhive.loginandregistration.scaledrone.Message;
 
 
 public class MessageActivity extends AppCompatActivity  implements RoomListener {

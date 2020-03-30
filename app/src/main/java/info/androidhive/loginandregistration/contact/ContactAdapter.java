@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.contact;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,9 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.model.Contact;
-
-
 
 
 public class ContactAdapter extends BaseAdapter {

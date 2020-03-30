@@ -1,39 +1,23 @@
-package info.androidhive.loginandregistration.activity;
+package info.androidhive.loginandregistration.session;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.controller.AppConfig;
-import info.androidhive.loginandregistration.controller.AppController;
-import info.androidhive.loginandregistration.controller.DatePickerFragment;
-import info.androidhive.loginandregistration.controller.RegisterCommunication;
-import info.androidhive.loginandregistration.controller.SQLiteHandler;
-import info.androidhive.loginandregistration.controller.SessionManager;
-import info.androidhive.loginandregistration.model.Tupla;
-import info.androidhive.loginandregistration.model.User;
+import info.androidhive.loginandregistration.chats.ChatsActivity;
+import info.androidhive.loginandregistration.utils.SQLiteHandler;
+import info.androidhive.loginandregistration.utils.Tupla;
 
 public class RegisterActivity extends AppCompatActivity implements Observer {
     private static final String TAG = RegisterActivity.class.getSimpleName();

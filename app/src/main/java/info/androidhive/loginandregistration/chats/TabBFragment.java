@@ -1,7 +1,6 @@
-package info.androidhive.loginandregistration.activity;
+package info.androidhive.loginandregistration.chats;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,32 +9,18 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.controller.AppConfig;
-import info.androidhive.loginandregistration.controller.AppController;
-import info.androidhive.loginandregistration.controller.ContactAdapter;
-import info.androidhive.loginandregistration.controller.ContactCommunication;
-import info.androidhive.loginandregistration.controller.SQLiteHandler;
+import info.androidhive.loginandregistration.contact.ContactAdapter;
+import info.androidhive.loginandregistration.contact.ContactCommunication;
+import info.androidhive.loginandregistration.utils.SQLiteHandler;
 
-import info.androidhive.loginandregistration.model.Contact;
-import info.androidhive.loginandregistration.model.Tupla;
+import info.androidhive.loginandregistration.contact.Contact;
+import info.androidhive.loginandregistration.utils.Tupla;
 
 public class TabBFragment extends Fragment implements Observer {
     private ArrayList<Contact> vContacts;

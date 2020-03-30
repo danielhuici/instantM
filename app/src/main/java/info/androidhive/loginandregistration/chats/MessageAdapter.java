@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.chats;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.model.Message;
+import info.androidhive.loginandregistration.scaledrone.Message;
 
 public class MessageAdapter extends BaseAdapter {
 

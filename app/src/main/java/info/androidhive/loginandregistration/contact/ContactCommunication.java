@@ -1,6 +1,4 @@
-package info.androidhive.loginandregistration.controller;
-
-import android.widget.Toast;
+package info.androidhive.loginandregistration.contact;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
-import info.androidhive.loginandregistration.model.Contact;
-import info.androidhive.loginandregistration.model.Tupla;
+import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.Tupla;
 
 public class ContactCommunication extends Observable {
 

@@ -1,14 +1,12 @@
-package info.androidhive.loginandregistration.model;
+package info.androidhive.loginandregistration.contact;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;

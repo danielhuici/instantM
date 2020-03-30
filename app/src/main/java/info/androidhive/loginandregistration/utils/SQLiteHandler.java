@@ -1,5 +1,5 @@
 
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import info.androidhive.loginandregistration.model.Group;
+import info.androidhive.loginandregistration.group.Group;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
 

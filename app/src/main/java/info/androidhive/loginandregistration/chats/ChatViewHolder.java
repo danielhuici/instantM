@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.chats;
 
 import android.widget.ImageView;
 import android.widget.TextView;

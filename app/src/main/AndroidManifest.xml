@@ -7,33 +7,34 @@
     <uses-sdk android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".controller.AppController"
+        android:name=".scaledrone.AppController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MessageActivity"></activity>
-        <activity android:name=".activity.AddContactActivity" />
-        <activity android:name=".activity.EditGroupActivity" />
+        <activity android:name=".chats.MessageActivity"></activity>
+        <activity android:name=".contact.AddContactActivity" />
+        <activity android:name=".group.EditGroupActivity" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".group.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".session.RegisterActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.ChatsActivity"
+            android:name=".chats.ChatsActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop" />
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".session.LoginActivity"
             android:label="@string/title_activity_tabs"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

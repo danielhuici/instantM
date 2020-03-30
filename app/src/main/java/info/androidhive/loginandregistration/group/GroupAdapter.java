@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.group;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.model.Group;
+import info.androidhive.loginandregistration.chats.ChatViewHolder;
 
 
 public class GroupAdapter extends BaseAdapter {
@@ -69,7 +69,7 @@ public class GroupAdapter extends BaseAdapter {
 
         holder.title.setText(group.getName());
         holder.topSubtitle.setText(group.getLastConnectionText());
-        holder.pic.setImageBitmap(group.getFoto());
+        holder.pic.setImageBitmap(group.getPic());
 
         return convertView;
     }

@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.controller;
+package info.androidhive.loginandregistration.group;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
-import info.androidhive.loginandregistration.model.Group;
-import info.androidhive.loginandregistration.model.Tupla;
+import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.Tupla;
 
 public class GroupCommunication extends Observable {
     public static final String CREATE_GROUP_OK = "CREATE_GROUP_OK";
@@ -26,16 +26,17 @@ public class GroupCommunication extends Observable {
     public static String URL_GET_GROUPS = "http://34.69.44.48/instantm/obtener_grupos.php";
 
 
-    public void crateGroup(final String groupName, final String username, final String description) {
+    public void crateGroup(final Group groupToCreate, final String username) {
         CreateGroupListener createGroupListener = new CreateGroupListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_CREATE_GROUP, createGroupListener, createGroupListener) {
 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", groupName);
+                params.put("name", groupToCreate.getName());
                 params.put("username", username);
-                params.put("description", description);
+                params.put("description", groupToCreate.getDescription());
+                params.put("pic", groupToCreate.getPicBLOB());
 
                 return params;
             }
