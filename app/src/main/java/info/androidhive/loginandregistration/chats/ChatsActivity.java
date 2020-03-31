@@ -100,7 +100,8 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
 
         switch (item.getItemId()) {
             case MENU_CREATE_GROUP_ID:
-                intent = new Intent(this, CreateGroupActivity.class);
+                intent = new Intent(this, EditGroupActivity.class);
+                intent.putExtra("idGroup", 5);
                 startActivityForResult(intent, 2);//(intent);
 
                 return true;

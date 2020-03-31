@@ -51,6 +51,8 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
     private EditText etGroupName;
     private EditText etGroupDescription;
     private Button btnEditGroup;
+    private Button btnOutGroup;
+    private Button btnDeleteGroup;
     private SQLiteHandler db;
 
     private ArrayList<Contact> members;
@@ -60,32 +62,59 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
     private ProgressDialog pDialog;
     private GroupCommunication communication;
     private ContactCommunication contactCommunication;
-    private Group groupToSave;
+
+    private int idGroup;
+    private Group groupToUpdate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
+        Bundle data = this.getIntent().getExtras();
+        idGroup = data.getInt("idGroup");
+
+        groupToUpdate = getGroup(idGroup);
 
         etGroupName = (EditText) findViewById(R.id.group_name);
         etGroupDescription = (EditText) findViewById(R.id.group_description);
         btnEditGroup = (Button) findViewById(R.id.btn_edit_group);
+        btnOutGroup = (Button) findViewById(R.id.btn_out_group);
+        btnDeleteGroup = (Button) findViewById(R.id.btn_delete_group);
+
         ivProfile = (ImageView) findViewById(R.id.ivGroupImage);
         ivProfile.setOnClickListener(this);
-        groupToSave = new Group();
+
         // Botón editar custom_item
         btnEditGroup.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                groupToSave.setName(etGroupName.getText().toString().trim());
-                groupToSave.setDescription(etGroupDescription.getText().toString().trim());
+                groupToUpdate.setName(etGroupName.getText().toString().trim());
+                groupToUpdate.setDescription(etGroupDescription.getText().toString().trim());
                 // Comprobar que los datos no están vacíos
                 if (!etGroupName.getText().toString().trim().isEmpty()) {
-                    storeGroup(groupToSave);
+                    updateGroup(groupToUpdate);
                 }else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
                             "Por favor, introduce los datos", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        //Botón salir el usuario del grupo
+        btnOutGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Quiero salir del grupo");
+            }
+        });
+
+        //Botón borrar el grupo
+        btnDeleteGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Quiero borrar el grupo");
             }
         });
 
@@ -126,15 +155,32 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         listView.requestLayout();
     }
 
-    private void storeGroup(Group groupToSave) {
+    /*
+    * Obtener los datos del grupo a modificar.
+     */
+    private Group getGroup(int id) {
         // Tag used to cancel the request
-        String tag_string_req = "req_register";
+        String tag_string_req = "req_get";
 
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Creando grupo...");
+        pDialog.setMessage("Obteniendo grupo...");
         showDialog();
 
-        communication.crateGroup(groupToSave, db.getCurrentUsername());
+        //communication.updateGroup(groupToUpdate, db.getCurrentUsername());
+    }
+
+    /*
+    * Modificar grupo desde mysql
+     */
+    private void updateGroup(Group groupToUpdate) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_update";
+
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Modificando grupo...");
+        showDialog();
+
+        return communication.updateGroup(groupToUpdate, idGroup);
 
     }
 
@@ -162,6 +208,7 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
 
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
 
     private void updateGroups() {
         db.deleteGroups();
@@ -194,7 +241,7 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
                                     Intent data) {
         Bitmap bitmap = decodeUri(data.getData());
         ivProfile.setImageBitmap(bitmap);
-        groupToSave.setPic(bitmap);
+        groupToUpdate.setPic(bitmap);
 
     }
     class GetGroupListener implements Response.Listener<String>, Response.ErrorListener{

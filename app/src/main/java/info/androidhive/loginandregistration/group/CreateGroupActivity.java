@@ -71,7 +71,7 @@ public class CreateGroupActivity extends Activity implements Observer, View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_group);
+        setContentView(R.layout.activity_crate_group);
 
         etGroupName = (EditText) findViewById(R.id.group_name);
         etGroupDescription = (EditText) findViewById(R.id.group_description);

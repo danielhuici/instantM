@@ -69,7 +69,8 @@ public class Group {
         this.pic = pic;
     }
 
-    public void setDescription(String trim) {
+    public void setDescription(String description) {
+        this.description = description;
     }
     public String getDescription(){
         return this.description;

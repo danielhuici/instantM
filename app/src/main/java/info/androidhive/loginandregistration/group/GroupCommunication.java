@@ -18,12 +18,16 @@ import info.androidhive.loginandregistration.utils.Tupla;
 
 public class GroupCommunication extends Observable {
     public static final String CREATE_GROUP_OK = "CREATE_GROUP_OK";
-    public static final String CREATE_GROUP_ERROR = "CREATE_GROUP_ERROR" ;
+    public static final String EDIT_GROUP_OK = "EDIT_GROUP_OK";
+    public static final String CREATE_GROUP_ERROR = "CREATE_GROUP_ERROR";
+    public static final String EDIT_GROUP_ERROR = "EDIT_GROUP_ERROR";
     public static final String GET_USER_GROUPS_OK = "GET_USER_GROUPS_OK";
     public static final String GET_USER_GROUPS_ERROR = "GET_USER_GROUPS_ERROR";
 
     public static String URL_CREATE_GROUP = "http://34.69.44.48/instantm/crear_grupo.php";
+    public static String URL_UPDATE_GROUP = "http://34.69.44.48/instantm/modificar_grupo.php";
     public static String URL_GET_GROUPS = "http://34.69.44.48/instantm/obtener_grupos.php";
+    public static String URL_GET_GROUP = "http://34.69.44.48/instantm/obtener_grupo.php";
 
 
     public void crateGroup(final Group groupToCreate, final String username) {
@@ -44,6 +48,25 @@ public class GroupCommunication extends Observable {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, "");
+    }
+
+    public void updateGroup(final Group groupToUpdate, final int idGroup) {
+        EditGroupListener createGroupListener = new EditGroupListener();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_UPDATE_GROUP, createGroupListener, createGroupListener) {
+
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", groupToUpdate.getName());
+                params.put("description", groupToUpdate.getDescription());
+                params.put("pic", groupToUpdate.getPicBLOB());
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, "");
+        return groupToUpdate;
     }
 
     public void getUserGroups(final String username) {
@@ -120,6 +143,33 @@ public class GroupCommunication extends Observable {
         public void onErrorResponse(VolleyError error) {
             setChanged();
             notifyObservers(new Tupla<>(GET_USER_GROUPS_ERROR, "RESPONSE ERROR"));
+        }
+    }
+
+    class EditGroupListener implements Response.Listener<String>, Response.ErrorListener{
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+                if (!error) {
+                    setChanged();
+                    notifyObservers(new Tupla<>(EDIT_GROUP_OK,null));
+                } else {
+                    setChanged();
+                    notifyObservers(new Tupla<>(EDIT_GROUP_ERROR,"ERROR"));
+                }
+            } catch (JSONException e) {
+                setChanged();
+                notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR"));
+            }
+        }
+
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            setChanged();
+            notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR"));
         }
     }
 }

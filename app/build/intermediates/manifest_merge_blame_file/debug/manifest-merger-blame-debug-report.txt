@@ -19,7 +19,7 @@
 12-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:10:22-77
 13
 14    <application
-14-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:12:5-46:19
+14-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:12:5-47:19
 15        android:name="info.androidhive.loginandregistration.scaledrone.AppController"
 15-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:13:9-49
 16        android:allowBackup="true"
@@ -41,53 +41,56 @@
 24        <activity android:name="info.androidhive.loginandregistration.group.EditGroupActivity" />
 24-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:20:9-61
 24-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:20:19-58
-25        <activity
-25-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:21:9-25:55
-26            android:name="info.androidhive.loginandregistration.group.MainActivity"
-26-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:22:13-47
-27            android:label="@string/app_name"
-27-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:23:13-45
-28            android:launchMode="singleTop"
-28-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:24:13-43
-29            android:windowSoftInputMode="adjustPan" />
-29-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:25:13-52
-30        <activity
-30-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:26:9-30:55
-31            android:name="info.androidhive.loginandregistration.session.RegisterActivity"
-31-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:27:13-53
-32            android:label="@string/app_name"
-32-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:28:13-45
-33            android:launchMode="singleTop"
-33-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:29:13-43
-34            android:windowSoftInputMode="adjustPan" />
-34-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:30:13-52
-35        <activity
-35-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:31:9-34:46
-36            android:name="info.androidhive.loginandregistration.chats.ChatsActivity"
-36-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:32:13-48
-37            android:label="@string/app_name"
-37-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:33:13-45
-38            android:launchMode="singleTop" />
-38-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:34:13-43
-39        <activity
-39-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:36:9-45:20
-40            android:name="info.androidhive.loginandregistration.session.LoginActivity"
-40-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:37:13-50
-41            android:label="@string/title_activity_tabs"
-41-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:38:13-56
-42            android:theme="@style/AppTheme.NoActionBar" >
+25        <activity android:name="info.androidhive.loginandregistration.group.CreateGroupActivity" />
+25-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:21:9-63
+25-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:21:19-60
+26        <activity
+26-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:22:9-26:55
+27            android:name="info.androidhive.loginandregistration.group.MainActivity"
+27-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:23:13-47
+28            android:label="@string/app_name"
+28-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:24:13-45
+29            android:launchMode="singleTop"
+29-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:25:13-43
+30            android:windowSoftInputMode="adjustPan" />
+30-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:26:13-52
+31        <activity
+31-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:27:9-31:55
+32            android:name="info.androidhive.loginandregistration.session.RegisterActivity"
+32-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:28:13-53
+33            android:label="@string/app_name"
+33-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:29:13-45
+34            android:launchMode="singleTop"
+34-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:30:13-43
+35            android:windowSoftInputMode="adjustPan" />
+35-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:31:13-52
+36        <activity
+36-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:32:9-35:46
+37            android:name="info.androidhive.loginandregistration.chats.ChatsActivity"
+37-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:33:13-48
+38            android:label="@string/app_name"
+38-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:34:13-45
+39            android:launchMode="singleTop" />
+39-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:35:13-43
+40        <activity
+40-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:37:9-46:20
+41            android:name="info.androidhive.loginandregistration.session.LoginActivity"
+41-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:38:13-50
+42            android:label="@string/title_activity_tabs"
 42-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:39:13-56
-43            <intent-filter>
-43-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:40:13-44:29
-44                <action android:name="android.intent.action.MAIN" />
-44-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:41:17-69
-44-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:41:25-66
-45
-46                <category android:name="android.intent.category.LAUNCHER" />
-46-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:43:17-77
-46-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:43:27-74
-47            </intent-filter>
-48        </activity>
-49    </application>
-50
-51</manifest>
+43            android:theme="@style/AppTheme.NoActionBar" >
+43-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:40:13-56
+44            <intent-filter>
+44-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:41:13-45:29
+45                <action android:name="android.intent.action.MAIN" />
+45-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:42:17-69
+45-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:42:25-66
+46
+47                <category android:name="android.intent.category.LAUNCHER" />
+47-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:44:17-77
+47-->C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:44:27-74
+48            </intent-filter>
+49        </activity>
+50    </application>
+51
+52</manifest>

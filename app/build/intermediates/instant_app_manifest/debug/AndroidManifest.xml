@@ -23,6 +23,7 @@
         <activity android:name="info.androidhive.loginandregistration.chats.MessageActivity" />
         <activity android:name="info.androidhive.loginandregistration.contact.AddContactActivity" />
         <activity android:name="info.androidhive.loginandregistration.group.EditGroupActivity" />
+        <activity android:name="info.androidhive.loginandregistration.group.CreateGroupActivity" />
         <activity
             android:name="info.androidhive.loginandregistration.group.MainActivity"
             android:label="@string/app_name"

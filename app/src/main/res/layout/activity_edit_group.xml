@@ -116,7 +116,7 @@
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="50dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginRight="10dp"
                         android:background="@color/colorPrimary"
                         android:text="@string/edit_group"
