@@ -5,11 +5,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,10 +31,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,19 +45,19 @@ import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.scaledrone.AppController;
-import info.androidhive.loginandregistration.contact.ContactCommunication;
 import info.androidhive.loginandregistration.contact.Contact;
 import info.androidhive.loginandregistration.contact.ContactAdapter;
+import info.androidhive.loginandregistration.contact.ContactCommunication;
+import info.androidhive.loginandregistration.scaledrone.AppController;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
-public class EditGroupActivity extends Activity implements Observer, View.OnClickListener {
+public class CreateGroupActivity extends Activity implements Observer, View.OnClickListener  {
     private final String TAG = "CREATE_GROUP";
 
     private EditText etGroupName;
     private EditText etGroupDescription;
-    private Button btnEditGroup;
+    private Button buttonConfirm;
     private SQLiteHandler db;
 
     private ArrayList<Contact> members;
@@ -68,12 +75,12 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
 
         etGroupName = (EditText) findViewById(R.id.group_name);
         etGroupDescription = (EditText) findViewById(R.id.group_description);
-        btnEditGroup = (Button) findViewById(R.id.btn_edit_group);
+        buttonConfirm = (Button) findViewById(R.id.bt_create_group);
         ivProfile = (ImageView) findViewById(R.id.ivGroupImage);
         ivProfile.setOnClickListener(this);
         groupToSave = new Group();
         // Botón editar custom_item
-        btnEditGroup.setOnClickListener(new View.OnClickListener() {
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 groupToSave.setName(etGroupName.getText().toString().trim());
@@ -147,7 +154,7 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
 
         pDialog.setMessage("Obteniendo información ...");
         showDialog();
-        GetGroupListener getGroupListener = new GetGroupListener();
+        CreateGroupActivity.GetGroupListener getGroupListener = new CreateGroupActivity.GetGroupListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 GroupCommunication.URL_GET_GROUPS,getGroupListener, getGroupListener) {
             @Override
@@ -197,6 +204,8 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         groupToSave.setPic(bitmap);
 
     }
+
+
     class GetGroupListener implements Response.Listener<String>, Response.ErrorListener{
         @Override
         public void onResponse(String response) {
@@ -293,5 +302,4 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         }
         return null;
     }
-
 }

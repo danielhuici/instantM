@@ -24,4 +24,7 @@
     <string name="search_contact">Buscar contacto</string>
     <string name="add_member">Añadir integrante</string>
     <string name="btn_create_group">Crear group</string>
+    <string name="out_group">Salir del grupo</string>
+    <string name="edit_group">Editar grupo</string>
+    <string name="delete_group">Borrar grupo</string>
 </resources>
