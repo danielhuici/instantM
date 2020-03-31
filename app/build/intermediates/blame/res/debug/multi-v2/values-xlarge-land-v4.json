@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\danie\\AndroidStudioProjects\\instantM\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
+            "outputFile": "C:\\Users\\Eduardo\\Documents\\Eduardo\\Uni\\3\\2_cuatri\\Arquitectura_Software\\Proyecto\\InstantM\\instantM\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-land-v4\\values-xlarge-land-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\danie\\.gradle\\caches\\transforms-2\\files-2.1\\5472face7b0eb0dfe2b551f299da0dab\\appcompat-v7-23.1.1\\res\\values-xlarge-land\\values-xlarge-land.xml",
+                    "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\\appcompat-v7-23.1.1\\res\\values-xlarge-land\\values-xlarge-land.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "4",

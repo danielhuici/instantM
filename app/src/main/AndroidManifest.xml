@@ -18,6 +18,7 @@
         <activity android:name=".chats.MessageActivity"></activity>
         <activity android:name=".contact.AddContactActivity" />
         <activity android:name=".group.EditGroupActivity" />
+        <activity android:name=".group.CreateGroupActivity" />
         <activity
             android:name=".group.MainActivity"
             android:label="@string/app_name"

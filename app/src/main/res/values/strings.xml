@@ -13,16 +13,19 @@
     <string name="hint_email">E-mail</string>
     <string name="button_login">Iniciar sesión</string>
     <string name="button_register">Registrarse</string>
-    <string name="create_group">Crear group</string>
+    <string name="create_group">Crear grupo</string>
     <string name="button_logout">Logout</string>
-    <string name="button_edit_group">Editar group</string>
+    <string name="button_edit_group">Editar grupo</string>
     <string name="description">Descripción</string>
-    <string name="name_group">Nombre del group</string>
+    <string name="name_group">Nombre del grupo</string>
     <string name="menu_item_anadir_contacto">Añadir contacto</string>
     <string name="menu_item_logout">Cerrar sesión</string>
-    <string name="menu_item_crear_grupo">Crear group</string>
+    <string name="menu_item_crear_grupo">Crear grupo</string>
     <string name="search_contact">Buscar contacto</string>
     <string name="add_member">Añadir integrante</string>
     <string name="btn_create_group">Crear grupo</string>
+    <string name="out_group">Salir del grupo</string>
+    <string name="edit_group">Editar grupo</string>
+    <string name="delete_group">Borrar grupo</string>
     <string name="lb_eliminar_contacto" >Eliminar contacto</string>
 </resources>
