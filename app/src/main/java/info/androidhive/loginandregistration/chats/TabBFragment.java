@@ -3,9 +3,12 @@ package info.androidhive.loginandregistration.chats;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -54,17 +57,14 @@ public class TabBFragment extends Fragment implements Observer {
         communication.addObserver(this);
         getContactsFromServer();
         vContacts.indexOf(1);
-
+        registerForContextMenu(lvLista);
 
         contactAdapter.notifyDataSetChanged();
         return v;
     }
 
     private void getContactsFromServer() {
-        String tag_string_req = "";
-
         communication.getContactsFromUser(db.getCurrentUsername());
-
     }
 
     private ArrayList<Contact> showContacts() {
@@ -87,14 +87,49 @@ public class TabBFragment extends Fragment implements Observer {
                 vContacts.clear();
                 vContacts.addAll((List<Contact>) tupla.b);
                 contactAdapter.notifyDataSetChanged();
+                System.out.println("Cuatro");
                 break;
             case ContactCommunication.GET_USER_CONTACTS_ERROR:
                 String errorMsg = (String) tupla.b;
                 Toast.makeText(getActivity().getApplicationContext(),
                         errorMsg, Toast.LENGTH_LONG).show();
                 break;
+            case ContactCommunication.DELETE_CONTACT_OK:
+                System.out.println("DOS");
+
+                getContactsFromServer();
+                break;
+            case ContactCommunication.DELETE_CONTACT_ERROR:
+                System.out.println("TRES");
+
+                break;
         }
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getActivity().getMenuInflater().inflate(R.menu.context_menu_contact, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int itemSeleccionado = info.position;
+
+        switch (item.getItemId()) {
+            case R.id.action_eliminar_contact:
+                System.out.println("UN");
+                communication.deleteContact(db.getCurrentUsername(), (Contact) contactAdapter.getItem(itemSeleccionado));
+                break;
+
+        }
+        return false;
+    }
+
 }
 
 

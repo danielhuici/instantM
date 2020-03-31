@@ -41,7 +41,6 @@ public class LoginCommunication extends Observable implements Response.Listener<
                 String errorMsg = jObj.getString("error_msg");
                 setChanged();
                 notifyObservers(new Tupla<>(ERROR,errorMsg));
-
             }
         } catch (JSONException e) {
             // JSON error. No debería venir nunca aquí

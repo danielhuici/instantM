@@ -26,9 +26,13 @@ public class ContactCommunication extends Observable {
 
     public static final String GET_CONTACTS_OK = "GET_CONTACTS_OK";
 
+    public static final String DELETE_CONTACT_OK = "DELETE_CONTACT_OK";
+    public static final String DELETE_CONTACT_ERROR = "DELETE_CONTACT_ERROR";
+
     public static final String URL_ADD_CONTACT = "http://34.69.44.48/instantm/anadir_contacto.php";
     public static String URL_GET_CONTACTS = "http://34.69.44.48/instantm/obtener_contactos.php";
     public static String URL_GET_USER_CONTACTS = "http://34.69.44.48/instantm/obtener_contactos_usuario.php";
+    public static String URL_DELETE_CONTACT = "http://34.69.44.48/instantm/eliminar_contacto.php";
 
 
     public void createContact(final String username, final String contact_name) {
@@ -71,6 +75,24 @@ public class ContactCommunication extends Observable {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username", username);
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(strReq, "");
+    }
+
+    public void deleteContact(final String username, final Contact contact) {
+        DeleteContactsListener deleteContactListener = new DeleteContactsListener();
+        System.out.println(username + "dddddddddddddddddddddddddddddddddd");
+        System.out.println(contact.getName() + "dddddddddddddddddddddddddddddddddd");
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_DELETE_CONTACT, deleteContactListener, deleteContactListener){
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("contact_name", contact.getName());
                 return params;
             }
         };
@@ -165,6 +187,33 @@ public class ContactCommunication extends Observable {
         public void onErrorResponse(VolleyError error) {
             setChanged();
             notifyObservers(new Tupla<>(GET_USER_CONTACTS_ERROR, "RESPONSE ERROR"));
+        }
+    }
+    class DeleteContactsListener implements Response.Listener<String>, Response.ErrorListener{
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+
+                // JSON error node?
+                if (!error) { // No hay error
+                    setChanged();
+                    notifyObservers(new Tupla<>(DELETE_CONTACT_OK, null));
+
+                } else { // Error
+                    setChanged();
+                    notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "ERROR"));
+                }
+            } catch (JSONException e) {
+                setChanged();
+                notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "JSON ERROR"));
+            }
+        }
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            setChanged();
+            notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "RESPONSE ERROR"));
         }
     }
 }

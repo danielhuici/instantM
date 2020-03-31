@@ -26,16 +26,22 @@ public class GroupCommunication extends Observable {
     public static String URL_GET_GROUPS = "http://34.69.44.48/instantm/obtener_grupos.php";
 
 
+
     public void crateGroup(final Group groupToCreate, final String username) {
         CreateGroupListener createGroupListener = new CreateGroupListener();
+        System.out.println(groupToCreate.getDescription());
+        System.out.println(groupToCreate.getName());
+        //System.out.println(groupToCreate.getPicBLOB());
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_CREATE_GROUP, createGroupListener, createGroupListener) {
+
 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("name", groupToCreate.getName());
                 params.put("username", username);
                 params.put("description", groupToCreate.getDescription());
+                System.out.println(groupToCreate.getPicBLOB());
                 params.put("pic", groupToCreate.getPicBLOB());
 
                 return params;
@@ -79,15 +85,16 @@ public class GroupCommunication extends Observable {
                 }
             } catch (JSONException e) {
                 setChanged();
-                notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR"));
+                notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR JSON"));
             }
         }
 
 
         @Override
         public void onErrorResponse(VolleyError error) {
+            System.out.println(error.getStackTrace());
             setChanged();
-            notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR"));
+            notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR SERVER"));
         }
     }
 
