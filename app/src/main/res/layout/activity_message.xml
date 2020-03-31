@@ -3,10 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:clipToPadding="false"
     android:focusableInTouchMode="true"
     tools:context=".chats.MessageActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id = "@+id/my_awesome_toolbar"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:background = "@color/colorPrimary"
+        android:minHeight = "?attr/actionBarSize" >
+
+        <TextView
+            android:id="@+id/chatName"
+            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4" />
+    </android.support.v7.widget.Toolbar>
+
 
     <ListView
         android:layout_width="match_parent"

@@ -70,11 +70,13 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_edit_group);
         Bundle data = this.getIntent().getExtras();
         idGroup = data.getInt("idGroup");
 
-        groupToUpdate = getGroup(idGroup);
+        groupToUpdate = (Group) getIntent().getExtras().getSerializable("group");
 
         etGroupName = (EditText) findViewById(R.id.group_name);
         etGroupDescription = (EditText) findViewById(R.id.group_description);
@@ -166,7 +168,7 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         pDialog.setMessage("Obteniendo grupo...");
         showDialog();
 
-        //communication.updateGroup(groupToUpdate, db.getCurrentUsername());
+        return null;
     }
 
     /*
@@ -180,8 +182,7 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         pDialog.setMessage("Modificando grupo...");
         showDialog();
 
-        return communication.updateGroup(groupToUpdate, idGroup);
-
+        communication.updateGroup(groupToUpdate, idGroup);
     }
 
     /**

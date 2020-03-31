@@ -72,7 +72,7 @@ public class GroupCommunication extends Observable {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, "");
-        return groupToUpdate;
+        //return groupToUpdate;
     }
 
     public void getUserGroups(final String username) {

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -23,7 +24,7 @@ import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
-public class TabAFragment extends Fragment implements Observer {
+public class TabAFragment extends Fragment implements Observer{
     private ArrayList<Group> vGroups;
     private GroupAdapter adaptador;
     private ListView lvLista;
@@ -57,6 +58,10 @@ public class TabAFragment extends Fragment implements Observer {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("GRUPO:", "Tocado" + position);
                 Intent intent = new Intent(getActivity(), MessageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("group", (Serializable) vGroups.get(position));
+                intent.putExtras(bundle);
+
                 startActivity(intent);
             }
         });

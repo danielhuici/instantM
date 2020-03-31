@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 import java.text.DateFormat;
 
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Group {
+public class Group implements Serializable {
     private String name;
     private Date lastConnection;
     private String description;
