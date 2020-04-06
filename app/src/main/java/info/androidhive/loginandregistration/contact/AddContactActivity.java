@@ -1,5 +1,6 @@
 package info.androidhive.loginandregistration.contact;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -77,8 +78,17 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final String contact_name = contactAdapter.getContactName(position);
 
-        communication.createContact(db.getCurrentUsername(), contact_name);
+        Bundle extra=getIntent().getExtras();
 
+        if(extra == null) {
+            communication.createContact(db.getCurrentUsername(), contact_name);
+        }else{
+
+            Intent output = new Intent();
+            output.putExtra("contact", contact_name);
+            setResult(RESULT_OK, output);
+            finish();
+        }
     }
 
     @Override

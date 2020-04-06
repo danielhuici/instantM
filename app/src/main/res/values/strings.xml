@@ -28,4 +28,5 @@
     <string name="edit_group">Editar grupo</string>
     <string name="delete_group">Borrar grupo</string>
     <string name="lb_eliminar_contacto" >Eliminar contacto</string>
+
 </resources>

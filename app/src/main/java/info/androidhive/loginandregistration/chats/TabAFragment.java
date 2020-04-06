@@ -17,13 +17,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.group.EditGroupActivity;
 import info.androidhive.loginandregistration.group.GroupAdapter;
 import info.androidhive.loginandregistration.group.GroupCommunication;
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
-public class TabAFragment extends Fragment implements Observer {
+public class TabAFragment extends Fragment implements Observer, AdapterView.OnItemClickListener {
     private ArrayList<Group> vGroups;
     private GroupAdapter adaptador;
     private ListView lvLista;
@@ -52,14 +53,7 @@ public class TabAFragment extends Fragment implements Observer {
         lvLista = (ListView) v.findViewById(R.id.listMembers);
         lvLista.setAdapter(adaptador);
 
-        lvLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.v("GRUPO:", "Tocado" + position);
-                Intent intent = new Intent(getActivity(), MessageActivity.class);
-                startActivity(intent);
-            }
-        });
+        lvLista.setOnItemClickListener(this);
         communication = new GroupCommunication();
         communication.addObserver(this);
         getGroups();
@@ -72,19 +66,9 @@ public class TabAFragment extends Fragment implements Observer {
      * */
     private void getGroups() {
         communication.getUserGroups(db.getCurrentUsername());
-
     }
 
-    private ArrayList<Group> loadGroupsToLocalDB() {
-        List<String> groups;
-        groups = db.getGroups();
-        ArrayList<Group> vGroups = new ArrayList<>();
 
-        for (String group : groups) {
-                vGroups.add(new Group(group, "07-03-2020"));
-        }
-        return vGroups;
-    }
 
     @Override
     public void update(Observable observable, Object o) {
@@ -95,14 +79,26 @@ public class TabAFragment extends Fragment implements Observer {
                 db.deleteGroups();
                 db.addGroups((List<Group>) tupla.b);
                 vGroups.clear();
-                vGroups.addAll(loadGroupsToLocalDB());
+                vGroups.addAll(db.getGroups());
                 adaptador.notifyDataSetChanged();
-
                 break;
             case GroupCommunication.GET_USER_GROUPS_ERROR:
                 Toast.makeText(getActivity().getApplicationContext(),
                         (String) tupla.b, Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        intent.putExtra("group",  (Group) adaptador.getItem(i));
+        startActivityForResult(intent, 2);//(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getGroups();
     }
 }

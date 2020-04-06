@@ -103,6 +103,15 @@ public class TabBFragment extends Fragment implements Observer {
                 System.out.println("TRES");
 
                 break;
+            case ContactCommunication.DELETE_CONTACT_OK:
+                System.out.println("DOS");
+
+                getContactsFromServer();
+                break;
+            case ContactCommunication.DELETE_CONTACT_ERROR:
+                System.out.println("TRES");
+
+                break;
         }
     }
 
@@ -122,7 +131,6 @@ public class TabBFragment extends Fragment implements Observer {
 
         switch (item.getItemId()) {
             case R.id.action_eliminar_contact:
-                System.out.println("UN");
                 communication.deleteContact(db.getCurrentUsername(), (Contact) contactAdapter.getItem(itemSeleccionado));
                 break;
 

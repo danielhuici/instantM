@@ -76,7 +76,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/btn_add_member"
+                    android:id="@+id/btAddMemberEdit"
                     android:layout_width="350dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
@@ -94,7 +94,7 @@
                 </ListView>
 
                 <Button
-                    android:id="@+id/btn_out_group"
+                    android:id="@+id/btLeaveGroup"
                     android:layout_width="350dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
@@ -112,7 +112,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btn_edit_group"
+                        android:id="@+id/btEditGroup"
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -124,7 +124,7 @@
                         android:textSize="20dp" />
 
                     <Button
-                        android:id="@+id/btn_delete_group"
+                        android:id="@+id/btDeleteGroup"
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"

@@ -35,8 +35,9 @@ public class RegisterCommunication extends Observable implements Response.Listen
                 setChanged();
                 notifyObservers(new Tupla<>(OK,  user));
             } else {
+                System.out.println(jObj.toString());
                 setChanged();
-                notifyObservers(new Tupla<>(ERROR, "JSON ERROR"));
+                notifyObservers(new Tupla<>(ERROR, "JSON RESPONSE"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -52,7 +53,8 @@ public class RegisterCommunication extends Observable implements Response.Listen
         notifyObservers(new Tupla<>(ERROR,error.getMessage()));
     }
 
-    public void register(final String username, final String password, final String email) {
+    public void register(final String username, final String email, final String password) {
+        System.out.println(username +" "+ password +" "+ email);
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_REGISTER, this, this){
 

@@ -75,7 +75,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/btn_add_member"
+                    android:id="@+id/btAddMemberCreate"
                     android:layout_width="350dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center"
@@ -94,7 +94,7 @@
                 </ListView>
 
                 <Button
-                    android:id="@+id/bt_create_group"
+                    android:id="@+id/btCreateGroup"
                     android:layout_width="350dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center"

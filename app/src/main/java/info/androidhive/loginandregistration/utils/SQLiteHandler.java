@@ -23,7 +23,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	private static final String TAG = SQLiteHandler.class.getSimpleName();
 
 	// Database versopm
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	// Database Name
 	private static final String DATABASE_NAME = "android_api";
@@ -34,10 +34,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	private static final String TABLE_CONTACT = "contact";
 
 	// Login Table Columns names
-	private static final String KEY_ID_USER = "id_user";
-	private static final String KEY_ID_GROUP = "id_chat_group";
+
+	private static final String KEY_GROUP_ID = "id_chat_group";
+    private static final String KEY_GROUP_NAME = "name";
+    private static final String KEY_GROUP_DESCRIPTION = "description";
+
+    private static final String KEY_ID_USER = "id_user";
 	private static final String KEY_USERNAME = "name";
-	private static final String KEY_GROUP_NAME = "name";
 	private static final String KEY_EMAIL = "email";
 	private static final String KEY_CONTACT_NAME = "name";
 
@@ -50,15 +53,24 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACT);
+
+		String CREATE_LOGIN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_USER + "("
 				+ KEY_ID_USER + " INTEGER PRIMARY KEY,"
 				+ KEY_USERNAME + " TEXT,"
-				+ KEY_EMAIL + " TEXT UNIQUE" + ")";
+				+ KEY_EMAIL + " TEXT UNIQUE )";
 
 		String CREATE_GROUP_TABLE = "CREATE TABLE " + TABLE_GROUP + "("
-				+ KEY_ID_GROUP + " INTEGER PRIMARY KEY," + KEY_GROUP_NAME + " TEXT" + ")";
+				+ KEY_GROUP_ID + " INTEGER PRIMARY KEY,"
+                + KEY_GROUP_NAME + " TEXT,"
+                + KEY_GROUP_DESCRIPTION + " TEXT )";
+
 		String CREATE_CONTACT_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CONTACT + "("
-				+ KEY_ID_CONTACT + " INTEGER PRIMARY KEY," + KEY_CONTACT_NAME + " TEXT" + ")";
+				+ KEY_ID_CONTACT + " INTEGER PRIMARY KEY,"
+                + KEY_CONTACT_NAME + " TEXT )";
+
 		db.execSQL(CREATE_LOGIN_TABLE);
 		db.execSQL(CREATE_GROUP_TABLE);
 		db.execSQL(CREATE_CONTACT_TABLE);
@@ -71,7 +83,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_GROUP);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACT);
 		// Create tables again
 		onCreate(db);
 	}
@@ -186,7 +199,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_GROUP_NAME, group.getName()); // Name
-
+        values.put(KEY_GROUP_ID, group.getId());
+        if(group.getDescription() != null)
+        	values.put(KEY_GROUP_DESCRIPTION, group.getDescription());
 		// Inserting Row
 		long id = db.insert(TABLE_GROUP, null, values);
 		db.close(); // Closing database connection
@@ -198,16 +213,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	 * Add multiple groups to SQLite
 	 */
 	public void addGroups(JSONArray groupsListJSON) throws JSONException {
-
-        // Hay que hace una movida un poco rara porque PHP lo parsea raro
-        // {"data": {"name", "nombregroup"}} <- Algo así
-
-		for (int i = 0; i< groupsListJSON.length(); i++) {
-            JSONObject groups = groupsListJSON.getJSONObject(i);
-            JSONObject data = groups.getJSONObject("data");
-			addGroup(new Group(data.getString("name"), data.getString("description")));
-			Log.v(TAG, "ADDED GROUP, " + data.getString("name"));
-		}
+		for(Group g : Group.JSONToGroups(groupsListJSON))
+			addGroup(g);
 	}
 	/*
 	 * Add multiple groups to SQLite
@@ -216,15 +223,20 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		for (Group g: vGroups)
 			addGroup(g);
 	}
-	public List<String> getGroups() {
-		String selectQuery = "SELECT " + KEY_GROUP_NAME + " FROM " + TABLE_GROUP;
-		List<String> groups = new ArrayList<>();
+	public List<Group> getGroups() {
+		String selectQuery = "SELECT " + KEY_GROUP_ID + ", " + KEY_GROUP_NAME + ", " + KEY_GROUP_DESCRIPTION
+							+ " FROM " + TABLE_GROUP;
+		List<Group> groups = new ArrayList<>();
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
-
+		Group g;
         while (cursor.moveToNext()) {
-            groups.add(cursor.getString(0));
+        	g = new Group();
+        	g.setId(cursor.getInt(0));
+        	g.setName(cursor.getString(1));
+        	g.setDescription(cursor.getString(2));
+        	groups.add(g);
         }
 
 		cursor.close();

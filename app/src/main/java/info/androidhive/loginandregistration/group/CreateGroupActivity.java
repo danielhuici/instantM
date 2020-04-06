@@ -5,15 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,33 +17,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.contact.AddContactActivity;
 import info.androidhive.loginandregistration.contact.Contact;
 import info.androidhive.loginandregistration.contact.ContactAdapter;
 import info.androidhive.loginandregistration.contact.ContactCommunication;
-import info.androidhive.loginandregistration.scaledrone.AppController;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
@@ -57,51 +37,43 @@ public class CreateGroupActivity extends Activity implements Observer, View.OnCl
 
     private EditText etGroupName;
     private EditText etGroupDescription;
-    private Button buttonConfirm;
+    private Button btConfirm;
+    private Button btInsertContact;
+
     private SQLiteHandler db;
 
-    private ArrayList<Contact> members;
+    private ArrayList<Contact> vMembers;
     private ContactAdapter contactAdapter;
     private ListView lvMembers;
     private ImageView ivProfile;
     private ProgressDialog pDialog;
     private GroupCommunication communication;
-    private ContactCommunication contactCommunication;
     private Group groupToSave;
+    private String SAVE_MODE = "WRITE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crate_group);
 
+        groupToSave = new Group();
+
         etGroupName = (EditText) findViewById(R.id.group_name);
         etGroupDescription = (EditText) findViewById(R.id.group_description);
-        buttonConfirm = (Button) findViewById(R.id.bt_create_group);
+        btConfirm = (Button) findViewById(R.id.btCreateGroup);
         ivProfile = (ImageView) findViewById(R.id.ivGroupImage);
-        ivProfile.setOnClickListener(this);
-        groupToSave = new Group();
-        // Botón editar custom_item
-        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+        btInsertContact = findViewById(R.id.btAddMemberCreate);
 
-            public void onClick(View view) {
-                groupToSave.setName(etGroupName.getText().toString().trim());
-                groupToSave.setDescription(etGroupDescription.getText().toString().trim());
-                // Comprobar que los datos no están vacíos
-                if (!etGroupName.getText().toString().trim().isEmpty()) {
-                    storeGroup(groupToSave);
-                }else {
-                    // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
-                            "Por favor, introduce los datos", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        ivProfile.setOnClickListener(this);
+        btInsertContact.setOnClickListener(this);
+        btConfirm.setOnClickListener(this);
 
         db = new SQLiteHandler(getApplicationContext());
         communication = new GroupCommunication();
         communication.addObserver(this);
 
-        members = new ArrayList<>();
-        contactAdapter = new ContactAdapter(this, members);
+        vMembers = new ArrayList<>();
+        contactAdapter = new ContactAdapter(this, vMembers);
         lvMembers = (ListView) findViewById(R.id.listMembers);
         lvMembers.setAdapter(contactAdapter);
 
@@ -139,105 +111,52 @@ public class CreateGroupActivity extends Activity implements Observer, View.OnCl
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Creando grupo...");
-        showDialog();
+        //showDialog();
 
-        communication.crateGroup(groupToSave, db.getCurrentUsername());
-
-    }
-
-    /**
-     * Obtener grupos desde MySQL
-     */
-    private void getGroups() {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
-
-        pDialog.setMessage("Obteniendo información ...");
-        showDialog();
-        CreateGroupActivity.GetGroupListener getGroupListener = new CreateGroupActivity.GetGroupListener();
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                GroupCommunication.URL_GET_GROUPS,getGroupListener, getGroupListener) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", db.getCurrentUsername());
-                Log.v(TAG, db.getCurrentUsername());
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-    private void updateGroups() {
-        db.deleteGroups();
-        getGroups();
-    }
-
-    /*
-     * Mostrar y ocultar diálogos
-     **/
-
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
+        communication.crateGroup(groupToSave, db.getCurrentUsername(), SAVE_MODE);
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 1);
+        switch (view.getId()) {
+            case R.id.ivGroupImage:
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 1);
+            break;
+            case R.id.btCreateGroup:
+                groupToSave.setName(etGroupName.getText().toString().trim());
+                groupToSave.setDescription(etGroupDescription.getText().toString().trim());
+                // Comprobar que los datos no están vacíos
+                if (!etGroupName.getText().toString().trim().isEmpty()) {
+                    storeGroup(groupToSave);
+                }else {
+                    Toast.makeText(getApplicationContext(),
+                            "Por favor, introduce los datos", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.btAddMemberCreate:
+                Intent intentContact = new Intent(this,
+                        AddContactActivity.class);
+                intentContact.putExtra("contact", new String());
+                startActivityForResult(intentContact, 2);
+                break;
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
-        Bitmap bitmap = decodeUri(data.getData());
-        ivProfile.setImageBitmap(bitmap);
-        groupToSave.setPic(bitmap);
-
-    }
-
-
-    class GetGroupListener implements Response.Listener<String>, Response.ErrorListener{
-        @Override
-        public void onResponse(String response) {
-            hideDialog();
-
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-
-                // JSON error node?
-                if (!error) { // No hay error
-                    JSONArray groups = jObj.getJSONArray("groups");
-
-                    // Inserting row in users table
-                    db.addGroups(groups);
-                } else { // Error
-                    String errorMsg = jObj.getString("error_msg");
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-                }
-            } catch (JSONException e) {
-                // JSON error. No debería venir nunca aquí
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Log.e(TAG, "Login Error: " + error.getMessage());
-            Toast.makeText(getApplicationContext(),
-                    error.getMessage(), Toast.LENGTH_LONG).show();
-            hideDialog();
+        switch (requestCode) {
+            case 1:
+                Bitmap bitmap = decodeUri(data.getData());
+                ivProfile.setImageBitmap(bitmap);
+                groupToSave.setPic(bitmap);
+                break;
+            case 2:
+                vMembers.add(new Contact(String.valueOf(data.getExtras().getString("contact"))));
+                contactAdapter.notifyDataSetChanged();
+                break;
         }
     }
 
@@ -248,6 +167,7 @@ public class CreateGroupActivity extends Activity implements Observer, View.OnCl
         switch (tupla.a){
             case GroupCommunication.CREATE_GROUP_OK:
                 Toast.makeText(getApplicationContext(), "¡Grupo creado exitosamente!", Toast.LENGTH_LONG).show();
+                communication.insertMembers(vMembers, (Integer) tupla.b);
                 finish();
                 break;
             case GroupCommunication.CREATE_GROUP_ERROR:

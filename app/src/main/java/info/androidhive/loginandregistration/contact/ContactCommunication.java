@@ -24,6 +24,9 @@ public class ContactCommunication extends Observable {
     public static final String GET_USER_CONTACTS_OK = "GET_USER_CONTACTS_OK";
     private static final Object CREATE_CONTACT_ERROR = "CREATE_CONTACT_ERROR";
 
+    public static final String DELETE_CONTACT_OK = "DELETE_CONTACT_OK";
+    public static final String DELETE_CONTACT_ERROR = "DELETE_CONTACT_ERROR";
+
     public static final String GET_CONTACTS_OK = "GET_CONTACTS_OK";
 
     public static final String DELETE_CONTACT_OK = "DELETE_CONTACT_OK";
@@ -187,6 +190,33 @@ public class ContactCommunication extends Observable {
         public void onErrorResponse(VolleyError error) {
             setChanged();
             notifyObservers(new Tupla<>(GET_USER_CONTACTS_ERROR, "RESPONSE ERROR"));
+        }
+    }
+    class DeleteContactsListener implements Response.Listener<String>, Response.ErrorListener{
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+
+                // JSON error node?
+                if (!error) { // No hay error
+                    setChanged();
+                    notifyObservers(new Tupla<>(DELETE_CONTACT_OK, null));
+
+                } else { // Error
+                    setChanged();
+                    notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "ERROR"));
+                }
+            } catch (JSONException e) {
+                setChanged();
+                notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "JSON ERROR"));
+            }
+        }
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            setChanged();
+            notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "RESPONSE ERROR"));
         }
     }
     class DeleteContactsListener implements Response.Listener<String>, Response.ErrorListener{

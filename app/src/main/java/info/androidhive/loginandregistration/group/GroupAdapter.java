@@ -55,9 +55,9 @@ public class GroupAdapter extends BaseAdapter {
              *  convertView ya no tendrá que llamar al método findViewById()
              */
 
-            holder.topSubtitle = (TextView) convertView.findViewById(R.id.tvSubtitle);
-            holder.title = (TextView) convertView.findViewById(R.id.tvTitle);
-            holder.pic = (ImageView) convertView.findViewById(R.id.pic);
+            holder.topSubtitle =  convertView.findViewById(R.id.tvSubtitle);
+            holder.title = convertView.findViewById(R.id.tvTitle);
+            holder.pic = convertView.findViewById(R.id.pic);
 
             convertView.setTag(holder);
         }
@@ -68,7 +68,11 @@ public class GroupAdapter extends BaseAdapter {
         Group group = vGroups.get(position);
 
         holder.title.setText(group.getName());
-        holder.topSubtitle.setText(group.getLastConnectionText());
+        if(group.getDescription() != null && ! group.getDescription().equalsIgnoreCase("null"))
+            holder.topSubtitle.setText(group.getDescription());
+        else
+            holder.topSubtitle.setText("");
+
         holder.pic.setImageBitmap(group.getPic());
 
         return convertView;

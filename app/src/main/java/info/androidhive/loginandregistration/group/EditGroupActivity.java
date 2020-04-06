@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,28 +17,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.scaledrone.AppController;
-import info.androidhive.loginandregistration.contact.ContactCommunication;
+import info.androidhive.loginandregistration.contact.AddContactActivity;
 import info.androidhive.loginandregistration.contact.Contact;
 import info.androidhive.loginandregistration.contact.ContactAdapter;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
@@ -53,82 +42,69 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
     private Button btnEditGroup;
     private Button btnOutGroup;
     private Button btnDeleteGroup;
+    private Button btInsertContact;
+
     private SQLiteHandler db;
 
-    private ArrayList<Contact> members;
+    private ArrayList<Contact> vMembers;
     private ContactAdapter contactAdapter;
     private ListView lvMembers;
     private ImageView ivProfile;
     private ProgressDialog pDialog;
     private GroupCommunication communication;
-    private ContactCommunication contactCommunication;
-
-    private int idGroup;
+    private Bundle extra;
     private Group groupToUpdate;
+    private String SAVE_MODE = "OVERWRITE";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
-        Bundle data = this.getIntent().getExtras();
-        idGroup = data.getInt("idGroup");
 
-        groupToUpdate = getGroup(idGroup);
+        etGroupName = findViewById(R.id.group_name);
+        etGroupDescription = findViewById(R.id.group_description);
+        btnEditGroup = findViewById(R.id.btEditGroup);
+        btnOutGroup = findViewById(R.id.btLeaveGroup);
+        btnDeleteGroup = findViewById(R.id.btDeleteGroup);
+        btInsertContact = findViewById(R.id.btAddMemberEdit);
 
-        etGroupName = (EditText) findViewById(R.id.group_name);
-        etGroupDescription = (EditText) findViewById(R.id.group_description);
-        btnEditGroup = (Button) findViewById(R.id.btn_edit_group);
-        btnOutGroup = (Button) findViewById(R.id.btn_out_group);
-        btnDeleteGroup = (Button) findViewById(R.id.btn_delete_group);
-
-        ivProfile = (ImageView) findViewById(R.id.ivGroupImage);
+        ivProfile = findViewById(R.id.ivGroupImage);
         ivProfile.setOnClickListener(this);
+        loadGroup();
 
-        // Botón editar custom_item
-        btnEditGroup.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                groupToUpdate.setName(etGroupName.getText().toString().trim());
-                groupToUpdate.setDescription(etGroupDescription.getText().toString().trim());
-                // Comprobar que los datos no están vacíos
-                if (!etGroupName.getText().toString().trim().isEmpty()) {
-                    updateGroup(groupToUpdate);
-                }else {
-                    // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
-                            "Por favor, introduce los datos", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        //Botón salir el usuario del grupo
-        btnOutGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("Quiero salir del grupo");
-            }
-        });
-
-        //Botón borrar el grupo
-        btnDeleteGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("Quiero borrar el grupo");
-            }
-        });
+        btnEditGroup.setOnClickListener(this);
+        btnOutGroup.setOnClickListener(this);
+        btnDeleteGroup.setOnClickListener(this);
+        btInsertContact.setOnClickListener(this);
 
         db = new SQLiteHandler(getApplicationContext());
         communication = new GroupCommunication();
         communication.addObserver(this);
 
-        members = new ArrayList<>();
-        contactAdapter = new ContactAdapter(this, members);
-        lvMembers = (ListView) findViewById(R.id.listMembers);
+        vMembers = new ArrayList<>();
+        contactAdapter = new ContactAdapter(this, vMembers);
+        lvMembers = findViewById(R.id.listMembers);
         lvMembers.setAdapter(contactAdapter);
 
         contactAdapter.notifyDataSetChanged();
+
+        communication.getMembers(groupToUpdate.getId());
         setListViewHeightBasedOnChildren(lvMembers, contactAdapter);
+    }
+
+    private void loadGroup() {
+        extra=getIntent().getExtras();
+
+        if(extra != null) {
+                groupToUpdate = (Group) extra.getSerializable("group");
+                etGroupName.setText(String.valueOf(groupToUpdate.getName()));
+                if(!groupToUpdate.getDescription().equalsIgnoreCase("null") &&
+                        groupToUpdate.getDescription() != null) {
+                    etGroupDescription.setText(groupToUpdate.getDescription());
+                }
+                etGroupName.setText(String.valueOf(groupToUpdate.getName()));
+        }
     }
 
 
@@ -155,128 +131,48 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         listView.requestLayout();
     }
 
-    /*
-    * Obtener los datos del grupo a modificar.
-     */
-    private Group getGroup(int id) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_get";
-
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Obteniendo grupo...");
-        showDialog();
-
-        //communication.updateGroup(groupToUpdate, db.getCurrentUsername());
-    }
-
-    /*
-    * Modificar grupo desde mysql
-     */
-    private void updateGroup(Group groupToUpdate) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_update";
-
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Modificando grupo...");
-        showDialog();
-
-        return communication.updateGroup(groupToUpdate, idGroup);
-
-    }
-
-    /**
-     * Obtener grupos desde MySQL
-     */
-    private void getGroups() {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
-
-        pDialog.setMessage("Obteniendo información ...");
-        showDialog();
-        GetGroupListener getGroupListener = new GetGroupListener();
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                GroupCommunication.URL_GET_GROUPS,getGroupListener, getGroupListener) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", db.getCurrentUsername());
-                Log.v(TAG, db.getCurrentUsername());
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-    }
-
-
-    private void updateGroups() {
-        db.deleteGroups();
-        getGroups();
-    }
-
-    /*
-     * Mostrar y ocultar diálogos
-     **/
-
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 1);
+        switch(view.getId()) {
+            case R.id.ivGroupImage:
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 1);
+                break;
+            case R.id.btEditGroup:
+                if (!etGroupName.getText().toString().trim().isEmpty()) {
+                    groupToUpdate.setName(String.valueOf(etGroupName.getText()));
+                    groupToUpdate.setDescription(String.valueOf(etGroupDescription.getText()));
+                    communication.crateGroup(groupToUpdate, db.getCurrentUsername(), SAVE_MODE);
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "Por favor, introduce los datos", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.btAddMemberEdit:
+                Intent intentContact = new Intent(this,
+                        AddContactActivity.class);
+                intentContact.putExtra("contact", new String());
+                startActivityForResult(intentContact, 2);
+                break;
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
-        Bitmap bitmap = decodeUri(data.getData());
-        ivProfile.setImageBitmap(bitmap);
-        groupToUpdate.setPic(bitmap);
-
-    }
-    class GetGroupListener implements Response.Listener<String>, Response.ErrorListener{
-        @Override
-        public void onResponse(String response) {
-            hideDialog();
-
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-
-                // JSON error node?
-                if (!error) { // No hay error
-                    JSONArray groups = jObj.getJSONArray("groups");
-
-                    // Inserting row in users table
-                    db.addGroups(groups);
-                } else { // Error
-                    String errorMsg = jObj.getString("error_msg");
-                    Toast.makeText(getApplicationContext(),
-                            errorMsg, Toast.LENGTH_LONG).show();
-                }
-            } catch (JSONException e) {
-                // JSON error. No debería venir nunca aquí
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+        switch(requestCode) {
+            case 1:
+                Bitmap bitmap = decodeUri(data.getData());
+                ivProfile.setImageBitmap(bitmap);
+                groupToUpdate.setPic(bitmap);
+                break;
+            case 2:
+                vMembers.add(new Contact(String.valueOf(data.getExtras().getString("contact"))));
+                contactAdapter.notifyDataSetChanged();
+                break;
         }
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            Log.e(TAG, "Login Error: " + error.getMessage());
-            Toast.makeText(getApplicationContext(),
-                    error.getMessage(), Toast.LENGTH_LONG).show();
-            hideDialog();
-        }
+
     }
 
 
@@ -285,10 +181,21 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         Tupla<String, Object> tupla = (Tupla<String, Object>) o;
         switch (tupla.a){
             case GroupCommunication.CREATE_GROUP_OK:
+                final List<Contact> membersToInsert = vMembers;
+                communication.insertMembers(vMembers, groupToUpdate.getId());
+                break;
+            case GroupCommunication.INSERT_MEMBERS_OK:
                 Toast.makeText(getApplicationContext(), "¡Grupo creado exitosamente!", Toast.LENGTH_LONG).show();
                 finish();
                 break;
+            case GroupCommunication.GET_MEMBERS_OK:
+                vMembers.clear();
+                vMembers.addAll((List <Contact>)tupla.b);
+                contactAdapter.notifyDataSetChanged();
+                break;
             case GroupCommunication.CREATE_GROUP_ERROR:
+            case GroupCommunication.GET_MEMBERS_ERROR:
+            case GroupCommunication.INSERT_MEMBERS_ERROR:
                 String errorMsg = (String) tupla.b;
                 Toast.makeText(getApplicationContext(),
                         errorMsg, Toast.LENGTH_LONG).show();
