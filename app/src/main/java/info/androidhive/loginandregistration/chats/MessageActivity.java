@@ -1,11 +1,13 @@
 package info.androidhive.loginandregistration.chats;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,9 +16,13 @@ import com.scaledrone.lib.Room;
 import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.group.CreateGroupActivity;
+import info.androidhive.loginandregistration.group.EditGroupActivity;
+import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.scaledrone.MemberData;
 import info.androidhive.loginandregistration.scaledrone.Message;
 
@@ -25,15 +31,23 @@ public class MessageActivity extends AppCompatActivity  implements RoomListener 
 
     private String channelID = "1NVeBVoez27uLnQ9";
     private String roomName = "observable-room"; // Nombre de la sala. Variable a cambiar
+    private TextView chatName;
     private EditText messageText;
     private Scaledrone scaledrone;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
 
+    private Group group;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        group = (Group) getIntent().getExtras().getSerializable("group");
+
         setContentView(R.layout.activity_message);
+        chatName = (TextView) findViewById(R.id.chatName);
+        chatName.setText(group.getName());
         messageText = (EditText) findViewById(R.id.editText);
 
         MemberData data = new MemberData(getRandomName(), getRandomColor());
@@ -41,7 +55,16 @@ public class MessageActivity extends AppCompatActivity  implements RoomListener 
         messageAdapter = new MessageAdapter(this);
         messagesView = (ListView) findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
-
+        chatName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MessageActivity.this, EditGroupActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("group", (Serializable) group);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         scaledrone = new Scaledrone(channelID, data);
         scaledrone.connect(new Listener() {
