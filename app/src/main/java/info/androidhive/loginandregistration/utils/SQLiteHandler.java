@@ -92,18 +92,18 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	/**
 	 * Storing user details in database
 	 * */
-	public void addUser(String username, String email) {
+	public void addUser(String username, String email, int idUser) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_USERNAME, username); // Name
 		values.put(KEY_EMAIL, email); // Email
-
-
+		values.put(KEY_ID_USER, idUser);
+		System.out.println("sassssssssssssssssssssssssssssssssssssssssssss " + idUser);
 		// Inserting Row
 		long id = db.insert(TABLE_USER, null, values);
 		db.close(); // Closing database connection
-
+		System.out.println("sassssssssssssssssssssssssssssssssssssssssssss " + getCurrentID());
 		Log.d(TAG, "New user inserted into sqlite: " + id);
 	}
 
@@ -152,7 +152,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	}
 
 	public int getCurrentID() {
-		int id;
+		int id = -1;
 		String selectQuery = "SELECT  " + KEY_ID_USER + " FROM " + TABLE_USER;
 
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -160,7 +160,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		// Move to first row
 		cursor.moveToFirst();
 		if (cursor.getCount() > 0) {
-			id = cursor.getInt(1);
+			id = cursor.getInt(0);
 		} else {
 			id = -1;
 		}
@@ -203,19 +203,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if(group.getDescription() != null)
         	values.put(KEY_GROUP_DESCRIPTION, group.getDescription());
 		// Inserting Row
+		System.out.println(group.getId() + "55555555555555555555555555555555555555555555555555555555555555555555555");
 		long id = db.insert(TABLE_GROUP, null, values);
 		db.close(); // Closing database connection
 
 		Log.d(TAG, "New group inserted into sqlite: " + id);
 	}
 
-	/*
-	 * Add multiple groups to SQLite
-	 */
-	public void addGroups(JSONArray groupsListJSON) throws JSONException {
-		for(Group g : Group.JSONToGroups(groupsListJSON))
-			addGroup(g);
-	}
 	/*
 	 * Add multiple groups to SQLite
 	 */

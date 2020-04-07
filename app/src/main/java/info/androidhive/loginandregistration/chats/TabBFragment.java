@@ -45,12 +45,12 @@ public class TabBFragment extends Fragment implements Observer {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_tab_a, container, false);
+        View v = inflater.inflate(R.layout.fragment_tab_b, container, false);
         db = new SQLiteHandler(super.getActivity());
         vContacts = showContacts();
         contactAdapter =  new ContactAdapter(super.getActivity(), vContacts) ;
 
-        lvLista = (ListView) v.findViewById(R.id.listMembers);
+        lvLista = v.findViewById(R.id.lvContacts);
         lvLista.setAdapter(contactAdapter);
 
         communication = new ContactCommunication();
@@ -59,12 +59,11 @@ public class TabBFragment extends Fragment implements Observer {
         vContacts.indexOf(1);
         registerForContextMenu(lvLista);
 
-        contactAdapter.notifyDataSetChanged();
         return v;
     }
 
     private void getContactsFromServer() {
-        communication.getContactsFromUser(db.getCurrentUsername());
+        communication.getContactsFromUser(db.getCurrentID());
     }
 
     private ArrayList<Contact> showContacts() {
@@ -87,7 +86,6 @@ public class TabBFragment extends Fragment implements Observer {
                 vContacts.clear();
                 vContacts.addAll((List<Contact>) tupla.b);
                 contactAdapter.notifyDataSetChanged();
-                System.out.println("Cuatro");
                 break;
             case ContactCommunication.GET_USER_CONTACTS_ERROR:
                 String errorMsg = (String) tupla.b;
@@ -103,18 +101,8 @@ public class TabBFragment extends Fragment implements Observer {
                 System.out.println("TRES");
 
                 break;
-            case ContactCommunication.DELETE_CONTACT_OK:
-                System.out.println("DOS");
-
-                getContactsFromServer();
-                break;
-            case ContactCommunication.DELETE_CONTACT_ERROR:
-                System.out.println("TRES");
-
-                break;
         }
     }
-
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
@@ -137,7 +125,6 @@ public class TabBFragment extends Fragment implements Observer {
         }
         return false;
     }
-
 }
 
 

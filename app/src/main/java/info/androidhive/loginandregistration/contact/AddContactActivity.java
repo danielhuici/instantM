@@ -44,18 +44,17 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
         getContactsFromServer();
 
         contactAdapter =  new ContactAdapter(this, contacts);
-        lvContacts = (ListView) findViewById(R.id.lvContacts);
+        lvContacts = findViewById(R.id.lvContacts);
         lvContacts.setAdapter(contactAdapter);
         lvContacts.setOnItemClickListener(this);
 
+        EditText etFiltro = findViewById(R.id.etSearchContact);
+        etFiltro.addTextChangedListener(this);
 
-        EditText filter = (EditText) findViewById(R.id.etSearchContact);
-        filter.addTextChangedListener(this);
-
-        }
+    }
 
     private void getContactsFromServer() {
-        communication.getContacts(db.getCurrentUsername());
+        communication.getContacts(db.getCurrentID());
 
     }
 
@@ -76,16 +75,18 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final String contact_name = contactAdapter.getContactName(position);
+        final int contactId = contactAdapter.getSelectedConctactId(position);
 
         Bundle extra=getIntent().getExtras();
-
+        System.out.println("UUUNO");
         if(extra == null) {
-            communication.createContact(db.getCurrentUsername(), contact_name);
+            communication.createContact(db.getCurrentID(), contactId);
+            System.out.println("DOS");
         }else{
-
+            System.out.println("TRES");
             Intent output = new Intent();
-            output.putExtra("contact", contact_name);
+            output.putExtra("contact_name", contactAdapter.getContactName(position));
+            output.putExtra("contact_id", contactId);
             setResult(RESULT_OK, output);
             finish();
         }

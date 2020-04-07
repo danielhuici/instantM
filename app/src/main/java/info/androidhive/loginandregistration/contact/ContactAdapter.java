@@ -45,6 +45,9 @@ public class ContactAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+    public int getSelectedConctactId(int position){
+        return contacts.get(position).getUserId();
+    }
     public String getContactName(int position){
         return contacts.get(position).getName();
     }
@@ -54,6 +57,7 @@ public class ContactAdapter extends BaseAdapter {
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.custom_item, null);
+
             holder = new ViewHolder();
             /**
              *  Creamos un objeto de la clase ViewHolder y hacemos que cada atributo haga referencia
@@ -61,9 +65,9 @@ public class ContactAdapter extends BaseAdapter {
              *  convertView ya no tendrá que llamar al método findViewById()
              */
 
-            holder.title = (TextView) convertView.findViewById(R.id.tvTitle);
-            holder.topSubtitle = (TextView) convertView.findViewById(R.id.tvSubtitle);
-            holder.pic = (ImageView) convertView.findViewById(R.id.pic);
+            holder.title =  convertView.findViewById(R.id.tvTitle);
+            holder.topSubtitle =  convertView.findViewById(R.id.tvSubtitle);
+            holder.pic =  convertView.findViewById(R.id.pic);
 
             convertView.setTag(holder);
         } else {
@@ -71,11 +75,17 @@ public class ContactAdapter extends BaseAdapter {
         }
 
         Contact contact = filteredContacts.get(position);
-
-        holder.title.setText(contact.getName());
-        holder.topSubtitle.setText(contact.getLastConnectionText());
-        holder.pic.setImageBitmap(contact.getFoto());
-
+        if(contacts.get(position).getName().equalsIgnoreCase("-1")){
+            holder.title.setPadding(0,60,0,0);
+            holder.title.setText(R.string.add_member);
+            holder.topSubtitle.setText(contact.getLastConnectionText());
+            holder.pic.setImageResource(R.drawable.add);
+        }else{
+            holder.title.setText(contact.getName());
+            holder.topSubtitle.setText(contact.getLastConnectionText());
+            if(contact.getFoto() != null)
+                holder.pic.setImageBitmap(contact.getFoto());
+        }
 
         return convertView;
     }
@@ -104,7 +114,6 @@ public class ContactAdapter extends BaseAdapter {
             for(Contact user : contacts) {
                 if (user.nameLike(String.valueOf(constraint))) {
                     nlist.add(user);
-                    System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDdd" + user.getName());
                 }
             }
 

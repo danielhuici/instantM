@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.Random;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.group.CreateGroupActivity;
 import info.androidhive.loginandregistration.group.EditGroupActivity;
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.scaledrone.MemberData;

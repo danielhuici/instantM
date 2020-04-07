@@ -22,10 +22,9 @@ public class Group implements Serializable {
     private String description;
     private Bitmap pic;
     private int id;
+    private int administratorId;
 
     public Group()  {
-        this.name = name;
-        this.description = description;
     }
 
     public static List<Group> JSONToGroups(JSONArray groupsListJSON) throws JSONException {
@@ -42,8 +41,14 @@ public class Group implements Serializable {
             g.setName(data.getString("name"));
             g.setDescription(data.getString("description"));
             g.setId(data.getInt("id_chat_group"));
+            System.out.println(data.getString("id_user"));
+            if(!data.getString("id_user").trim().equalsIgnoreCase("null"))
+                g.setAdministratorId(Integer.valueOf(data.getString("id_user")));
+            else
+                g.setAdministratorId(-1);
         return g;
     }
+
     public String getName() {
         return name;
     }
@@ -87,8 +92,24 @@ public class Group implements Serializable {
         this.id = id;
     }
 
+    public int getAdministratorId() {
+        return administratorId;
+    }
+
+    public void setAdministratorId(int administratorId) {
+        this.administratorId = administratorId;
+    }
+
     @Override
     public String toString() {
         return this.name + " " + this.description+ " " + this.id + " " + this.getPicBLOB();
+    }
+
+    public boolean isAdmin(int currentID) {
+        return currentID == administratorId;
+    }
+
+    public boolean nameLike(String searchString) {
+        return name.toLowerCase().startsWith(searchString.trim().toLowerCase());
     }
 }

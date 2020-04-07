@@ -29,16 +29,12 @@ public class ContactCommunication extends Observable {
 
     public static final String GET_CONTACTS_OK = "GET_CONTACTS_OK";
 
-    public static final String DELETE_CONTACT_OK = "DELETE_CONTACT_OK";
-    public static final String DELETE_CONTACT_ERROR = "DELETE_CONTACT_ERROR";
-
     public static final String URL_ADD_CONTACT = "http://34.69.44.48/instantm/anadir_contacto.php";
     public static String URL_GET_CONTACTS = "http://34.69.44.48/instantm/obtener_contactos.php";
     public static String URL_GET_USER_CONTACTS = "http://34.69.44.48/instantm/obtener_contactos_usuario.php";
     public static String URL_DELETE_CONTACT = "http://34.69.44.48/instantm/eliminar_contacto.php";
 
-
-    public void createContact(final String username, final String contact_name) {
+    public void createContact(final int userId, final int contactId) {
         CreateContactListener listener = new CreateContactListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_ADD_CONTACT, listener,listener){
@@ -46,15 +42,15 @@ public class ContactCommunication extends Observable {
             protected Map<String, String> getParams() {
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
-                params.put("contact_name", contact_name);
+                params.put("user_id", String.valueOf(userId));
+                params.put("contact_id", String.valueOf(contactId));
                 return params;
             }
         };
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
-    public void getContacts(final String username) {
+    public void getContacts(final int userId) {
         GetContactListener getContactListener = new GetContactListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_GET_CONTACTS, getContactListener,getContactListener){
@@ -62,14 +58,14 @@ public class ContactCommunication extends Observable {
             protected Map<String, String> getParams() {
                 // Parámetros para la solicitud POST <columna_db, variable>
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username",username);
+                params.put("user_id",String.valueOf(userId));
                 return params;
             }
         };
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
-    public void getContactsFromUser(final String username) {
+    public void getContactsFromUser(final int userId) {
         GetUserContactsListener getContactListener = new GetUserContactsListener();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -77,25 +73,7 @@ public class ContactCommunication extends Observable {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(strReq, "");
-    }
-
-    public void deleteContact(final String username, final Contact contact) {
-        DeleteContactsListener deleteContactListener = new DeleteContactsListener();
-        System.out.println(username + "dddddddddddddddddddddddddddddddddd");
-        System.out.println(contact.getName() + "dddddddddddddddddddddddddddddddddd");
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                URL_DELETE_CONTACT, deleteContactListener, deleteContactListener){
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
-                params.put("contact_name", contact.getName());
+                params.put("user_id", String.valueOf(userId));
                 return params;
             }
         };
@@ -111,7 +89,6 @@ public class ContactCommunication extends Observable {
                 JSONObject jObj = new JSONObject(response);
                 boolean error = jObj.getBoolean("error");
 
-                // JSON error node?
                 if (!error) { // No hay error
                     List<Contact> contacts = Contact.JSONToContact(jObj.getJSONArray("contacts"));
                     setChanged();
@@ -170,18 +147,25 @@ public class ContactCommunication extends Observable {
         public void onResponse(String response) {
             try {
                 JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
 
-                // JSON error node?
-                if (!error) { // No hay error
+            boolean error = false;
+
+                error = jObj.getBoolean("error");
+
+
+            if (!error) { // No hay error
                     setChanged();
-                    notifyObservers(new Tupla<>(GET_USER_CONTACTS_OK, Contact.JSONToContact(jObj.getJSONArray("contacts"))));
+                    try {
+                        notifyObservers(new Tupla<>(GET_USER_CONTACTS_OK, Contact.JSONToContact(jObj.getJSONArray("contacts"))));
+                    } catch (JSONException e) {
 
+                    }
                 } else { // Error
                     setChanged();
                     notifyObservers(new Tupla<>(GET_USER_CONTACTS_ERROR, "ERROR"));
                 }
             } catch (JSONException e) {
+                e.printStackTrace();
                 setChanged();
                 notifyObservers(new Tupla<>(GET_USER_CONTACTS_ERROR, "JSON ERROR"));
             }
@@ -192,32 +176,20 @@ public class ContactCommunication extends Observable {
             notifyObservers(new Tupla<>(GET_USER_CONTACTS_ERROR, "RESPONSE ERROR"));
         }
     }
-    class DeleteContactsListener implements Response.Listener<String>, Response.ErrorListener{
-        @Override
-        public void onResponse(String response) {
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
+    public void deleteContact(final String username, final Contact contact) {
+        DeleteContactsListener deleteContactListener = new DeleteContactsListener();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_DELETE_CONTACT, deleteContactListener, deleteContactListener){
 
-                // JSON error node?
-                if (!error) { // No hay error
-                    setChanged();
-                    notifyObservers(new Tupla<>(DELETE_CONTACT_OK, null));
-
-                } else { // Error
-                    setChanged();
-                    notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "ERROR"));
-                }
-            } catch (JSONException e) {
-                setChanged();
-                notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "JSON ERROR"));
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("contact_name", contact.getName());
+                return params;
             }
-        }
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            setChanged();
-            notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "RESPONSE ERROR"));
-        }
+        };
+        AppController.getInstance().addToRequestQueue(strReq, "");
     }
     class DeleteContactsListener implements Response.Listener<String>, Response.ErrorListener{
         @Override
@@ -236,6 +208,7 @@ public class ContactCommunication extends Observable {
                     notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "ERROR"));
                 }
             } catch (JSONException e) {
+                e.printStackTrace();
                 setChanged();
                 notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "JSON ERROR"));
             }

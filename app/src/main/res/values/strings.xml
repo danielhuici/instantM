@@ -24,9 +24,15 @@
     <string name="search_contact">Buscar contacto</string>
     <string name="add_member">Añadir integrante</string>
     <string name="btn_create_group">Crear grupo</string>
-    <string name="out_group">Salir del grupo</string>
-    <string name="edit_group">Editar grupo</string>
+    <string name="out_group"><u>Salir del grupo</u></string>
+    <string name="save">Guardar</string>
     <string name="delete_group">Borrar grupo</string>
-    <string name="lb_eliminar_contacto" >Eliminar contacto</string>
+    <string name="lb_eliminar_contacto">Eliminar contacto</string>
+    <string name="edit_group">Editar grupo</string>
+    <string name="new_group">Nuevo grupo</string>
+    <string name="new_description">Descripción</string>
+    <string name="OK">Ok</string>
+    <string name="cancel">Cancelar</string>
+    <string name="chat_search">Buscar chat</string>
 
 </resources>

@@ -11,12 +11,13 @@ public class User {
     private String email;
     private Date lastConnection;
     private Bitmap foto;
+    private int id;
 
 
-    public User(String username, String email) {
+    public User(String username, String email, int id) {
         this.username = username;
         this.email = email;
-        this.foto = foto;
+        this.id = id;
     }
     public String getUsername() {
         return username;
@@ -52,5 +53,9 @@ public class User {
 
     public boolean nameLike(String name) {
         return this.username.toLowerCase().startsWith(name.toLowerCase()) || name.equals("");
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

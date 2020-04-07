@@ -18,21 +18,28 @@ public class Contact implements Serializable {
     private String name;
     private Date lastConnection;
     private Bitmap foto;
+    private int userId;
 
     public Contact(String name) {
         this.name = name;
-        this.foto = foto;
     }
-
+    public Contact(String name, int userId) {
+        this.name = name;
+        this.userId = userId;
+    }
     public static List<Contact> JSONToContact(JSONArray contactsListJSON) throws JSONException {
         List<Contact> vContacts = new ArrayList<>();
         for (int i = 0; i< contactsListJSON.length(); i++) {
             JSONObject groups = contactsListJSON.getJSONObject(i);
             JSONObject data = groups.getJSONObject("data");
-            Contact contact = new Contact(data.getString("name"));
+            Contact contact = new Contact(data.getString("name"), data.getInt("id_user"));
             vContacts.add(contact);
         }
         return vContacts;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public String getName() {

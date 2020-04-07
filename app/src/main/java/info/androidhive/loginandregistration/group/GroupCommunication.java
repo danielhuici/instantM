@@ -30,29 +30,29 @@ public class GroupCommunication extends Observable {
     public static final String INSERT_MEMBERS_ERROR = "INSERT_MEMBERS_ERROR";
     public static final String GET_MEMBERS_OK = "GET_MEMBERS_OK";
     public static final String GET_MEMBERS_ERROR = "GET_MEMBERS_ERROR";
+    public static final String LEAVE_GROUP_OK = "LEAVE_GROUP_OK";
+    public static final String LEAVE_GROUP_ERROR = "LEAVE_GROUP_ERROR";
+    public static final String DELETE_GROUP_ERROR = "DELETE_GROUP_ERROR";
+    public static final String DELETE_GROUP_OK = "DELETE_GROUP_OK";
 
     private static final String URL_GET_MEMBERS = "http://34.69.44.48/instantm/obtener_integrantes.php" ;
-    public static String URL_CREATE_GROUP = "http://34.69.44.48/instantm/crear_grupo.php";
-    public static String URL_GET_GROUPS = "http://34.69.44.48/instantm/obtener_grupos.php";
-    public static String URL_INSERT_MEMBERS = "http://34.69.44.48/instantm/insertar_integrantes.php";
+    private static final String URL_CREATE_GROUP = "http://34.69.44.48/instantm/crear_grupo.php";
+    private static final String URL_GET_GROUPS = "http://34.69.44.48/instantm/obtener_grupos.php";
+    private static final String URL_LEAVE_GROUP = "http://34.69.44.48/instantm/abandonar_grupo.php";
+    private static final String URL_INSERT_MEMBERS = "http://34.69.44.48/instantm/insertar_integrantes.php";
 
 
-
-    public void crateGroup(final Group groupToCreate, final String username) {
+    public void crateGroup(final Group groupToCreate, final int userId, final String mode) {
         CreateGroupListener createGroupListener = new CreateGroupListener();
-        System.out.println(groupToCreate.getDescription());
-        System.out.println(groupToCreate.getName());
-        //System.out.println(groupToCreate.getPicBLOB());
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_CREATE_GROUP, createGroupListener, createGroupListener) {
-
 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", String.valueOf(groupToCreate.getId()));
                 params.put("mode", mode);
                 params.put("name", groupToCreate.getName());
-                params.put("username", username);
+                params.put("user_id", String.valueOf(userId));
                 params.put("description", groupToCreate.getDescription());
                 params.put("pic", groupToCreate.getPicBLOB());
                 return params;
@@ -63,7 +63,7 @@ public class GroupCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
-    public void getUserGroups(final String username) {
+    public void getUserGroups(final int userId) {
         GetUserGroupsListener getUserGroupsListener = new GetUserGroupsListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_GET_GROUPS, getUserGroupsListener, getUserGroupsListener) {
@@ -71,7 +71,7 @@ public class GroupCommunication extends Observable {
             protected Map<String, String> getParams() {
                 // Parámetros para la solicitud POST <columna_db, variable>
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
+                params.put("user_id", String.valueOf(userId));
 
                 return params;
             }
@@ -85,8 +85,10 @@ public class GroupCommunication extends Observable {
         String members = "";
         for (Contact c : vMembers)
             members = members + c.getName() + ";";
-        System.out.println(members);
+        System.out.println(id_grupo);
+
         final String membersToInsert = members;
+        System.out.println(membersToInsert);
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_INSERT_MEMBERS, insertMembersListener, insertMembersListener) {
             @Override
@@ -118,6 +120,53 @@ public class GroupCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
+    public void leaveGroup(final int userId, final int groupId) {
+            LeaveGroupListener leaveGroupListener = new LeaveGroupListener();
+            StringRequest strReq = new StringRequest(Request.Method.POST,
+                    URL_LEAVE_GROUP, leaveGroupListener, leaveGroupListener) {
+
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("user_id", String.valueOf(userId));
+                    params.put("group_id", String.valueOf(groupId));
+
+                    return params;
+                }
+            };
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(strReq, "");
+
+    }
+
+    public void deleteGroup(int groupId) {
+       //TODO Terminar esto
+    }
+
+    class LeaveGroupListener implements Response.Listener<String>, Response.ErrorListener{
+
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+                if (!error) {
+                    setChanged();
+                    notifyObservers(new Tupla<>(LEAVE_GROUP_OK, null));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                setChanged();
+                notifyObservers(new Tupla<>(LEAVE_GROUP_ERROR,"ERROR JSON"));
+            }
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            setChanged();
+            notifyObservers(new Tupla<>(LEAVE_GROUP_ERROR,"ERROR RESPONSE"));
+        }
+    }
+
 
     class GetMembersListener implements Response.Listener<String>, Response.ErrorListener{
 
@@ -128,8 +177,6 @@ public class GroupCommunication extends Observable {
                 boolean error = jObj.getBoolean("error");
                 if (!error) {
                     JSONArray groupsListJSON = jObj.getJSONArray("members");
-                    System.out.println(jObj.toString());
-                    //TODO CAMBIAR ESTO A OBJETOS DEL TIPO CONTACTS
                     List<Contact> vMembers = new ArrayList<>();
                     for (int i = 0; i< groupsListJSON.length(); i++) {
                         vMembers.add(new Contact(groupsListJSON.getJSONObject(i).getJSONObject("data").getString("name")));
@@ -146,7 +193,6 @@ public class GroupCommunication extends Observable {
                 notifyObservers(new Tupla<>(GET_MEMBERS_ERROR,"ERROR JSON"));
             }
         }
-
 
         @Override
         public void onErrorResponse(VolleyError error) {
@@ -170,11 +216,11 @@ public class GroupCommunication extends Observable {
                     notifyObservers(new Tupla<>(INSERT_MEMBERS_ERROR,"ERROR RESPONSE"));
                 }
             } catch (JSONException e) {
+                e.printStackTrace();
                 setChanged();
                 notifyObservers(new Tupla<>(INSERT_MEMBERS_ERROR,"ERROR JSON"));
             }
         }
-
 
         @Override
         public void onErrorResponse(VolleyError error) {
@@ -199,6 +245,7 @@ public class GroupCommunication extends Observable {
                 }
             } catch (JSONException e) {
                 setChanged();
+                e.printStackTrace();
                 notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR JSON"));
             }
         }
@@ -206,9 +253,8 @@ public class GroupCommunication extends Observable {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            System.out.println(error.getStackTrace());
             setChanged();
-            notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR SERVER"));
+            notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR RESPONSE"));
         }
     }
 
@@ -241,33 +287,6 @@ public class GroupCommunication extends Observable {
         public void onErrorResponse(VolleyError error) {
             setChanged();
             notifyObservers(new Tupla<>(GET_USER_GROUPS_ERROR, "RESPONSE ERROR"));
-        }
-    }
-
-    class EditGroupListener implements Response.Listener<String>, Response.ErrorListener{
-        @Override
-        public void onResponse(String response) {
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-                if (!error) {
-                    setChanged();
-                    notifyObservers(new Tupla<>(EDIT_GROUP_OK,null));
-                } else {
-                    setChanged();
-                    notifyObservers(new Tupla<>(EDIT_GROUP_ERROR,"ERROR"));
-                }
-            } catch (JSONException e) {
-                setChanged();
-                notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR"));
-            }
-        }
-
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            setChanged();
-            notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR"));
         }
     }
 }

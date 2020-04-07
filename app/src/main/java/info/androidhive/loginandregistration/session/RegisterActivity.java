@@ -150,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         switch (tupla.a){
             case RegisterCommunication.OK:
                 User user = (User) tupla.b;
-                db.addUser(user.getUsername(), user.getEmail());
+                db.addUser(user.getUsername(), user.getEmail(), user.getId());
 
                 Toast.makeText(getApplicationContext(), "¡Usuario registrado exitosamente!", Toast.LENGTH_LONG).show();
 

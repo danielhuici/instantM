@@ -128,7 +128,7 @@ public class LoginActivity extends Activity  implements Observer {
                 User user = (User) tupla.b;
 
                 // Inserting row in users table
-                db.addUser(user.getUsername(), user.getEmail());
+                db.addUser(user.getUsername(), user.getEmail(), user.getId());
 
                 // Lanzar Main Activity
                 Intent intent = new Intent(this,

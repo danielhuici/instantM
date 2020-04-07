@@ -1,7 +1,6 @@
 package info.androidhive.loginandregistration.group;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,10 +10,11 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -22,7 +22,7 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -34,76 +34,137 @@ import info.androidhive.loginandregistration.contact.ContactAdapter;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
-public class EditGroupActivity extends Activity implements Observer, View.OnClickListener {
+public class EditGroupActivity extends Activity implements Observer, View.OnClickListener, AdapterView.OnItemClickListener {
     private final String TAG = "CREATE_GROUP";
 
-    private EditText etGroupName;
-    private EditText etGroupDescription;
-    private Button btnEditGroup;
-    private Button btnOutGroup;
-    private Button btnDeleteGroup;
-    private Button btInsertContact;
+    private Button btEditGroup;
+    private Button btDeleteGroup;
+
 
     private SQLiteHandler db;
-
+    private TextView tvLeaveGroup;
     private ArrayList<Contact> vMembers;
     private ContactAdapter contactAdapter;
     private ListView lvMembers;
     private ImageView ivProfile;
-    private ProgressDialog pDialog;
+    private ImageView ivEditGroupName;
+    private ImageView ivEditGroupDescription;
+
+    private TextView tvGroupName;
+    private TextView tvGroupDescription;
+
     private GroupCommunication communication;
     private Bundle extra;
     private Group groupToUpdate;
-    private String SAVE_MODE = "OVERWRITE";
+
+    private String save_mode = "OVERWRITE";
+    private final String WRITE_MODE = "WRITE";
+    private final String OVERWRITE_MODE = "OVERWRITE";
+
+    private String activityMode ;
+    private final String CREATE_MODE = "CREATE_MODE";
+    private final String MODIFY_MODE = "MODIFY_MODE";
+    private final String VIEW_MODE = "VIEW_MODE";
+    private final int IMAGE_PICKER_REQUEST_CODE = 0;
+    private final int NAME_PICKER_REQUEST_CODE = 1;
+    private final int CONTACT_PICKER_REQUEST_CODE = 2;
+    private final int DESCRIPTION_PICKER_REQUEST_CODE = 3;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
-
-        etGroupName = findViewById(R.id.group_name);
-        etGroupDescription = findViewById(R.id.group_description);
-        btnEditGroup = findViewById(R.id.btEditGroup);
-        btnOutGroup = findViewById(R.id.btLeaveGroup);
-        btnDeleteGroup = findViewById(R.id.btDeleteGroup);
-        btInsertContact = findViewById(R.id.btAddMemberEdit);
-
-        ivProfile = findViewById(R.id.ivGroupImage);
-        ivProfile.setOnClickListener(this);
-        loadGroup();
-
-        btnEditGroup.setOnClickListener(this);
-        btnOutGroup.setOnClickListener(this);
-        btnDeleteGroup.setOnClickListener(this);
-        btInsertContact.setOnClickListener(this);
-
         db = new SQLiteHandler(getApplicationContext());
+        initComponents();
+
+
+
         communication = new GroupCommunication();
         communication.addObserver(this);
 
+        groupToUpdate = new Group();
+
+        addListeners();
+        loadGroup();
+
+    }
+
+    private void addListeners() {
+        btEditGroup.setOnClickListener(this);
+        tvLeaveGroup.setOnClickListener(this);
+        btDeleteGroup.setOnClickListener(this);
+        tvGroupName.setOnClickListener(this);
+        tvGroupDescription.setOnClickListener(this);
+        if(!activityMode.equals(VIEW_MODE))ivProfile.setOnClickListener(this);
+        ivEditGroupName.setOnClickListener(this);
+        ivEditGroupDescription.setOnClickListener(this);
+        lvMembers.setOnItemClickListener(this);
+    }
+
+    private void initComponents() {
+        btEditGroup = findViewById(R.id.btEditGroup);
+
+        btDeleteGroup = findViewById(R.id.btDeleteGroup);
+        tvLeaveGroup = findViewById(R.id.tvLeaveGroup);
+        ivProfile = findViewById(R.id.ivGroupImage);
+;
+        tvGroupName = findViewById(R.id.tvGroupName);
+        tvGroupDescription = findViewById(R.id.tvGroupDescription);
+
+        ivEditGroupName = findViewById(R.id.ivEditGroupName);
+        ivEditGroupDescription = findViewById(R.id.ivEditGroupDescription);
+
         vMembers = new ArrayList<>();
         contactAdapter = new ContactAdapter(this, vMembers);
-        lvMembers = findViewById(R.id.listMembers);
+        lvMembers = findViewById(R.id.lvMembers);
         lvMembers.setAdapter(contactAdapter);
 
-        contactAdapter.notifyDataSetChanged();
 
-        communication.getMembers(groupToUpdate.getId());
+
+
+
+        if(getIntent().getExtras() != null) {
+            extra = getIntent().getExtras();
+            groupToUpdate = (Group) extra.getSerializable("group");
+
+            if (groupToUpdate.isAdmin(db.getCurrentID())) { //MODIFY MODE WITH ADMIN PRIVILEGES
+                save_mode = OVERWRITE_MODE;
+                activityMode = MODIFY_MODE;
+                vMembers.add(new Contact("-1"));
+            }else{                                          //VIEW MODE -> CAN`t EDIT
+                btEditGroup.setVisibility(View.GONE);
+                btDeleteGroup.setVisibility(View.GONE);
+                ivEditGroupDescription.setVisibility(View.GONE);
+                ivEditGroupName.setVisibility(View.GONE);
+                activityMode = VIEW_MODE;
+            }
+        }else{                                              //CREATE_MODE
+            vMembers.add(new Contact("-1"));
+            save_mode = WRITE_MODE;
+            activityMode = CREATE_MODE;
+            btDeleteGroup.setVisibility(View.GONE);
+            tvLeaveGroup.setVisibility(View.GONE);
+            tvLeaveGroup.setVisibility(View.GONE);
+            vMembers.add(new Contact(db.getCurrentUsername(), db.getCurrentID()));
+        }
+        contactAdapter.notifyDataSetChanged();
         setListViewHeightBasedOnChildren(lvMembers, contactAdapter);
     }
 
     private void loadGroup() {
-        extra=getIntent().getExtras();
+        extra = getIntent().getExtras();
 
         if(extra != null) {
                 groupToUpdate = (Group) extra.getSerializable("group");
-                etGroupName.setText(String.valueOf(groupToUpdate.getName()));
+                tvGroupName.setText(String.valueOf(groupToUpdate.getName()));
                 if(!groupToUpdate.getDescription().equalsIgnoreCase("null") &&
                         groupToUpdate.getDescription() != null) {
-                    etGroupDescription.setText(groupToUpdate.getDescription());
+                    tvGroupDescription.setText(groupToUpdate.getDescription());
                 }
-                etGroupName.setText(String.valueOf(groupToUpdate.getName()));
+                tvGroupName.setText(String.valueOf(groupToUpdate.getName()));
+                communication.getMembers(groupToUpdate.getId());
         }
     }
 
@@ -137,23 +198,33 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
             case R.id.ivGroupImage:
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, IMAGE_PICKER_REQUEST_CODE);
                 break;
             case R.id.btEditGroup:
-                if (!etGroupName.getText().toString().trim().isEmpty()) {
-                    groupToUpdate.setName(String.valueOf(etGroupName.getText()));
-                    groupToUpdate.setDescription(String.valueOf(etGroupDescription.getText()));
-                    communication.crateGroup(groupToUpdate, db.getCurrentUsername(), SAVE_MODE);
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Por favor, introduce los datos", Toast.LENGTH_LONG).show();
-                }
+                    vMembers.remove(0);
+                    groupToUpdate.setName(tvGroupName.getText().toString());
+                    groupToUpdate.setDescription(tvGroupDescription.getText().toString());
+                    communication.crateGroup(groupToUpdate, db.getCurrentID(), save_mode);
                 break;
-            case R.id.btAddMemberEdit:
-                Intent intentContact = new Intent(this,
-                        AddContactActivity.class);
-                intentContact.putExtra("contact", new String());
-                startActivityForResult(intentContact, 2);
+            case R.id.tvLeaveGroup:
+                communication.leaveGroup(db.getCurrentID(), groupToUpdate.getId());
+                break;
+            case R.id.ivEditGroupName:
+                Intent intent1 = new Intent(this,
+                        GroupNamePicker.class);
+                intent1.putExtra("name", tvGroupName.getText().toString());
+                startActivityForResult(intent1, NAME_PICKER_REQUEST_CODE);
+                break;
+            case R.id.ivEditGroupDescription:
+                Intent intent2 = new Intent(this,
+                        GroupDescriptionPicker.class);
+                intent2.putExtra("description",tvGroupDescription.getText());
+                startActivityForResult(intent2, DESCRIPTION_PICKER_REQUEST_CODE);
+                break;
+            case R.id.btDeleteGroup:
+                communication.deleteGroup(groupToUpdate.getId());
+                Toast.makeText(getApplicationContext(),
+                        "NO IMPLEMENTADO TODAVIA", Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -162,14 +233,28 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         switch(requestCode) {
-            case 1:
-                Bitmap bitmap = decodeUri(data.getData());
-                ivProfile.setImageBitmap(bitmap);
-                groupToUpdate.setPic(bitmap);
+            case IMAGE_PICKER_REQUEST_CODE:
+                if(resultCode == -1) {
+                    Bitmap bitmap = decodeUri(data.getData());
+                    ivProfile.setImageBitmap(bitmap);
+                    groupToUpdate.setPic(bitmap);
+                }
                 break;
-            case 2:
-                vMembers.add(new Contact(String.valueOf(data.getExtras().getString("contact"))));
-                contactAdapter.notifyDataSetChanged();
+            case CONTACT_PICKER_REQUEST_CODE:
+                if(resultCode == -1) {
+                    vMembers.add(new Contact(String.valueOf(data.getExtras().getString("contact_name")),
+                                             data.getExtras().getInt("contact_id")));
+                    contactAdapter.notifyDataSetChanged();
+                    setListViewHeightBasedOnChildren(lvMembers, contactAdapter);
+                }
+                break;
+            case NAME_PICKER_REQUEST_CODE:
+                if(resultCode == -1)
+                    tvGroupName.setText(String.valueOf(data.getExtras().getString("name")));
+                break;
+            case DESCRIPTION_PICKER_REQUEST_CODE:
+                if(resultCode == -1)
+                    tvGroupDescription.setText(String.valueOf(data.getExtras().getString("description")));
                 break;
         }
 
@@ -181,8 +266,12 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         Tupla<String, Object> tupla = (Tupla<String, Object>) o;
         switch (tupla.a){
             case GroupCommunication.CREATE_GROUP_OK:
-                final List<Contact> membersToInsert = vMembers;
-                communication.insertMembers(vMembers, groupToUpdate.getId());
+                if(save_mode == OVERWRITE_MODE) {
+                    communication.insertMembers(vMembers, groupToUpdate.getId());
+                }else {
+                    communication.insertMembers(vMembers, (Integer) tupla.b);
+                }
+
                 break;
             case GroupCommunication.INSERT_MEMBERS_OK:
                 Toast.makeText(getApplicationContext(), "¡Grupo creado exitosamente!", Toast.LENGTH_LONG).show();
@@ -190,9 +279,18 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
                 break;
             case GroupCommunication.GET_MEMBERS_OK:
                 vMembers.clear();
+                if(!activityMode.equalsIgnoreCase(VIEW_MODE)) vMembers.add(new Contact("-1"));
+                if(activityMode.equalsIgnoreCase(CREATE_MODE)) vMembers.add(new Contact(db.getCurrentUsername(), db.getCurrentID()));
                 vMembers.addAll((List <Contact>)tupla.b);
                 contactAdapter.notifyDataSetChanged();
+                setListViewHeightBasedOnChildren(lvMembers, contactAdapter);
                 break;
+            case GroupCommunication.LEAVE_GROUP_OK:
+            case GroupCommunication.DELETE_GROUP_OK:
+                finish();
+                break;
+            case GroupCommunication.DELETE_GROUP_ERROR:
+            case GroupCommunication.LEAVE_GROUP_ERROR:
             case GroupCommunication.CREATE_GROUP_ERROR:
             case GroupCommunication.GET_MEMBERS_ERROR:
             case GroupCommunication.INSERT_MEMBERS_ERROR:
@@ -248,4 +346,13 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         return null;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if(contactAdapter.getContactName(i).equalsIgnoreCase("-1")){
+            Intent intent = new Intent(this,
+                    AddContactActivity.class);
+            intent.putExtra("S","");
+            startActivityForResult(intent, CONTACT_PICKER_REQUEST_CODE);
+        }
+    }
 }

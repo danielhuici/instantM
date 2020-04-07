@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.group.CreateGroupActivity;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.contact.AddContactActivity;
 import info.androidhive.loginandregistration.group.EditGroupActivity;
@@ -99,10 +98,8 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         Intent intent;
         switch (item.getItemId()) {
             case MENU_CREATE_GROUP_ID:
-                intent = new Intent(this, CreateGroupActivity.class);
-                intent.putExtra("idGroup", 5);
+                intent = new Intent(this, EditGroupActivity.class);
                 startActivityForResult(intent, 2);//(intent);
-
                 return true;
 
             case MENU_LOGOUT_ID:

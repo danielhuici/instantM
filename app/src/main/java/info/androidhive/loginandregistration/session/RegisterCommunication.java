@@ -30,7 +30,8 @@ public class RegisterCommunication extends Observable implements Response.Listen
                 JSONObject jsonResponse = jObj.getJSONObject("user");
                 String name = jsonResponse.getString("name");
                 String email = jsonResponse.getString("mail");
-                User user = new User(name, email);
+                int id = jsonResponse.getInt("id_user");
+                User user = new User(name, email, id);
 
                 setChanged();
                 notifyObservers(new Tupla<>(OK,  user));
