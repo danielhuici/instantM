@@ -41,25 +41,26 @@ public class MessageActivity extends AppCompatActivity  implements RoomListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        group = (Group) getIntent().getExtras().getSerializable("group");
-
+        Bundle extra =  getIntent().getExtras();
+        group = (Group) extra.getSerializable("group");
+        System.out.println(group.getName() + "111111111111111111111111111111111111111111111111111111");
         setContentView(R.layout.activity_message);
-        chatName = (TextView) findViewById(R.id.chatName);
+        chatName = findViewById(R.id.chatName);
         chatName.setText(group.getName());
-        messageText = (EditText) findViewById(R.id.editText);
+        messageText = findViewById(R.id.editText);
 
         MemberData data = new MemberData(getRandomName(), getRandomColor());
 
         messageAdapter = new MessageAdapter(this);
-        messagesView = (ListView) findViewById(R.id.messages_view);
+        messagesView = findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
         chatName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MessageActivity.this, EditGroupActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("group", (Serializable) group);
+
+                bundle.putSerializable("group", group);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

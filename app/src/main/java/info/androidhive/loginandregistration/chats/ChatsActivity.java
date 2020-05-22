@@ -18,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import info.androidhive.loginandregistration.R;
+
+import info.androidhive.loginandregistration.profile.EditProfileActivity;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.contact.AddContactActivity;
 import info.androidhive.loginandregistration.group.EditGroupActivity;
@@ -40,6 +42,7 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
     private static final int MENU_CREATE_GROUP_ID = Menu.FIRST;
     private static final int MENU_LOGOUT_ID = Menu.FIRST + 1;
     private static final int MENU_ADD_CONTACT_ID = Menu.FIRST + 2;
+    private static final int MENU_VIEW_PROFILE_ID = Menu.FIRST + 3;
 
     /**
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
@@ -50,7 +53,7 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
 
     private ProgressDialog pDialog;
     private static final String TAG = "CHATS";
-
+    private TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         db = new SQLiteHandler(getApplicationContext());
@@ -68,9 +71,8 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
         // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
@@ -90,6 +92,7 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         menu.add(Menu.NONE,  MENU_CREATE_GROUP_ID, MENU_CREATE_GROUP_ID,"Crear grupo");
         menu.add(Menu.NONE, MENU_LOGOUT_ID, MENU_LOGOUT_ID, R.string.menu_item_logout);
         menu.add(Menu.NONE, MENU_ADD_CONTACT_ID, MENU_ADD_CONTACT_ID, R.string.menu_item_anadir_contacto);
+        menu.add(Menu.NONE, MENU_VIEW_PROFILE_ID, MENU_VIEW_PROFILE_ID, R.string.menu_item_ver_perfil);
         return result;
     }
 
@@ -99,7 +102,7 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         switch (item.getItemId()) {
             case MENU_CREATE_GROUP_ID:
                 intent = new Intent(this, EditGroupActivity.class);
-                startActivityForResult(intent, 2);//(intent);
+                startActivityForResult(intent, 2);
                 return true;
 
             case MENU_LOGOUT_ID:
@@ -108,7 +111,11 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
 
             case MENU_ADD_CONTACT_ID:
                 intent = new Intent(this, AddContactActivity.class);
-                startActivityForResult(intent, 2);//(intent);
+                startActivityForResult(intent, 2);
+                return true;
+            case MENU_VIEW_PROFILE_ID:
+                intent = new Intent(this, EditProfileActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -120,10 +127,10 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==2)
         {
-            mViewPager = (ViewPager) findViewById(R.id.container);
+            mViewPager = findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);
 
-            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.removeAllTabs();
             tabLayout.setupWithViewPager(mViewPager);
         }
     }
@@ -147,7 +154,6 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
     @Override
     public void onPageSelected(int position) {
         getSupportActionBar().setSelectedNavigationItem(position);
-
     }
 
     @Override
@@ -159,7 +165,7 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public SectionsPagerAdapter(FragmentManager fm) {
+    SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

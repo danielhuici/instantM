@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -36,12 +37,12 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        inputUsername = (EditText) findViewById(R.id.register_username);
-        inputEmail = (EditText) findViewById(R.id.register_email);
-        inputPassword = (EditText) findViewById(R.id.register_password);
-        inputRepeatPassword = (EditText) findViewById(R.id.register_repeat_password);
-        birthdayDate = (EditText) findViewById(R.id.birthdayDate);
-        buttonRegister = (Button) findViewById(R.id.btnRegister);
+        inputUsername = findViewById(R.id.register_username);
+        inputEmail = findViewById(R.id.register_email);
+        inputPassword = findViewById(R.id.register_password);
+        inputRepeatPassword = findViewById(R.id.register_repeat_password);
+        birthdayDate = findViewById(R.id.birthdayDate);
+        buttonRegister = findViewById(R.id.btnRegister);
 
         communication = new RegisterCommunication();
         communication.addObserver(this);
@@ -68,14 +69,21 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         // Botón registrarse
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String username = inputUsername.getText().toString().trim();
-                String email = inputEmail.getText().toString().trim();
+                User user = new User();
+                user.setUsername(inputUsername.getText().toString().trim());
+
+                user.setEmail(inputEmail.getText().toString().trim());
                 String password = inputPassword.getText().toString().trim();
                 String repeatPassword = inputRepeatPassword.getText().toString().trim();
-
-                if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                try {
+                    user.setBirthday(birthdayDate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (!user.getUsername().isEmpty() && !user.getEmail().isEmpty() && !password.isEmpty()) {
                     if(password.equals(repeatPassword)) {
-                        registerUser(username, email, password);
+                        user.setPassword(password);
+                        registerUser(user);
                     } else {
                         Toast.makeText(getApplicationContext(),
                                 "¡Las contrasñas no coinciden!", Toast.LENGTH_LONG)
@@ -105,30 +113,15 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
     /*
      * Función para registrar al usuario en la base de datos MySQL
      */
-    private void registerUser(final String username, final String email,
-                              final String password) {
+    private void registerUser(final User user) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
         pDialog.setMessage("Registrando.. ...");
-        showDialog();
 
-        communication.register(username, email, password);
 
-    }
+        communication.register(user);
 
-    /*
-    * Mostrar y ocultar diálogos
-    **/
-
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
     }
 
     private void showDatePickerDialog() {
@@ -136,7 +129,14 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // +1 because January is zero
-                final String selectedDate = day + " / " + (month+1) + " / " + year;
+                month ++;
+                String dayString = String.valueOf(day);
+                String monthString = String.valueOf(month);
+
+                if (day < 10 ) dayString = "0" + day;
+                if (month < 10 ) monthString = "0" + month;
+
+                final String selectedDate = dayString + "-" + monthString + "-" + year;
                 birthdayDate.setText(selectedDate);
             }
         });
@@ -150,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         switch (tupla.a){
             case RegisterCommunication.OK:
                 User user = (User) tupla.b;
-                db.addUser(user.getUsername(), user.getEmail(), user.getId());
+                db.addUser(user);
 
                 Toast.makeText(getApplicationContext(), "¡Usuario registrado exitosamente!", Toast.LENGTH_LONG).show();
 
@@ -164,7 +164,6 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
             case RegisterCommunication.ERROR:
                 Toast.makeText(getApplicationContext(),
                         (String) tupla.b, Toast.LENGTH_LONG).show();
-                hideDialog();
                 break;
         }
     }

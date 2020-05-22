@@ -19,19 +19,17 @@ import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
-import info.androidhive.loginandregistration.group.GroupAdapter;
 import info.androidhive.loginandregistration.group.GroupCommunication;
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
 public class TabAFragment extends Fragment implements Observer, AdapterView.OnItemClickListener, TextWatcher {
-    private ArrayList<Group> vGroups;
-    private GroupAdapter groupAdapter;
-    private ListView lvLista;
+    private ArrayList<Chat> vChats;
+    private ChatAdapter chatsAdapter;
     private SQLiteHandler db;
 
-    private GroupCommunication communication;
+    private ChatCommunication chatCommunication;
 
     public TabAFragment() {
     }
@@ -48,28 +46,28 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tab_a, container, false);
         db = new SQLiteHandler(getActivity());
-        vGroups = new ArrayList<>();
-        groupAdapter =  new GroupAdapter(super.getActivity(), vGroups);
-        lvLista = v.findViewById(R.id.lvChats);
-        lvLista.setAdapter(groupAdapter);
+        vChats = new ArrayList<>();
+        chatsAdapter =  new ChatAdapter(super.getActivity(), vChats);
+        ListView lvLista = v.findViewById(R.id.lvChats);
+        lvLista.setAdapter(chatsAdapter);
 
         lvLista.setOnItemClickListener(this);
 
-        communication = new GroupCommunication();
-        communication.addObserver(this);
-        getGroups();
+        chatCommunication = new ChatCommunication();
+        chatCommunication.addObserver(this);
+        getChats();
 
         EditText etFiltro = v.findViewById(R.id.etSearchChat);
         etFiltro.addTextChangedListener(this);
+
         return v;
     }
-
 
     /**
      * Obtener grupos desde MySQL
      * */
-    private void getGroups() {
-        communication.getUserGroups(db.getCurrentID());
+    private void getChats() {
+        chatCommunication.getUserChats(db.getCurrentID());
     }
 
 
@@ -82,11 +80,18 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
 
                 db.deleteGroups();
                 db.addGroups((List<Group>) tupla.b);
-                vGroups.clear();
-                vGroups.addAll((List<Group>) tupla.b);
-                groupAdapter.notifyDataSetChanged();
+                vChats.clear();
+                vChats.addAll((List<Group>) tupla.b);
+                chatsAdapter.notifyDataSetChanged();
+                break;
+            case ChatCommunication.GET_CHATS_OK:
+                vChats.clear();
+                vChats.addAll((List<Chat>) tupla.b);
+                chatsAdapter.notifyDataSetChanged();
+
                 break;
             case GroupCommunication.GET_USER_GROUPS_ERROR:
+            case ChatCommunication.GET_CHATS_ERROR:
                 Toast.makeText(getActivity().getApplicationContext(),
                         (String) tupla.b, Toast.LENGTH_LONG).show();
                 break;
@@ -96,14 +101,17 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
-        intent.putExtra("group",  (Group) groupAdapter.getItem(i));
-        startActivityForResult(intent, 2);//(intent);
+        intent.putExtra("group",  (Group) chatsAdapter.getItem(i));
+        System.out.println(((Group)chatsAdapter.getItem(i)).getName() + "000000000000000000000000000000000000000000000000000000");
+        startActivityForResult(intent, 2);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        getGroups();
+        getChats();
+
+        chatsAdapter.getFilter().filter("");
     }
 
     @Override
@@ -113,7 +121,11 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        groupAdapter.getFilter().filter(String.valueOf(charSequence));
+
+        if(charSequence.length() != 0) {
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDD " + charSequence);
+            chatsAdapter.getFilter().filter(String.valueOf(charSequence));
+        }
     }
 
     @Override

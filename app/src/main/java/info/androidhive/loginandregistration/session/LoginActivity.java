@@ -19,7 +19,6 @@ import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
 public class LoginActivity extends Activity  implements Observer {
-    private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button btnLogin;
     private TextView txtLinkToRegister;
     private EditText inputUsername;
@@ -35,10 +34,10 @@ public class LoginActivity extends Activity  implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        inputUsername = (EditText) findViewById(R.id.login_username);
-        inputPassword = (EditText) findViewById(R.id.login_password);
-        btnLogin = (Button) findViewById(R.id.button_login);
-        txtLinkToRegister = (TextView) findViewById(R.id.lbRegister);
+        inputUsername = findViewById(R.id.login_username);
+        inputPassword = findViewById(R.id.login_password);
+        btnLogin = findViewById(R.id.button_login);
+        txtLinkToRegister = findViewById(R.id.lbRegister);
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -51,7 +50,7 @@ public class LoginActivity extends Activity  implements Observer {
         session = new SessionManager(getApplicationContext());
 
         communication = new LoginCommunication();
-        communication.addObserver((Observer)this);
+        communication.addObserver(this);
 
 
         // Comprobar si el usuuario está dentro...
@@ -100,35 +99,22 @@ public class LoginActivity extends Activity  implements Observer {
         // Tag used to cancel the request
 
         pDialog.setMessage("Entrando ...");
-        showDialog();
-
         communication.login(username, password);
     }
 
-    /*
-    * Mostrar y ocultar el diálogo
-    **/
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
 
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
+
 
     @Override
     public void update(Observable observable, Object o) {
         Tupla<String, Object> tupla = (Tupla<String, Object>) o;
         switch (tupla.a){
             case LoginCommunication.OK:
-                hideDialog();
                 session.setLogin(true);
                 User user = (User) tupla.b;
 
                 // Inserting row in users table
-                db.addUser(user.getUsername(), user.getEmail(), user.getId());
+                db.addUser(user);
 
                 // Lanzar Main Activity
                 Intent intent = new Intent(this,
@@ -138,7 +124,6 @@ public class LoginActivity extends Activity  implements Observer {
                 break;
             case LoginCommunication.ERROR:
                 String errorMsg = (String) tupla.b;
-                hideDialog();
                 Toast.makeText(getApplicationContext(),
                         errorMsg, Toast.LENGTH_LONG).show();
                 break;

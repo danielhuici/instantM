@@ -105,7 +105,7 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
                 Toast.makeText(getApplicationContext(), "¡Contacto creado exitosamente!", Toast.LENGTH_LONG).show();
                 finish();
                 break;
-            case ContactCommunication.CREATE_CONTACT__ERROR:
+            case ContactCommunication.CREATE_CONTACT_ERROR:
                 Toast.makeText(getApplicationContext(),
                         (String) tupla.b, Toast.LENGTH_LONG).show();
                 break;

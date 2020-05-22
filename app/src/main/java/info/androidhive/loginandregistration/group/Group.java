@@ -9,18 +9,14 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
-import java.text.DateFormat;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class Group implements Serializable {
-    private String name;
-    private Date lastConnection;
+import info.androidhive.loginandregistration.chats.Chat;
+
+public class Group extends Chat implements Serializable {
     private String description;
-    private Bitmap pic;
     private int id;
     private int administratorId;
 
@@ -35,7 +31,7 @@ public class Group implements Serializable {
         return vGroups;
     }
 
-    public static Group JSONToGroup(JSONObject groupsListJSON) throws JSONException {
+    private static Group JSONToGroup(JSONObject groupsListJSON) throws JSONException {
             JSONObject data = groupsListJSON.getJSONObject("data");
             Group g = new Group();
             g.setName(data.getString("name"));
@@ -43,7 +39,7 @@ public class Group implements Serializable {
             g.setId(data.getInt("id_chat_group"));
             System.out.println(data.getString("id_user"));
             if(!data.getString("id_user").trim().equalsIgnoreCase("null"))
-                g.setAdministratorId(Integer.valueOf(data.getString("id_user")));
+                g.setAdministratorId(Integer.parseInt(data.getString("id_user")));
             else
                 g.setAdministratorId(-1);
         return g;
@@ -57,8 +53,14 @@ public class Group implements Serializable {
         this.name = name;
     }
 
-    public void setLastConnection(Date lastConnection) {
-        this.lastConnection = lastConnection;
+    @Override
+    protected String getTitle() {
+        return this.name;
+    }
+
+    @Override
+    protected String getSubtitle() {
+        return this.description;
     }
 
     public Bitmap getPic() {
@@ -76,14 +78,13 @@ public class Group implements Serializable {
         return this.description;
     }
 
-    public String getPicBLOB() {
+    String getPicBLOB() {
         if(pic == null)
             return "";
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         pic.compress(Bitmap.CompressFormat.PNG, 100, bos);
         byte[] bArray = bos.toByteArray();
-        String encoded = Base64.encodeToString(bArray, Base64.DEFAULT);
-        return  encoded;
+        return Base64.encodeToString(bArray, Base64.DEFAULT);
     }
     public int getId(){
         return this.id;
@@ -92,11 +93,7 @@ public class Group implements Serializable {
         this.id = id;
     }
 
-    public int getAdministratorId() {
-        return administratorId;
-    }
-
-    public void setAdministratorId(int administratorId) {
+    private void setAdministratorId(int administratorId) {
         this.administratorId = administratorId;
     }
 
@@ -105,11 +102,11 @@ public class Group implements Serializable {
         return this.name + " " + this.description+ " " + this.id + " " + this.getPicBLOB();
     }
 
-    public boolean isAdmin(int currentID) {
+    boolean isAdmin(int currentID) {
         return currentID == administratorId;
     }
 
     public boolean nameLike(String searchString) {
-        return name.toLowerCase().startsWith(searchString.trim().toLowerCase());
+        return name.toLowerCase().startsWith(searchString.trim().toLowerCase()) || searchString.equalsIgnoreCase("");
     }
 }

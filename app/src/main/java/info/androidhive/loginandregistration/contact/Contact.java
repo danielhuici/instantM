@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Contact implements Serializable {
+import info.androidhive.loginandregistration.chats.Chat;
+
+public class Contact extends Chat implements Serializable  {
     private String name;
     private Date lastConnection;
     private Bitmap foto;
@@ -27,7 +29,7 @@ public class Contact implements Serializable {
         this.name = name;
         this.userId = userId;
     }
-    public static List<Contact> JSONToContact(JSONArray contactsListJSON) throws JSONException {
+    public static List<Contact> JSONToContacts(JSONArray contactsListJSON) throws JSONException {
         List<Contact> vContacts = new ArrayList<>();
         for (int i = 0; i< contactsListJSON.length(); i++) {
             JSONObject groups = contactsListJSON.getJSONObject(i);
@@ -64,12 +66,21 @@ public class Contact implements Serializable {
         this.lastConnection = lastConnection;
     }
 
-    public Bitmap getFoto() {
-        return foto;
+
+
+    @Override
+    protected String getTitle() {
+        return name;
     }
 
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
+    @Override
+    protected String getSubtitle() {
+        return "Ultima conexion";
+    }
+
+    @Override
+    protected Bitmap getPic() {
+        return pic;
     }
 
     public boolean nameLike(String name) {

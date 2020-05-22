@@ -34,5 +34,14 @@
     <string name="OK">Ok</string>
     <string name="cancel">Cancelar</string>
     <string name="chat_search">Buscar chat</string>
+    <string name="profile_state">Coloca aqui tu estado</string>
+    <string name="profile_name">Nombre de perfil</string>
+    <string name="menu_item_ver_perfil">Ver perfil</string>
+    <string name="menu_item_cambiar_contrasena">Cambiar contraseña</string>
+    <string name="menu_item_cambiar_email">Cambiar email</string>
+    <string name="menu_item_cambiar_fecha_nacimiento">Cambiar fecha de nacimiento</string>
+    <string name="editar_prefil">Editar perfil</string>
+    <string name="nueva_contrasena">Nueva contraseña</string>
+    <string name="reintroduce_contrasena">Reintroduce contraseña</string>
 
 </resources>

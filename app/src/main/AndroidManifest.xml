@@ -15,7 +15,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".group.GroupDescriptionPicker"></activity>
+        <activity android:name=".utils.DefaultDatePickerActivity"></activity>
+        <activity android:name=".utils.DefaultPasswordPickerActivity" />
+        <activity android:name=".utils.DefaultPickerActivity" />
+        <activity android:name=".group.GroupDescriptionPicker" />
         <activity android:name=".group.GroupNamePicker" />
         <activity android:name=".chats.MessageActivity" />
         <activity android:name=".contact.AddContactActivity" />
@@ -30,6 +33,10 @@
             android:label="@string/app_name"
             android:launchMode="singleTop" />
         <activity
+            android:name=".profile.EditProfileActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".session.LoginActivity"
             android:label="@string/title_activity_tabs"
             android:theme="@style/AppTheme.NoActionBar">
@@ -39,6 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".utils.DefaultDatePickerActivity" />
     </application>
 
 </manifest>

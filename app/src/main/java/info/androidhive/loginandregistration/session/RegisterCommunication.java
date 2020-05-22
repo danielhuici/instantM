@@ -9,7 +9,9 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Observable;
 
@@ -54,18 +56,17 @@ public class RegisterCommunication extends Observable implements Response.Listen
         notifyObservers(new Tupla<>(ERROR,error.getMessage()));
     }
 
-    public void register(final String username, final String email, final String password) {
-        System.out.println(username +" "+ password +" "+ email);
+    public void register(final User user) {
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_REGISTER, this, this){
 
         protected Map<String, String> getParams() {
             // Parámetros para la consulta POST <columna_db, variables>
             Map<String, String> params = new HashMap<String, String>();
-            params.put("name", username);
-            params.put("password", password);
-            params.put("mail", email);
-
+            params.put("name", user.getUsername());
+            params.put("password", user.getPassword());
+            params.put("mail", user.getEmail());
+            params.put("birthday", new SimpleDateFormat("yyyy-mm-dd", Locale.GERMANY).format(user.getBirthdate()));
             return params;
         }
     };

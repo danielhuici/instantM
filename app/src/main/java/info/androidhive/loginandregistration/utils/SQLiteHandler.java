@@ -12,11 +12,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import info.androidhive.loginandregistration.group.Group;
+import info.androidhive.loginandregistration.session.User;
 
 public class SQLiteHandler extends SQLiteOpenHelper {
 
@@ -40,6 +43,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_GROUP_DESCRIPTION = "description";
 
     private static final String KEY_ID_USER = "id_user";
+    private static final String KEY_STATE = "state";
+    private static final String KEY_BIRTHDAY = "birthday";
 	private static final String KEY_USERNAME = "name";
 	private static final String KEY_EMAIL = "email";
 	private static final String KEY_CONTACT_NAME = "name";
@@ -60,6 +65,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		String CREATE_LOGIN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_USER + "("
 				+ KEY_ID_USER + " INTEGER PRIMARY KEY,"
 				+ KEY_USERNAME + " TEXT,"
+				+ KEY_BIRTHDAY + " DATE,"
+				+ KEY_STATE + " TEXT,"
 				+ KEY_EMAIL + " TEXT UNIQUE )";
 
 		String CREATE_GROUP_TABLE = "CREATE TABLE " + TABLE_GROUP + "("
@@ -92,35 +99,52 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	/**
 	 * Storing user details in database
 	 * */
-	public void addUser(String username, String email, int idUser) {
+	public void addUser(User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(KEY_USERNAME, username); // Name
-		values.put(KEY_EMAIL, email); // Email
-		values.put(KEY_ID_USER, idUser);
-		System.out.println("sassssssssssssssssssssssssssssssssssssssssssss " + idUser);
+		values.put(KEY_USERNAME, user.getUsername()); // Name
+		values.put(KEY_EMAIL, user.getEmail()); // Email
+		values.put(KEY_ID_USER, user.getId());
+		if(user.getState() == null) user.setState("Hey there i am using instantM");
+		if(user.getBirthdate() == null) {
+			try {
+				user.setBirthday("01-10-1996");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		values.put(KEY_STATE, user.getState());
+		values.put(KEY_ID_USER, user.getId());
+		values.put(KEY_BIRTHDAY, new SimpleDateFormat("dd-mm-yyyy").format(user.getBirthdate()));
+
 		// Inserting Row
 		long id = db.insert(TABLE_USER, null, values);
 		db.close(); // Closing database connection
-		System.out.println("sassssssssssssssssssssssssssssssssssssssssssss " + getCurrentID());
 		Log.d(TAG, "New user inserted into sqlite: " + id);
 	}
 
 	/**
 	 * Getting user data from database
 	 * */
-	public HashMap<String, String> getUserDetails() {
-		HashMap<String, String> user = new HashMap<String, String>();
-		String selectQuery = "SELECT  * FROM " + TABLE_USER;
+	public User getUserDetails() {
+		User user = new User();
+		String selectQuery = "SELECT " +  KEY_USERNAME + ", " + KEY_EMAIL + ", " + KEY_STATE + ", " + KEY_BIRTHDAY + ", " + KEY_ID_USER + " FROM " + TABLE_USER;
 
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		// Move to first row
 		cursor.moveToFirst();
 		if (cursor.getCount() > 0) {
-			user.put("name", cursor.getString(1));
-			user.put("email", cursor.getString(2));
+			user.setUsername(cursor.getString(0));
+			user.setEmail(cursor.getString(1));
+			user.setState(cursor.getString(2));
+			try {
+				user.setBirthday(cursor.getString(3));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			user.setId(cursor.getInt(4));
 		}
 		cursor.close();
 		db.close();
@@ -202,8 +226,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(KEY_GROUP_ID, group.getId());
         if(group.getDescription() != null)
         	values.put(KEY_GROUP_DESCRIPTION, group.getDescription());
-		// Inserting Row
-		System.out.println(group.getId() + "55555555555555555555555555555555555555555555555555555555555555555555555");
 		long id = db.insert(TABLE_GROUP, null, values);
 		db.close(); // Closing database connection
 

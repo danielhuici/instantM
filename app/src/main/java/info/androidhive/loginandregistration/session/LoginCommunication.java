@@ -8,6 +8,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
@@ -19,7 +20,7 @@ public class LoginCommunication extends Observable implements Response.Listener<
     public static final String ERROR = "ERROR";
     public static final String OK = "OK";
     public static String URL_LOGIN = "http://34.69.44.48/instantm/login.php";
-    public static String URL_REGISTER = "http://34.69.44.48/instantm/registrar.php";
+
 
     @Override
     public void onResponse(String response) {
@@ -31,10 +32,15 @@ public class LoginCommunication extends Observable implements Response.Listener<
             if (!error) { // No hay error
 
                 JSONObject user = jObj.getJSONObject("user");
-                String name = user.getString("name");
-                String email = user.getString("mail");
                 int id = user.getInt("id_user");
-                User u = new User(name, email, id);
+                User u = new User();
+                u.setId(id);
+                u.setUsername(user.getString("name"));
+                u.setEmail(user.getString("mail"));
+                //u.setState(user.getString("state"));
+                u.setState("TEST");
+                if(user.getString("birthday") != null)
+                u.setBirthday(user.getString("birthday"));
                 setChanged();
                 notifyObservers(new Tupla<>(OK, u));
             } else { // Error
@@ -43,7 +49,7 @@ public class LoginCommunication extends Observable implements Response.Listener<
                 notifyObservers(new Tupla<>(ERROR,errorMsg));
 
             }
-        } catch (JSONException e) {
+        } catch (JSONException | ParseException e) {
             // JSON error. No debería venir nunca aquí
             e.printStackTrace();
             setChanged();

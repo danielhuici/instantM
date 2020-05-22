@@ -242,6 +242,7 @@ public class GroupCommunication extends Observable {
                 } else {
                     setChanged();
                     notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR RESPONSE"));
+                    System.out.println(jObj.toString());
                 }
             } catch (JSONException e) {
                 setChanged();

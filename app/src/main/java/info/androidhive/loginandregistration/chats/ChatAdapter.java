@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.contact;
+package info.androidhive.loginandregistration.chats;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,50 +14,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.contact.Contact;
 
 
-public class ContactAdapter extends BaseAdapter {
+public class ChatAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mInflater;
-    private ArrayList<Contact> contacts;
-    private ArrayList<Contact> filteredContacts;
-    private Filter nameFilter = new ContactAdapter.ContactFilter();
+    private ArrayList<Chat> vChats;
+    private ArrayList<Chat> vFilteredChats;
+    private Filter nameFilter = new ChatAdapter.GroupFilter();
 
-    public ContactAdapter(Activity context, ArrayList<Contact> contacts) {
+    public ChatAdapter(Activity context, ArrayList<Chat> vChats) {
         this.context = context;
-        this.contacts = contacts;
-        this.filteredContacts = contacts;
+        this.vChats = vChats;
+        this.vFilteredChats = vChats;
         this.mInflater = LayoutInflater.from(context);
     }
 
 
+
     @Override
     public int getCount() {
-        return filteredContacts.size();
+        return vFilteredChats.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return filteredContacts.get(position);
+        return vFilteredChats.get(position);
     }
 
     @Override
     public long getItemId(int position) {
         return position;
     }
-    public int getSelectedConctactId(int position){
-        return contacts.get(position).getUserId();
-    }
-    public String getContactName(int position){
-        return contacts.get(position).getName();
-    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.custom_item, null);
-
             holder = new ViewHolder();
             /**
              *  Creamos un objeto de la clase ViewHolder y hacemos que cada atributo haga referencia
@@ -65,55 +61,58 @@ public class ContactAdapter extends BaseAdapter {
              *  convertView ya no tendrá que llamar al método findViewById()
              */
 
-            holder.title =  convertView.findViewById(R.id.tvTitle);
             holder.topSubtitle =  convertView.findViewById(R.id.tvSubtitle);
-            holder.pic =  convertView.findViewById(R.id.pic);
+            holder.title = convertView.findViewById(R.id.tvTitle);
+            holder.pic = convertView.findViewById(R.id.pic);
 
             convertView.setTag(holder);
-        } else {
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Contact contact = filteredContacts.get(position);
-        if(contacts.get(position).getName().equalsIgnoreCase("-1")){
-            holder.title.setPadding(0,60,0,0);
-            holder.title.setText(R.string.add_member);
-            holder.topSubtitle.setText(contact.getLastConnectionText());
-            holder.pic.setImageResource(R.drawable.add);
+        Chat chat = vFilteredChats.get(position);
+        holder.title.setText(chat.getTitle());
+
+        if(vChats.get(position).getSubtitle() != null && ! vChats.get(position).getSubtitle().equalsIgnoreCase("null")) {
+           holder.topSubtitle.setText(vChats.get(position).getSubtitle());
         }else{
-            holder.title.setText(contact.getName());
-            holder.topSubtitle.setText(contact.getLastConnectionText());
-            if(contact.getPic() != null)
-                holder.pic.setImageBitmap(contact.getPic());
+            holder.topSubtitle.setText("");
         }
 
+        if(vFilteredChats.get(position).getClass().equals(Contact.class)) {
+            holder.pic.setImageResource(R.drawable.group64);
+        }else {
+            holder.pic.setImageResource(R.drawable.user64);
+            //holder.pic.setImageBitmap(chat.getPic());
+        }
         return convertView;
     }
-    private static class ViewHolder {
-        private TextView title, topSubtitle;
-        private ImageView pic;
-    }
+
     public Filter getFilter() {
         return this.nameFilter;
     }
 
+    private static class ViewHolder {
+        private TextView title, topSubtitle;
+        private ImageView pic;
+    }
 
-
-    public class ContactFilter  extends Filter {
+    public class GroupFilter  extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
             FilterResults results = new FilterResults();
 
-            final List<Contact> list = contacts;
+            final List<Chat> list = vChats;
             int count = list.size();
-            final List<Contact> nlist = new ArrayList<>(count);
+            final List<Chat> nlist = new ArrayList<>(count);
 
 
-            for(Contact user : contacts) {
-                if (user.nameLike(String.valueOf(constraint))) {
-                    nlist.add(user);
+            for(Chat chat : vChats) {
+                if (chat.nameLike(String.valueOf(constraint))) {
+                    nlist.add(chat);
                 }
             }
 
@@ -126,10 +125,9 @@ public class ContactAdapter extends BaseAdapter {
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredContacts = (ArrayList<Contact>) results.values;
+            vFilteredChats = (ArrayList<Chat>) results.values;
             notifyDataSetChanged();
         }
 
     }
-
 }
