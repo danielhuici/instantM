@@ -1,7 +1,7 @@
-#Tue Mar 31 11:09:35 CEST 2020
-base.0=C\:\\Users\\Eduardo\\Documents\\Eduardo\\Uni\\3\\2_cuatri\\Arquitectura_Software\\Proyecto\\InstantM\\instantM\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
+#Sun May 24 05:10:51 CEST 2020
+base.0=C\:\\Users\\danie\\AndroidStudioProjects\\instantM2\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=C\:\\Users\\Eduardo\\Documents\\Eduardo\\Uni\\3\\2_cuatri\\Arquitectura_Software\\Proyecto\\InstantM\\instantM\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex
+base.1=C\:\\Users\\danie\\AndroidStudioProjects\\instantM2\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex

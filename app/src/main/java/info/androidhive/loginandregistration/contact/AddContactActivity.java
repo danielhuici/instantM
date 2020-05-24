@@ -37,7 +37,6 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
         contacts = new ArrayList<>();
         db = new SQLiteHandler(getApplicationContext());
 
-
         communication = new ContactCommunication();
         communication.addObserver(this);
 

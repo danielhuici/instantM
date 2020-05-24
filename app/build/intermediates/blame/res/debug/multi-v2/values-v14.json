@@ -1,29 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Eduardo\\Documents\\Eduardo\\Uni\\3\\2_cuatri\\Arquitectura_Software\\Proyecto\\InstantM\\instantM\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
+            "outputFile": "C:\\Users\\danie\\AndroidStudioProjects\\instantM2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Eduardo\\.gradle\\caches\\transforms-2\\files-2.1\\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\\appcompat-v7-23.1.1\\res\\values-v14\\values-v14.xml",
-                    "from": {
-                        "startLines": "4,11,12,13,19,27,28,29,32,33",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "239,694,765,848,1258,1854,1974,2037,2191,2254",
-                        "endLines": "8,11,12,18,24,27,28,31,32,33",
-                        "endColumns": "12,70,82,12,12,119,62,12,62,131",
-                        "endOffsets": "510,760,843,1253,1675,1969,2032,2186,2249,2381"
-                    },
-                    "to": {
-                        "startLines": "5,10,11,12,18,24,25,26,29,30",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "201,477,548,631,1041,1463,1583,1646,1800,1863",
-                        "endLines": "9,10,11,17,23,24,25,28,29,30",
-                        "endColumns": "12,70,82,12,12,119,62,12,62,131",
-                        "endOffsets": "472,543,626,1036,1458,1578,1641,1795,1858,1990"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Eduardo\\Documents\\Eduardo\\Uni\\3\\2_cuatri\\Arquitectura_Software\\Proyecto\\InstantM\\instantM\\app\\src\\main\\res\\values-v14\\styles.xml",
+                    "source": "C:\\Users\\danie\\AndroidStudioProjects\\instantM2\\app\\src\\main\\res\\values-v14\\styles.xml",
                     "from": {
                         "startLines": "7",
                         "startColumns": "4",
@@ -39,6 +20,25 @@
                         "endLines": "4",
                         "endColumns": "12",
                         "endOffsets": "196"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\danie\\.gradle\\caches\\transforms-2\\files-2.1\\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\\appcompat-v7-23.1.1\\res\\values-v14\\values-v14.xml",
+                    "from": {
+                        "startLines": "4,11,12,13,19,27,28,29,32,33",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "239,694,765,848,1258,1854,1974,2037,2191,2254",
+                        "endLines": "8,11,12,18,24,27,28,31,32,33",
+                        "endColumns": "12,70,82,12,12,119,62,12,62,131",
+                        "endOffsets": "510,760,843,1253,1675,1969,2032,2186,2249,2381"
+                    },
+                    "to": {
+                        "startLines": "5,10,11,12,18,24,25,26,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "201,477,548,631,1041,1463,1583,1646,1800,1863",
+                        "endLines": "9,10,11,17,23,24,25,28,29,30",
+                        "endColumns": "12,70,82,12,12,119,62,12,62,131",
+                        "endOffsets": "472,543,626,1036,1458,1578,1641,1795,1858,1990"
                     }
                 }
             ]

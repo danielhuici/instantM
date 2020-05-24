@@ -101,8 +101,9 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
-        intent.putExtra("group",  (Group) chatsAdapter.getItem(i));
-        System.out.println(((Group)chatsAdapter.getItem(i)).getName() + "000000000000000000000000000000000000000000000000000000");
+        Group g = (Group) chatsAdapter.getItem(i);
+        intent.putExtra("groupName",  g.getName());
+        intent.putExtra("groupId",  String.valueOf(g.getId()));
         startActivityForResult(intent, 2);
     }
 

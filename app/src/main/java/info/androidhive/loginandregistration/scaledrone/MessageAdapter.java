@@ -1,4 +1,4 @@
-package info.androidhive.loginandregistration.chats;
+package info.androidhive.loginandregistration.scaledrone;
 
 import android.app.Activity;
 import android.content.Context;

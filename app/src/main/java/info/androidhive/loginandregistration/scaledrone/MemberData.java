@@ -9,6 +9,10 @@ public class MemberData {
         this.color = color;
     }
 
+    public MemberData(String name) {
+        this.name = name;
+    }
+
     // Add an empty constructor so we can later parse JSON into MemberData using Jackson
     public MemberData() {
     }

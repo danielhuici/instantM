@@ -1,147 +1,161 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:1-49:12
-MERGED from [com.android.support:design:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:17:1-24:12
-MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:17:1-24:12
-MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:1:70-7:12
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:2:1-11:12
-MERGED from [com.android.support:recyclerview-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\5de5b890e633f0574a1780302242ca7b\recyclerview-v7-23.1.1\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:17:1-24:12
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:1-49:12
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:1-52:12
+MERGED from [com.android.support:design:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:17:1-24:12
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:1:70-7:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:recyclerview-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\5de5b890e633f0574a1780302242ca7b\recyclerview-v7-23.1.1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-v4:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:17:1-24:12
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:1-52:12
 	package
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:3:5-52
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:3:5-52
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:5:5-30
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:5:5-30
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:2:11-69
 	android:versionCode
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:4:5-28
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:4:5-28
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
 uses-sdk
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:7:5-47
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:7:5-47
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:7:5-47
-MERGED from [com.android.support:design:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:design:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:3:5-72
-MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:3:5-72
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support:recyclerview-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\5de5b890e633f0574a1780302242ca7b\recyclerview-v7-23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\5de5b890e633f0574a1780302242ca7b\recyclerview-v7-23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:20:5-43
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:7:5-47
-INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:7:5-47
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:7:5-47
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:7:5-47
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:7:5-47
+MERGED from [com.android.support:design:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:3:5-72
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:3:5-72
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:recyclerview-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\5de5b890e633f0574a1780302242ca7b\recyclerview-v7-23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\5de5b890e633f0574a1780302242ca7b\recyclerview-v7-23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:20:5-43
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:7:5-47
+INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:7:5-47
 	android:targetSdkVersion
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:7:15-44
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:7:15-44
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:7:5-47
-		INJECTED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:7:5-47
+		INJECTED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:9:5-67
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:9:5-67
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:9:22-64
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:9:22-64
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:10:5-80
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:10:5-80
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:10:22-77
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:10:22-77
 application
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:12:5-47:19
-MERGED from [com.android.support:design:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:design:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:5:5-19
-MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:5:5-19
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:9:5-20
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:9:5-20
-MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Eduardo\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:22:5-20
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:12:5-50:19
+MERGED from [com.android.support:design:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\640f64c56e14030357e48de08b959da0\design-23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\appcompat-v7-23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:5:5-19
+MERGED from [com.mcxiaoke.volley:library-aar:1.0.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\1f73f36c6b739236260f7d0fb4263c10\library-aar-1.0.1\AndroidManifest.xml:5:5-19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\f0b606c9fced75b8c2c36f0323cf799c\constraint-layout-1.1.3\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-v4:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] C:\Users\danie\.gradle\caches\transforms-2\files-2.1\89f12658fe3c26d0fe2bd78d3ab1c90a\support-v4-23.1.1\AndroidManifest.xml:22:5-20
 	android:label
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:16:9-41
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:16:9-41
 	android:icon
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:15:9-45
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:15:9-45
 	android:allowBackup
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:14:9-35
 	android:theme
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:17:9-40
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:17:9-40
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:13:9-49
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:13:9-49
+activity#info.androidhive.loginandregistration.utils.DefaultDatePickerActivity
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:18:9-78
+	android:name
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:18:19-66
+activity#info.androidhive.loginandregistration.utils.DefaultPasswordPickerActivity
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:19:9-73
+	android:name
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:19:19-70
+activity#info.androidhive.loginandregistration.utils.DefaultPickerActivity
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:20:9-65
+	android:name
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:20:19-62
+activity#info.androidhive.loginandregistration.group.GroupDescriptionPicker
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:21:9-66
+	android:name
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:21:19-63
+activity#info.androidhive.loginandregistration.group.GroupNamePicker
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:22:9-59
+	android:name
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:22:19-56
 activity#info.androidhive.loginandregistration.chats.MessageActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:18:9-68
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:23:9-59
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:18:19-56
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:23:19-56
 activity#info.androidhive.loginandregistration.contact.AddContactActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:19:9-64
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:24:9-64
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:19:19-61
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:24:19-61
 activity#info.androidhive.loginandregistration.group.EditGroupActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:20:9-61
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:25:9-61
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:20:19-58
-activity#info.androidhive.loginandregistration.group.CreateGroupActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:21:9-63
-	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:21:19-60
-activity#info.androidhive.loginandregistration.group.MainActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:22:9-26:55
-	android:label
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:24:13-45
-	android:launchMode
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:25:13-43
-	android:windowSoftInputMode
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:26:13-52
-	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:23:13-47
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:25:19-58
 activity#info.androidhive.loginandregistration.session.RegisterActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:27:9-31:55
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:26:9-30:55
 	android:label
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:29:13-45
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:28:13-45
 	android:launchMode
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:30:13-43
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:29:13-43
 	android:windowSoftInputMode
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:31:13-52
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:30:13-52
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:28:13-53
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:27:13-53
 activity#info.androidhive.loginandregistration.chats.ChatsActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:32:9-35:46
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:31:9-34:46
 	android:label
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:34:13-45
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:33:13-45
 	android:launchMode
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:35:13-43
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:34:13-43
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:33:13-48
-activity#info.androidhive.loginandregistration.session.LoginActivity
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:37:9-46:20
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:32:13-48
+activity#info.androidhive.loginandregistration.profile.EditProfileActivity
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:35:9-38:46
 	android:label
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:39:13-56
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:37:13-45
+	android:launchMode
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:38:13-43
+	android:name
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:36:13-56
+activity#info.androidhive.loginandregistration.session.LoginActivity
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:39:9-48:20
+	android:label
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:41:13-56
 	android:theme
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:40:13-56
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:42:13-56
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:38:13-50
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:40:13-50
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:41:13-45:29
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:43:13-47:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:42:17-69
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:44:17-69
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:42:25-66
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:44:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:44:17-77
+ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:46:17-77
 	android:name
-		ADDED from C:\Users\Eduardo\Documents\Eduardo\Uni\3\2_cuatri\Arquitectura_Software\Proyecto\InstantM\instantM\app\src\main\AndroidManifest.xml:44:27-74
+		ADDED from C:\Users\danie\AndroidStudioProjects\instantM2\app\src\main\AndroidManifest.xml:46:27-74
