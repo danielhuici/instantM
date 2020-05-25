@@ -1,6 +1,7 @@
 package info.androidhive.loginandregistration.chats;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
@@ -20,16 +21,18 @@ import java.util.Observer;
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.contact.ContactAdapter;
 import info.androidhive.loginandregistration.contact.ContactCommunication;
+import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 
 import info.androidhive.loginandregistration.contact.Contact;
 import info.androidhive.loginandregistration.utils.Tupla;
 
-public class TabBFragment extends Fragment implements Observer {
+public class TabBFragment extends Fragment implements Observer, AdapterView.OnItemClickListener {
     private ArrayList<Contact> vContacts;
     private ContactAdapter contactAdapter;
     private ListView lvLista;
     private SQLiteHandler db;
+    private Contact currentSelectedContact;
     Activity mActivity;
 
     ContactCommunication communication;
@@ -48,10 +51,13 @@ public class TabBFragment extends Fragment implements Observer {
         View v = inflater.inflate(R.layout.fragment_tab_b, container, false);
         db = new SQLiteHandler(super.getActivity());
         vContacts = showContacts();
+
         contactAdapter =  new ContactAdapter(super.getActivity(), vContacts) ;
 
         lvLista = v.findViewById(R.id.lvContacts);
         lvLista.setAdapter(contactAdapter);
+
+        lvLista.setOnItemClickListener(this);
 
         communication = new ContactCommunication();
         communication.addObserver(this);
@@ -101,6 +107,9 @@ public class TabBFragment extends Fragment implements Observer {
                 System.out.println("TRES");
 
                 break;
+            case ContactCommunication.GET_ROOMNAME_OK:
+                createMessageActivity((String) tupla.b);
+                break;
         }
     }
     @Override
@@ -124,6 +133,21 @@ public class TabBFragment extends Fragment implements Observer {
 
         }
         return false;
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        currentSelectedContact = (Contact) contactAdapter.getItem(i);
+        communication.getContactRoom(currentSelectedContact.getUserId(), db.getCurrentID());
+    }
+
+    private void createMessageActivity(String roomName) {
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        intent.putExtra("roomName",  roomName);
+        intent.putExtra("groupId",  "-1");
+        intent.putExtra("receiverId",  String.valueOf(currentSelectedContact.getUserId()));
+        startActivityForResult(intent, 2);
     }
 }
 

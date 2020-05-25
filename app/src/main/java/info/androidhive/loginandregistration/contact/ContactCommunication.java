@@ -31,13 +31,14 @@ public class ContactCommunication extends Observable {
     protected static final String GET_CONTACTS_OK = "GET_CONTACTS_OK";
     protected static final String GET_CONTACTS_ERROR = "GET_CONTACTS_ERROR";
 
-    private static final String GET_PRIVATE_CHATS_OK = "GET_PRIVATE_CHATS_OK";
-    private static final String GET_PRIVATE_CHATS_ERROR = "GET_PRIVATE_CHATS_ERROR";
+    public static final String GET_ROOMNAME_OK = "GET_ROOMNAME_OK";
+    public static final String GET_ROOMNAME_ERROR = "GET_ROOMNAME_ERROR";
 
     private static final String URL_ADD_CONTACT = "http://34.69.44.48/instantm/anadir_contacto.php";
     private static final String URL_GET_CONTACTS = "http://34.69.44.48/instantm/obtener_contactos.php";
     private static final String URL_GET_USER_CONTACTS = "http://34.69.44.48/instantm/obtener_contactos_usuario.php";
     private static final String URL_DELETE_CONTACT = "http://34.69.44.48/instantm/eliminar_contacto.php";
+    private static final String URL_ROOM_CONTACT = "http://34.69.44.48/instantm/obtener_sala.php";
 
 
     void createContact(final int userId, final int contactId) {
@@ -206,6 +207,8 @@ public class ContactCommunication extends Observable {
                 // JSON error node?
                 if (!error) { // No hay error
                     setChanged();
+                    List<Contact> contacts = Contact.JSONToContacts(jObj.getJSONArray("contacts"));
+                    setChanged();
                     notifyObservers(new Tupla<>(DELETE_CONTACT_OK, null));
 
                 } else { // Error
@@ -222,6 +225,52 @@ public class ContactCommunication extends Observable {
         public void onErrorResponse(VolleyError error) {
             setChanged();
             notifyObservers(new Tupla<>(DELETE_CONTACT_ERROR, "RESPONSE ERROR"));
+        }
+    }
+
+    public void getContactRoom(final int userId, final int myId) {
+        GetContactRoomListener getContactRoomListener = new GetContactRoomListener();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_ROOM_CONTACT, getContactRoomListener,getContactRoomListener){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user1", String.valueOf(userId));
+                params.put("user2", String.valueOf(myId));
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(strReq, "");
+    }
+
+    class GetContactRoomListener implements Response.Listener<String>, Response.ErrorListener{
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+
+                // JSON error node?
+                if (!error) { // No hay error
+                    String roomName = jObj.getJSONObject("data").getString("room_name");
+                    setChanged();
+                    notifyObservers(new Tupla<>(GET_ROOMNAME_OK, roomName));
+
+                } else { // Error
+                    setChanged();
+                    notifyObservers(new Tupla<>(GET_ROOMNAME_ERROR, "ERROR"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                setChanged();
+                notifyObservers(new Tupla<>(GET_ROOMNAME_ERROR, "JSON ERROR"));
+            }
+        }
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            setChanged();
+            notifyObservers(new Tupla<>(GET_ROOMNAME_ERROR, "RESPONSE ERROR"));
         }
     }
 }

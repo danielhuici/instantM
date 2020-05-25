@@ -37,12 +37,26 @@ public class MessageCommunication extends Observable implements RoomListener {
     private SQLiteHandler db;
     private static final String URL_SAVE_MESSAGE = "http://34.69.44.48/instantm/guardar_mensaje.php";
     private static final String URL_RECOVER_MESSAGES = "http://34.69.44.48/instantm/recuperar_mensajes.php";
+    private static final String URL_SAVE_PRIVATE_MESSAGE = "http://34.69.44.48/instantm/guardar_mensaje_privado.php";
+    private static final String URL_RECOVER_PRIVATE_MESSAGES = "http://34.69.44.48/instantm/recuperar_mensajes_privados.php";
 
-
-    public MessageCommunication(Activity context, final String roomName, final int groupId) {
+    public MessageCommunication(Activity context, final String roomName, final String groupId,
+                                final String receiverId) {
         db = new SQLiteHandler(context);
-        MemberData data = new MemberData(getRandomColor(), getRandomName());
         this.roomName = roomName;
+
+        if (groupId.equals("-1")) {
+            recoverPrivateMessagesDb();
+        } else {
+            recoverMessagesGroupDb(groupId);
+        }
+
+        scaledroneConnectionManager();
+    }
+
+
+    private void scaledroneConnectionManager() {
+        MemberData data = new MemberData(getRandomColor(), getRandomName());
         scaledrone = new Scaledrone(channelID, data);
         scaledrone.connect(new Listener() {
             @Override
@@ -68,9 +82,7 @@ public class MessageCommunication extends Observable implements RoomListener {
             }
         });
 
-        recoverMessagesGroupDb(groupId);
     }
-
 
     // Successfully connected to Scaledrone room
     @Override
@@ -125,13 +137,28 @@ public class MessageCommunication extends Observable implements RoomListener {
         currentMessage = message;
     }
 
-    public void sendMessage(View view, String roomName, String groupId) {
+    public void sendPrivateMessage(View view, String roomName, String idReceiver) {
+        String message = currentMessage.getText().toString();
+        System.out.println("Guarda mi mensaje!!" +  roomName + idReceiver);
+        this.roomName = roomName;
+        if (message.length() > 0) {
+            savePrivateMessageDb(message, idReceiver);
+            sendMessage(message);
+        }
+    }
+
+    private void sendMessage(String message) {
+        scaledrone.publish(roomName, message);
+        currentMessage.getText().clear();
+    }
+
+    public void sendGroupMessage(View view, String roomName, String groupId) {
         String message = currentMessage.getText().toString();
         this.roomName = roomName;
         System.out.println("Mensaje enviado: " + message);
         if (message.length() > 0) {
-            scaledrone.publish(roomName, message);
             saveMessageGroupDb(message, groupId);
+            sendMessage(message);
             currentMessage.getText().clear();
         }
     }
@@ -164,14 +191,17 @@ public class MessageCommunication extends Observable implements RoomListener {
         public void onErrorResponse(VolleyError error) { }
     }
 
-    public void recoverMessagesGroupDb(final int groupId) {
-        RecoverMessagesGroupListener recoverMessagesGroupListener = new RecoverMessagesGroupListener();
+    public void savePrivateMessageDb(final String message, final String idReceiver) {
+        SavePrivateMessageListener saveMessageListener = new SavePrivateMessageListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                URL_RECOVER_MESSAGES, recoverMessagesGroupListener, recoverMessagesGroupListener) {
+                URL_SAVE_PRIVATE_MESSAGE, saveMessageListener, saveMessageListener) {
+
             protected Map<String, String> getParams() {
                 // Parámetros para la consulta POST <columna_db, variables>
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id_group", String.valueOf(groupId));
+                params.put("id_user", String.valueOf(db.getCurrentID()));
+                params.put("id_receiver", idReceiver);
+                params.put("message", message);
                 return params;
             }
         };
@@ -180,7 +210,31 @@ public class MessageCommunication extends Observable implements RoomListener {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
-    class RecoverMessagesGroupListener implements Response.Listener<String>, Response.ErrorListener {
+    class SavePrivateMessageListener implements Response.Listener<String>, Response.ErrorListener {
+        @Override
+        public void onResponse(String response) { }
+
+        @Override
+        public void onErrorResponse(VolleyError error) { }
+    }
+
+    public void recoverMessagesGroupDb(final String groupId) {
+        RecoverGroupMessagesListener recoverGroupMessagesListener = new RecoverGroupMessagesListener();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_RECOVER_MESSAGES, recoverGroupMessagesListener, recoverGroupMessagesListener) {
+            protected Map<String, String> getParams() {
+                // Parámetros para la consulta POST <columna_db, variables>
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_group", groupId);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, "");
+    }
+
+    class RecoverGroupMessagesListener implements Response.Listener<String>, Response.ErrorListener {
         @Override
         public void onResponse(String response) {
             try {
@@ -201,11 +255,51 @@ public class MessageCommunication extends Observable implements RoomListener {
             }
 
     }
-
         @Override
         public void onErrorResponse(VolleyError error) { }
     }
 
+
+
+    private void recoverPrivateMessagesDb() {
+        RecoverPrivateMessagesListener recoverPrivateMessagesDb = new RecoverPrivateMessagesListener();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_RECOVER_PRIVATE_MESSAGES, recoverPrivateMessagesDb, recoverPrivateMessagesDb) {
+            protected Map<String, String> getParams() {
+                // Parámetros para la consulta POST <columna_db, variables>
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("room_name", roomName.substring(11));
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, "");
+    }
+
+    class RecoverPrivateMessagesListener implements Response.Listener<String>, Response.ErrorListener {
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+                if (!error) {
+                    System.out.println(jObj.getJSONArray("messages"));
+                    List<Message> messages = Message.JSONToMessages(jObj.getJSONArray("messages"), db.getCurrentUsername());
+                    setChanged();
+                    notifyObservers(new Tupla<>(RECOVER_MESSAGES, messages));
+                } else {
+                    setChanged();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                setChanged();
+            }
+
+        }
+        @Override
+        public void onErrorResponse(VolleyError error) { }
+    }
 
 
 }

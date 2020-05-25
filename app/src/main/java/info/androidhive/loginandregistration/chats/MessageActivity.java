@@ -12,6 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.contact.ContactCommunication;
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.scaledrone.Message;
 import info.androidhive.loginandregistration.scaledrone.MessageAdapter;
@@ -20,10 +21,10 @@ import info.androidhive.loginandregistration.utils.Tupla;
 
 
 public class MessageActivity extends AppCompatActivity implements Observer {
-
     private String channelID = "1NVeBVoez27uLnQ9";
-    private String roomName = ""; // Nombre de la sala. Variable a cambiar
+    private String roomName = "observable-"; // Nombre de la sala. Variable a cambiar
     private String groupId;
+    private String receiverId;
     private EditText messageText;
     private MessageCommunication messageCommunication;
     private MessageAdapter messageAdapter;
@@ -35,18 +36,27 @@ public class MessageActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_message);
 
         Intent messageIntent = getIntent();
-        roomName = "observable-" + messageIntent.getStringExtra("groupName");
+
         groupId = messageIntent.getStringExtra("groupId");
+        System.out.println("GroupID: " + groupId);
+        if(groupId.equals("-1")) {
+            System.out.println("ENTRO!");
+            roomName += messageIntent.getStringExtra("roomName");
+            receiverId = messageIntent.getStringExtra("receiverId");
+            messageCommunication = new MessageCommunication(this, roomName, "-1", receiverId);
+
+        } else {
+            roomName += messageIntent.getStringExtra("groupName");
+            messageCommunication = new MessageCommunication(this, roomName, groupId, "-1");
+        }
+
         messageText = (EditText) findViewById(R.id.editText);
 
         messageAdapter = new MessageAdapter(this);
         messagesView = (ListView) findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
-        messageCommunication = new MessageCommunication(this, roomName, Integer.parseInt(groupId));
         messageCommunication.addObserver(this);
-
-
     }
 
     private void addMessageBubble(Message message) {
@@ -76,6 +86,15 @@ public class MessageActivity extends AppCompatActivity implements Observer {
                     }
                 });
                 break;
+
+            case ContactCommunication.GET_ROOMNAME_OK:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showOldMessages((List<Message>) tupla.b);
+                    }
+                });
+                break;
         }
     }
 
@@ -88,6 +107,11 @@ public class MessageActivity extends AppCompatActivity implements Observer {
     public void sendMessage(View view) {
         messageText = (EditText) findViewById(R.id.editText);
         messageCommunication.setCurrentMessage(messageText);
-        messageCommunication.sendMessage(view, roomName, groupId);
+        if(groupId.equals("-1")) {
+            messageCommunication.sendPrivateMessage(view, roomName, receiverId);
+        } else {
+            messageCommunication.sendGroupMessage(view, roomName, groupId);
+        }
+
     }
 }
