@@ -21,6 +21,7 @@ public class Group extends Chat implements Serializable {
     private int administratorId;
 
     public Group()  {
+        super.isGroup = true;
     }
 
     public static List<Group> JSONToGroups(JSONArray groupsListJSON) throws JSONException {

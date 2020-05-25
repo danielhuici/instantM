@@ -11,6 +11,7 @@ import info.androidhive.loginandregistration.scaledrone.Message;
 public abstract class Chat {
     protected String name;
     protected Bitmap pic;
+    protected boolean isGroup;
 
     protected List<Message> messages;
 

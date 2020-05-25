@@ -38,6 +38,7 @@ class ChatCommunication extends Observable {
         };
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
+
     class GetUserChats implements Response.Listener<String>, Response.ErrorListener{
         List<Chat> chats;
 

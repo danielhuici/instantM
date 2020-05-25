@@ -24,10 +24,12 @@ public class Contact extends Chat implements Serializable  {
 
     public Contact(String name) {
         this.name = name;
+        super.isGroup = false;
     }
     public Contact(String name, int userId) {
         this.name = name;
         this.userId = userId;
+        super.isGroup = false;
     }
     public static List<Contact> JSONToContacts(JSONArray contactsListJSON) throws JSONException {
         List<Contact> vContacts = new ArrayList<>();

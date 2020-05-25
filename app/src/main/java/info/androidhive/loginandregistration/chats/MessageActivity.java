@@ -114,4 +114,12 @@ public class MessageActivity extends AppCompatActivity implements Observer {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        messageCommunication.disconnect();
+        System.out.println("Se ha cerrado la conexión");
+        super.onBackPressed();
+    }
+
 }

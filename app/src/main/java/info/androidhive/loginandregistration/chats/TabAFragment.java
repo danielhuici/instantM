@@ -19,6 +19,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.contact.Contact;
+import info.androidhive.loginandregistration.contact.ContactCommunication;
 import info.androidhive.loginandregistration.group.GroupCommunication;
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
@@ -28,6 +30,7 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
     private ArrayList<Chat> vChats;
     private ChatAdapter chatsAdapter;
     private SQLiteHandler db;
+    private Contact currentSelectedContact;
 
     private ChatCommunication chatCommunication;
 
@@ -95,15 +98,38 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
                 Toast.makeText(getActivity().getApplicationContext(),
                         (String) tupla.b, Toast.LENGTH_LONG).show();
                 break;
+
+            case ContactCommunication.GET_ROOMNAME_OK:
+                createMessageActivity((String) tupla.b);
+                break;
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
-        Group g = (Group) chatsAdapter.getItem(i);
-        intent.putExtra("groupName",  g.getName());
-        intent.putExtra("groupId",  String.valueOf(g.getId()));
+        Chat c = (Chat) chatsAdapter.getItem(i);
+
+        if (c.isGroup) {
+            Group g = (Group) chatsAdapter.getItem(i);
+            intent.putExtra("groupName",  g.getName());
+            intent.putExtra("groupId",  String.valueOf(g.getId()));
+            startActivityForResult(intent, 2);
+        } else {
+            currentSelectedContact = (Contact) chatsAdapter.getItem(i);
+            ContactCommunication contactCommunication = new ContactCommunication();
+            contactCommunication.addObserver(this);
+            contactCommunication.getContactRoom(currentSelectedContact.getUserId(), db.getCurrentID());
+        }
+
+
+    }
+
+    private void createMessageActivity(String roomName) {
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
+        intent.putExtra("roomName",  roomName);
+        intent.putExtra("groupId",  "-1");
+        intent.putExtra("receiverId",  String.valueOf(currentSelectedContact.getUserId()));
         startActivityForResult(intent, 2);
     }
 

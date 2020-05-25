@@ -105,7 +105,7 @@ public class MessageCommunication extends Observable implements RoomListener {
             final MemberData data = mapper.treeToValue(receivedMessage.getMember().getClientData(), MemberData.class);
             boolean belongsToCurrentUser = receivedMessage.getClientID().equals(scaledrone.getClientID());
             final Message message = new Message(receivedMessage.getData().asText(), data, belongsToCurrentUser);
-
+            System.out.println("Mensaje recibido" + receivedMessage.getData().asText());
             // TODO: Si falla el nombre del que se muestra, quizá sea aquí el problema
             setChanged();
             notifyObservers(new Tupla<>(RECEIVED_MESSAGE, message));
@@ -301,5 +301,8 @@ public class MessageCommunication extends Observable implements RoomListener {
         public void onErrorResponse(VolleyError error) { }
     }
 
+    public void disconnect() {
+        scaledrone.close();
+    }
 
 }
