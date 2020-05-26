@@ -33,7 +33,6 @@ public class MessageActivity extends AppCompatActivity implements Observer, Seri
     private MessageCommunication messageCommunication;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,26 +41,24 @@ public class MessageActivity extends AppCompatActivity implements Observer, Seri
         Intent messageIntent = getIntent();
 
         groupId = messageIntent.getStringExtra("groupId");
-        System.out.println("GroupID: " + groupId);
+
 
         if(groupId.equals("-1")) {
-            System.out.println("ENTRO!");
             roomName += messageIntent.getStringExtra("roomName");
             receiverId = messageIntent.getStringExtra("receiverId");
             messageCommunication = new MessageCommunication(this, roomName, "-1", receiverId);
 
         } else {
             Group g = (Group) messageIntent.getSerializableExtra("group");
-            System.out.println("TITULO: " + g.getName());
             setActionToolbar(g);
             roomName += messageIntent.getStringExtra("groupName");
             messageCommunication = new MessageCommunication(this, roomName, groupId, "-1");
         }
 
-        messageText = (EditText) findViewById(R.id.editText);
+        messageText = findViewById(R.id.editText);
 
         messageAdapter = new MessageAdapter(this);
-        messagesView = (ListView) findViewById(R.id.messages_view);
+        messagesView = findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
         messageCommunication.addObserver(this);

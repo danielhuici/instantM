@@ -73,7 +73,7 @@ public class ChatAdapter extends BaseAdapter {
 
         Chat chat = vFilteredChats.get(position);
         holder.title.setText(chat.getTitle());
-
+        if(position < vChats.size())
         if(vChats.get(position).getSubtitle() != null && ! vChats.get(position).getSubtitle().equalsIgnoreCase("null")) {
            holder.topSubtitle.setText(vChats.get(position).getSubtitle());
         }else{

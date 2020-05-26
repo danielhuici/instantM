@@ -40,6 +40,7 @@ public class GroupCommunication extends Observable {
     private static final String URL_GET_GROUPS = "http://34.69.44.48/instantm/obtener_grupos.php";
     private static final String URL_LEAVE_GROUP = "http://34.69.44.48/instantm/abandonar_grupo.php";
     private static final String URL_INSERT_MEMBERS = "http://34.69.44.48/instantm/insertar_integrantes.php";
+    private static final String URL_DELETE_GROUP = "http://34.69.44.48/instantm/eliminar_grupo.php";
 
 
     public void crateGroup(final Group groupToCreate, final int userId, final String mode) {
@@ -138,8 +139,46 @@ public class GroupCommunication extends Observable {
 
     }
 
-    public void deleteGroup(int groupId) {
-       //TODO Terminar esto
+    public void deleteGroup(final int groupId) {
+        DeleteGroupListener deleteGroupListener = new DeleteGroupListener();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                URL_DELETE_GROUP, deleteGroupListener, deleteGroupListener) {
+
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id_chat_group", String.valueOf(groupId));
+
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, "");
+    }
+
+
+    class DeleteGroupListener implements Response.Listener<String>, Response.ErrorListener{
+
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean error = jObj.getBoolean("error");
+                if (!error) {
+                    setChanged();
+                    notifyObservers(new Tupla<>(DELETE_GROUP_OK, null));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                setChanged();
+                notifyObservers(new Tupla<>(DELETE_GROUP_ERROR,"ERROR JSON"));
+            }
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            setChanged();
+            notifyObservers(new Tupla<>(DELETE_GROUP_ERROR,"ERROR RESPONSE"));
+        }
     }
 
     class LeaveGroupListener implements Response.Listener<String>, Response.ErrorListener{

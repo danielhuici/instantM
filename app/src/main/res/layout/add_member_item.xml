@@ -12,7 +12,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/add" />
+        android:src="@drawable/add64" />
 
     <LinearLayout
         android:layout_width="match_parent"

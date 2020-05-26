@@ -79,7 +79,7 @@ public class ContactAdapter extends BaseAdapter {
             holder.title.setPadding(0,60,0,0);
             holder.title.setText(R.string.add_member);
             holder.topSubtitle.setText(contact.getLastConnectionText());
-            holder.pic.setImageResource(R.drawable.add);
+            holder.pic.setImageResource(R.drawable.add64);
         }else{
             holder.title.setText(contact.getName());
             holder.topSubtitle.setText(contact.getLastConnectionText());

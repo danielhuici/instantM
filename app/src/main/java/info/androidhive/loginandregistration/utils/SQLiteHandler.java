@@ -106,7 +106,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		values.put(KEY_USERNAME, user.getUsername()); // Name
 		values.put(KEY_EMAIL, user.getEmail()); // Email
 		values.put(KEY_ID_USER, user.getId());
-		if(user.getState() == null) user.setState("Hey there i am using instantM");
+		if(user.getState() == null)
+			user.setState("Hey there i am using instantM");
 		if(user.getBirthdate() == null) {
 			try {
 				user.setBirthday("01-10-1996");
@@ -123,7 +124,29 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 		Log.d(TAG, "New user inserted into sqlite: " + id);
 	}
+	public void updateUser(User user){
+		SQLiteDatabase db = this.getWritableDatabase();
 
+		ContentValues values = new ContentValues();
+		values.put(KEY_USERNAME, user.getUsername()); // Name
+		values.put(KEY_EMAIL, user.getEmail()); // Email
+		values.put(KEY_ID_USER, user.getId());
+		if(user.getState() == null)
+			user.setState("Hey there i am using instantM");
+		if(user.getBirthdate() == null) {
+			try {
+				user.setBirthday("01-10-1996");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		values.put(KEY_STATE, user.getState());
+		values.put(KEY_ID_USER, user.getId());
+		values.put(KEY_BIRTHDAY, new SimpleDateFormat("dd-mm-yyyy").format(user.getBirthdate()));
+
+		db.update(TABLE_USER, values, KEY_ID_USER + " = " + user.getId() , null);
+		db.close(); // Closing database connection
+	}
 	/**
 	 * Getting user data from database
 	 * */

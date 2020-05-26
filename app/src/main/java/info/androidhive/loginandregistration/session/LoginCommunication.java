@@ -37,8 +37,7 @@ public class LoginCommunication extends Observable implements Response.Listener<
                 u.setId(id);
                 u.setUsername(user.getString("name"));
                 u.setEmail(user.getString("mail"));
-                //u.setState(user.getString("state"));
-                u.setState("TEST");
+                u.setState(user.getString("state"));
                 if(user.getString("birthday") != null)
                 u.setBirthday(user.getString("birthday"));
                 setChanged();

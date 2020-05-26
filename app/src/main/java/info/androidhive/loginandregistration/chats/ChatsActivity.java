@@ -125,14 +125,13 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
     {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        if(requestCode==2)
-        {
+
             mViewPager = findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);
 
             tabLayout.removeAllTabs();
             tabLayout.setupWithViewPager(mViewPager);
-        }
+
     }
     // Métodos de la interfaz ActionBar.TabListener
     @Override

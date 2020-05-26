@@ -100,13 +100,9 @@ public class TabBFragment extends Fragment implements Observer, AdapterView.OnIt
                         errorMsg, Toast.LENGTH_LONG).show();
                 break;
             case ContactCommunication.DELETE_CONTACT_OK:
-                System.out.println("DOS");
-
                 getContactsFromServer();
                 break;
             case ContactCommunication.DELETE_CONTACT_ERROR:
-                System.out.println("TRES");
-
                 break;
             case ContactCommunication.GET_ROOMNAME_OK:
                 createMessageActivity((String) tupla.b);

@@ -43,7 +43,7 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
 
 
     private SQLiteHandler db;
-    private ArrayList<Tupla<String,Bitmap>> vOptions;
+    private ArrayList<ProfileOption> vOptions;
     private OptionAdapter optionAdapter;
     private ListView lvOptions;
     private ImageView ivProfile;
@@ -59,7 +59,7 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
 
     private final int IMAGE_PICKER_REQUEST_CODE = 0;
     private final int EMAIL_PICKER_REQUEST_CODE = 1;
-    private final int STATE_PICKER_REQUEST_CODE = 2;    //TODO Tocará probablemente cambiar name por pikers de email, password y fecha nacimiento
+    private final int STATE_PICKER_REQUEST_CODE = 2;
     private final int PASSWORD_PICKER_REQUEST_CODE = 3;
     private final int DATE_PICKER_REQUEST_CODE = 4;
 
@@ -67,14 +67,16 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
         db = new SQLiteHandler(getApplicationContext());
+        profileToUpdate = db.getUserDetails();
+        setContentView(R.layout.activity_edit_profile);
+
         initComponents();
 
         communication = new ProfileCommunication();
         communication.addObserver(this);
 
-        profileToUpdate = db.getUserDetails();
+
         populateFields(profileToUpdate);
         addListeners();
 
@@ -83,6 +85,15 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
     private void populateFields(User u) {
         tvProfileName.setText(u.getUsername());
         tvProfileState.setText(u.getState());
+        vOptions.clear();
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.edit32);
+        vOptions.add(new ProfileOption(getString(R.string.menu_item_cambiar_contrasena), icon, ""));
+        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        vOptions.add(new ProfileOption(getString(R.string.menu_item_cambiar_email), icon, profileToUpdate.getEmail()));
+        icon = BitmapFactory.decodeResource(getResources(), R.drawable.birthday64);
+        vOptions.add(new ProfileOption(getString(R.string.menu_item_cambiar_fecha_nacimiento), icon, profileToUpdate.getBirthdateString()));
+        optionAdapter.notifyDataSetChanged();
+        setListViewHeightBasedOnChildren(lvOptions, optionAdapter);
     }
 
     private void addListeners() {
@@ -109,14 +120,6 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
         lvOptions = findViewById(R.id.lvProfileOptions);
         lvOptions.setAdapter(optionAdapter);
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.edit32);
-        vOptions.add(new Tupla<>(getString(R.string.menu_item_cambiar_contrasena), icon));
-        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        vOptions.add(new Tupla<>(getString(R.string.menu_item_cambiar_email), icon));
-        icon = BitmapFactory.decodeResource(getResources(), R.drawable.birthday64);
-        vOptions.add(new Tupla<>(getString(R.string.menu_item_cambiar_fecha_nacimiento), icon ));
-        optionAdapter.notifyDataSetChanged();
-        setListViewHeightBasedOnChildren(lvOptions, optionAdapter);
     }
 
 
@@ -182,24 +185,26 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
                 if(resultCode == RESULT_OK) {
                     profileToUpdate.setState(String.valueOf(data.getExtras().getString("result")));
                     tvProfileState.setText(profileToUpdate.getState());
+                    populateFields(profileToUpdate);
                 }
                 break;
             case EMAIL_PICKER_REQUEST_CODE:
                 if(resultCode == RESULT_OK) {
                     profileToUpdate.setEmail(String.valueOf(data.getExtras().getString("result")));
+                    populateFields(profileToUpdate);
                 }
                 break;
             case PASSWORD_PICKER_REQUEST_CODE:
                 if(resultCode == RESULT_OK) {
                     profileToUpdate.setPassword(String.valueOf(data.getExtras().getString("result")));
+                    populateFields(profileToUpdate);
                 }
                 break;
             case DATE_PICKER_REQUEST_CODE:
                 if(resultCode == RESULT_OK) {
                     try {
                         profileToUpdate.setBirthday(String.valueOf(data.getExtras().getString("result")));
-                        Toast.makeText(this, new SimpleDateFormat("dd-mm-yyyy").format(profileToUpdate.getBirthdate()), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(this, new SimpleDateFormat("dd-mm-yyyy").format(profileToUpdate.getBirthdate()), Toast.LENGTH_SHORT).show();
+                        populateFields(profileToUpdate);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -218,12 +223,12 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
     public void update(Observable observable, Object o) {
         Tupla<String, Object> tupla = (Tupla<String, Object>) o;
         switch (tupla.a){
-            //TODO Aqui los retornos de la comunicación: Guardar la edición de perfil y obtener la info del perfil y sus errores
             case UPDATE_OK:
-                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+                db.updateUser(profileToUpdate);
+                Toast.makeText(this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
                 break;
             case UPDATE_ERROR:
-                Toast.makeText(this, "NO OK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error al actualizar", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -276,18 +281,18 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent picker;
 
-        if (vOptions.get(i).a.equalsIgnoreCase(getString(R.string.menu_item_cambiar_contrasena))) {
+        if (vOptions.get(i).getTitle().equalsIgnoreCase(getString(R.string.menu_item_cambiar_contrasena))) {
             picker = new Intent(this, DefaultPasswordPickerActivity.class);
             startActivityForResult(picker, PASSWORD_PICKER_REQUEST_CODE);
 
-        }else if(vOptions.get(i).a.equalsIgnoreCase(getString(R.string.menu_item_cambiar_email))) {
+        }else if(vOptions.get(i).getTitle().equalsIgnoreCase(getString(R.string.menu_item_cambiar_email))) {
             picker = new Intent(this, DefaultPickerActivity.class);
             picker.putExtra("etText", "Introduce el nuevo email");
             picker.putExtra("okText", getString(R.string.OK));
             picker.putExtra("cancelText", getString(R.string.cancel));
             startActivityForResult(picker, EMAIL_PICKER_REQUEST_CODE);
 
-        }else if(vOptions.get(i).a.equalsIgnoreCase(getString(R.string.menu_item_cambiar_fecha_nacimiento))){
+        }else if(vOptions.get(i).getTitle().equalsIgnoreCase(getString(R.string.menu_item_cambiar_fecha_nacimiento))){
             picker = new Intent(this, DefaultDatePickerActivity.class);
             picker.putExtra("etText", getString(R.string.birthday));
             picker.putExtra("okText", getString(R.string.OK));
