@@ -217,8 +217,7 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
                 break;
             case R.id.btDeleteGroup:
                 communication.deleteGroup(groupToUpdate.getId());
-                Toast.makeText(getApplicationContext(),
-                        "NO IMPLEMENTADO TODAVIA", Toast.LENGTH_LONG).show();
+
                 break;
         }
     }

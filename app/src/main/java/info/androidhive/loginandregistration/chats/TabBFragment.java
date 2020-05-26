@@ -93,6 +93,7 @@ public class TabBFragment extends Fragment implements Observer, AdapterView.OnIt
                 vContacts.clear();
                 vContacts.addAll((List<Contact>) tupla.b);
                 contactAdapter.notifyDataSetChanged();
+
                 break;
             case ContactCommunication.GET_USER_CONTACTS_ERROR:
                 String errorMsg = (String) tupla.b;

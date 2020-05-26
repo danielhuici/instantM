@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\danie\\AndroidStudioProjects\\instantM2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-w480dp-v13\\values-w480dp-v13.xml",
+            "outputFile": "/home/martin/instantD/instantM/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-w480dp-v13/values-w480dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\danie\\.gradle\\caches\\transforms-2\\files-2.1\\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\\appcompat-v7-23.1.1\\res\\values-w480dp\\values-w480dp.xml",
+                    "source": "/home/martin/.gradle/caches/transforms-2/files-2.1/3bfc73cbfe4dd381e5b7ce6b9eeb75d1/appcompat-v7-23.1.1/res/values-w480dp/values-w480dp.xml",
                     "from": {
                         "startLines": "4,7",
                         "startColumns": "4,4",

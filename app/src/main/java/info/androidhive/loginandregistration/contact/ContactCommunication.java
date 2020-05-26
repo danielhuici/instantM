@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,9 +164,11 @@ public class ContactCommunication extends Observable {
 
                 if (!error) { // No hay error
                     setChanged();
-                    if (!jObj.isNull("contacts"))
-                            notifyObservers(new Tupla<>(GET_USER_CONTACTS_OK, Contact.JSONToContacts(jObj.getJSONArray("contacts"))));
-
+                    if (!jObj.isNull("contacts")) {
+                        notifyObservers(new Tupla<>(GET_USER_CONTACTS_OK, Contact.JSONToContacts(jObj.getJSONArray("contacts"))));
+                    }else{
+                        notifyObservers(new Tupla<>(GET_USER_CONTACTS_OK, new ArrayList<Contact>()));
+                    }
                 } else { // Error
                     setChanged();
                     notifyObservers(new Tupla<>(GET_USER_CONTACTS_ERROR, "ERROR"));
@@ -206,8 +209,7 @@ public class ContactCommunication extends Observable {
 
                 // JSON error node?
                 if (!error) { // No hay error
-                    setChanged();
-                    List<Contact> contacts = Contact.JSONToContacts(jObj.getJSONArray("contacts"));
+                    //List<Contact> contacts = Contact.JSONToContacts(jObj.getJSONArray("contacts"));
                     setChanged();
                     notifyObservers(new Tupla<>(DELETE_CONTACT_OK, null));
 

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\danie\\AndroidStudioProjects\\instantM2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-hdpi-v4\\values-hdpi-v4.xml",
+            "outputFile": "/home/martin/instantD/instantM/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\danie\\.gradle\\caches\\transforms-2\\files-2.1\\3bfc73cbfe4dd381e5b7ce6b9eeb75d1\\appcompat-v7-23.1.1\\res\\values-hdpi\\values-hdpi.xml",
+                    "source": "/home/martin/.gradle/caches/transforms-2/files-2.1/3bfc73cbfe4dd381e5b7ce6b9eeb75d1/appcompat-v7-23.1.1/res/values-hdpi/values-hdpi.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "4",
