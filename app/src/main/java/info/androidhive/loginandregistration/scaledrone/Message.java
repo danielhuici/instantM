@@ -11,12 +11,12 @@ import info.androidhive.loginandregistration.group.Group;
 
 public class Message {
     private String text; // message body
-    private MemberData username; // data of the user that sent this message
+    private MemberData user; // data of the user that sent this message
     private boolean belongsToCurrentUser; // is this message sent by us?
 
     public Message(String text, MemberData user, boolean belongsToCurrentUser) {
         this.text = text;
-        this.username = user;
+        this.user = user;
         this.belongsToCurrentUser = belongsToCurrentUser;
     }
 
@@ -25,7 +25,7 @@ public class Message {
     }
 
     public MemberData getMemberData() {
-        return username;
+        return user;
     }
 
     public boolean isBelongsToCurrentUser() {

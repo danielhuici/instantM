@@ -4,18 +4,19 @@ import android.graphics.Bitmap;
 
 import org.json.JSONArray;
 
+import java.io.Serializable;
 import java.util.List;
 
 import info.androidhive.loginandregistration.scaledrone.Message;
 
-public abstract class Chat {
+public abstract class Chat implements Serializable {
     protected String name;
     protected Bitmap pic;
     protected boolean isGroup;
 
     protected List<Message> messages;
 
-    protected abstract String getTitle();
+    public abstract String getTitle();
     protected abstract String getSubtitle();
     protected abstract Bitmap getPic();
     protected abstract boolean nameLike(String target);

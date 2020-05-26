@@ -1,4 +1,4 @@
-#Tue May 26 01:37:23 CEST 2020
+#Tue May 26 03:06:27 CEST 2020
 base.0=C\:\\Users\\danie\\AndroidStudioProjects\\instantM2\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex

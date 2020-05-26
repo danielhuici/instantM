@@ -3,16 +3,20 @@ package info.androidhive.loginandregistration.chats;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.contact.ContactCommunication;
+import info.androidhive.loginandregistration.group.EditGroupActivity;
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.scaledrone.Message;
 import info.androidhive.loginandregistration.scaledrone.MessageAdapter;
@@ -20,7 +24,7 @@ import info.androidhive.loginandregistration.scaledrone.MessageCommunication;
 import info.androidhive.loginandregistration.utils.Tupla;
 
 
-public class MessageActivity extends AppCompatActivity implements Observer {
+public class MessageActivity extends AppCompatActivity implements Observer, Serializable {
     private String channelID = "1NVeBVoez27uLnQ9";
     private String roomName = "observable-"; // Nombre de la sala. Variable a cambiar
     private String groupId;
@@ -39,6 +43,7 @@ public class MessageActivity extends AppCompatActivity implements Observer {
 
         groupId = messageIntent.getStringExtra("groupId");
         System.out.println("GroupID: " + groupId);
+
         if(groupId.equals("-1")) {
             System.out.println("ENTRO!");
             roomName += messageIntent.getStringExtra("roomName");
@@ -46,6 +51,9 @@ public class MessageActivity extends AppCompatActivity implements Observer {
             messageCommunication = new MessageCommunication(this, roomName, "-1", receiverId);
 
         } else {
+            Group g = (Group) messageIntent.getSerializableExtra("group");
+            System.out.println("TITULO: " + g.getName());
+            setActionToolbar(g);
             roomName += messageIntent.getStringExtra("groupName");
             messageCommunication = new MessageCommunication(this, roomName, groupId, "-1");
         }
@@ -120,6 +128,24 @@ public class MessageActivity extends AppCompatActivity implements Observer {
         messageCommunication.disconnect();
         System.out.println("Se ha cerrado la conexión");
         super.onBackPressed();
+    }
+
+    private void setActionToolbar(final Group g) {
+        Toolbar mToolbar= (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        setSupportActionBar(mToolbar);
+        TextView textView = (TextView)mToolbar.findViewById(R.id.chatName);
+        textView.setText(g.getName());
+
+        mToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MessageActivity.this, EditGroupActivity.class);
+                intent.putExtra("group", g);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 }

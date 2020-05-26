@@ -55,7 +55,7 @@ public class Group extends Chat implements Serializable {
     }
 
     @Override
-    protected String getTitle() {
+    public String getTitle() {
         return this.name;
     }
 

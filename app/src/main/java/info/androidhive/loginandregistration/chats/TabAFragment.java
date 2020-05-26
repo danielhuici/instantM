@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -114,6 +115,7 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
             Group g = (Group) chatsAdapter.getItem(i);
             intent.putExtra("groupName",  g.getName());
             intent.putExtra("groupId",  String.valueOf(g.getId()));
+            intent.putExtra("group", c);
             startActivityForResult(intent, 2);
         } else {
             currentSelectedContact = (Contact) chatsAdapter.getItem(i);

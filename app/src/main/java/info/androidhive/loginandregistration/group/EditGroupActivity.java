@@ -79,8 +79,6 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         db = new SQLiteHandler(getApplicationContext());
         initComponents();
 
-
-
         communication = new GroupCommunication();
         communication.addObserver(this);
 
@@ -120,10 +118,6 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         contactAdapter = new ContactAdapter(this, vMembers);
         lvMembers = findViewById(R.id.lvMembers);
         lvMembers.setAdapter(contactAdapter);
-
-
-
-
 
         if(getIntent().getExtras() != null) {
             extra = getIntent().getExtras();

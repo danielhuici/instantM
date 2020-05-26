@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaledrone.lib.Listener;
+import com.scaledrone.lib.Member;
 import com.scaledrone.lib.Room;
 import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
@@ -56,7 +57,7 @@ public class MessageCommunication extends Observable implements RoomListener {
 
 
     private void scaledroneConnectionManager() {
-        MemberData data = new MemberData(getRandomColor(), getRandomName());
+        MemberData data = new MemberData(db.getCurrentUsername(), getRandomColor());
         scaledrone = new Scaledrone(channelID, data);
         scaledrone.connect(new Listener() {
             @Override
@@ -101,7 +102,6 @@ public class MessageCommunication extends Observable implements RoomListener {
     public void onMessage(Room room, com.scaledrone.lib.Message receivedMessage) {
         final ObjectMapper mapper = new ObjectMapper();
         try {
-
             final MemberData data = mapper.treeToValue(receivedMessage.getMember().getClientData(), MemberData.class);
             boolean belongsToCurrentUser = receivedMessage.getClientID().equals(scaledrone.getClientID());
             final Message message = new Message(receivedMessage.getData().asText(), data, belongsToCurrentUser);

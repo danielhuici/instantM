@@ -71,7 +71,7 @@ public class Contact extends Chat implements Serializable  {
 
 
     @Override
-    protected String getTitle() {
+    public String getTitle() {
         return name;
     }
 
