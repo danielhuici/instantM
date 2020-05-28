@@ -9,6 +9,13 @@ import android.widget.EditText;
 
 import info.androidhive.loginandregistration.R;
 
+/**
+ * Clase genérica que controla la ventana dedicada a la obtención de texto.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class DefaultPickerActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText etPicker;
 

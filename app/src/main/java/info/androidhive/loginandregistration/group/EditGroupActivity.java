@@ -33,7 +33,13 @@ import info.androidhive.loginandregistration.contact.Contact;
 import info.androidhive.loginandregistration.contact.ContactAdapter;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Clase controladora de la ventana de edición y visualización de un grupo.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class EditGroupActivity extends Activity implements Observer, View.OnClickListener, AdapterView.OnItemClickListener {
     private final String TAG = "CREATE_GROUP";
 

@@ -36,7 +36,13 @@ import info.androidhive.loginandregistration.utils.Tupla;
 
 import static info.androidhive.loginandregistration.profile.ProfileCommunication.UPDATE_ERROR;
 import static info.androidhive.loginandregistration.profile.ProfileCommunication.UPDATE_OK;
-
+/**
+ * Clase controladora de la ventana de edición y visualización del perfil de usuario.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class EditProfileActivity extends AppCompatActivity implements Observer, View.OnClickListener, AdapterView.OnItemClickListener{
 
     private Button btEditProfile;

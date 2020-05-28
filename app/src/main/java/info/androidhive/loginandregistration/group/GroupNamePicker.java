@@ -10,6 +10,13 @@ import android.widget.TextView;
 
 import info.androidhive.loginandregistration.R;
 
+/**
+ * Controla la ventana dedicada a la obtención del nombre de grupo.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class GroupNamePicker extends AppCompatActivity implements View.OnClickListener {
 
     private Button btOKGroupName;

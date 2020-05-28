@@ -15,11 +15,16 @@ import java.util.Date;
 import java.util.List;
 
 import info.androidhive.loginandregistration.chats.Chat;
-
+/**
+ * Define las propiedades de un contacto.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class Contact extends Chat implements Serializable  {
     private String name;
     private Date lastConnection;
-    private Bitmap foto;
     private int userId;
 
     public Contact(String name) {

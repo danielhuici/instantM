@@ -8,19 +8,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.session.User;
 
+/**
+ * Gestiona el acceso y modificación de la base de datos
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class SQLiteHandler extends SQLiteOpenHelper {
 
 	private static final String TAG = SQLiteHandler.class.getSimpleName();

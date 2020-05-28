@@ -4,7 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
-
+/**
+ * Clase dedicada a la gestión de la sesión.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class SessionManager {
 	// LogCat tag
 	private static String TAG = SessionManager.class.getSimpleName();

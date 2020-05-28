@@ -15,7 +15,13 @@ import java.util.List;
 
 import info.androidhive.loginandregistration.R;
 
-
+/**
+ * Adaptador de las vistas personalizadas de la lista de contactos.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class ContactAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mInflater;

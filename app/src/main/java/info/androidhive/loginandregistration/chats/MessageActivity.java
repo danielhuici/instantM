@@ -24,6 +24,13 @@ import info.androidhive.loginandregistration.scaledrone.MessageCommunication;
 import info.androidhive.loginandregistration.utils.Tupla;
 
 
+/**
+ * Clase controladora de la ventana principal de la aplicación.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class MessageActivity extends AppCompatActivity implements Observer, Serializable {
     private String channelID = "1NVeBVoez27uLnQ9";
     private String roomName = "observable-"; // Nombre de la sala. Variable a cambiar
@@ -46,13 +53,13 @@ public class MessageActivity extends AppCompatActivity implements Observer, Seri
         if(groupId.equals("-1")) {
             roomName += messageIntent.getStringExtra("roomName");
             receiverId = messageIntent.getStringExtra("receiverId");
-            messageCommunication = new MessageCommunication(this, roomName, "-1", receiverId);
+            messageCommunication = new MessageCommunication(this, roomName, "-1");
 
         } else {
             Group g = (Group) messageIntent.getSerializableExtra("group");
             setActionToolbar(g);
             roomName += messageIntent.getStringExtra("groupName");
-            messageCommunication = new MessageCommunication(this, roomName, groupId, "-1");
+            messageCommunication = new MessageCommunication(this, roomName, groupId);
         }
 
         messageText = findViewById(R.id.editText);

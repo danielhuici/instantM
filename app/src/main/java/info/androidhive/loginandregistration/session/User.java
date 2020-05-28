@@ -2,13 +2,19 @@ package info.androidhive.loginandregistration.session;
 
 import android.graphics.Bitmap;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+/**
+ * Define las propiedades y servicios de un usuario.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class User {
     private int id;
     private String username;

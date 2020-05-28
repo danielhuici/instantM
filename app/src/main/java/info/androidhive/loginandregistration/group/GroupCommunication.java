@@ -16,24 +16,28 @@ import java.util.Map;
 import java.util.Observable;
 
 import info.androidhive.loginandregistration.contact.Contact;
-import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Gestiona la comunicacion con el servidor en el ámbito de los grupos.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class GroupCommunication extends Observable {
-    public static final String CREATE_GROUP_OK = "CREATE_GROUP_OK";
-    public static final String EDIT_GROUP_OK = "EDIT_GROUP_OK";
-    public static final String CREATE_GROUP_ERROR = "CREATE_GROUP_ERROR";
-    public static final String EDIT_GROUP_ERROR = "EDIT_GROUP_ERROR";
+    static final String CREATE_GROUP_OK = "CREATE_GROUP_OK";
+    static final String CREATE_GROUP_ERROR = "CREATE_GROUP_ERROR";
     public static final String GET_USER_GROUPS_OK = "GET_USER_GROUPS_OK";
     public static final String GET_USER_GROUPS_ERROR = "GET_USER_GROUPS_ERROR";
-    public static final String INSERT_MEMBERS_OK = "INSERT_MEMBERS_OK";
-    public static final String INSERT_MEMBERS_ERROR = "INSERT_MEMBERS_ERROR";
-    public static final String GET_MEMBERS_OK = "GET_MEMBERS_OK";
-    public static final String GET_MEMBERS_ERROR = "GET_MEMBERS_ERROR";
-    public static final String LEAVE_GROUP_OK = "LEAVE_GROUP_OK";
-    public static final String LEAVE_GROUP_ERROR = "LEAVE_GROUP_ERROR";
-    public static final String DELETE_GROUP_ERROR = "DELETE_GROUP_ERROR";
-    public static final String DELETE_GROUP_OK = "DELETE_GROUP_OK";
+    static final String INSERT_MEMBERS_OK = "INSERT_MEMBERS_OK";
+    static final String INSERT_MEMBERS_ERROR = "INSERT_MEMBERS_ERROR";
+    static final String GET_MEMBERS_OK = "GET_MEMBERS_OK";
+    static final String GET_MEMBERS_ERROR = "GET_MEMBERS_ERROR";
+    static final String LEAVE_GROUP_OK = "LEAVE_GROUP_OK";
+    static final String LEAVE_GROUP_ERROR = "LEAVE_GROUP_ERROR";
+    static final String DELETE_GROUP_ERROR = "DELETE_GROUP_ERROR";
+    static final String DELETE_GROUP_OK = "DELETE_GROUP_OK";
 
     private static final String URL_GET_MEMBERS = "http://34.69.44.48/instantm/obtener_integrantes.php" ;
     private static final String URL_CREATE_GROUP = "http://34.69.44.48/instantm/crear_grupo.php";

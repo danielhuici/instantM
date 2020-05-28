@@ -11,7 +11,13 @@ import android.widget.EditText;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.session.DatePickerFragment;
-
+/**
+ * Clase genérica que controla la ventana dedicada a la obtención de fechas.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class DefaultDatePickerActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText etDate;
 

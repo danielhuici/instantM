@@ -13,13 +13,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
-import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Gestiona la comunicacion con el servidor en el ámbito del inicio de sesión.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class LoginCommunication extends Observable implements Response.Listener<String>, Response.ErrorListener {
-    public static final String ERROR = "ERROR";
-    public static final String OK = "OK";
-    public static String URL_LOGIN = "http://34.69.44.48/instantm/login.php";
+    static final String ERROR = "ERROR";
+    static final String OK = "OK";
+    private static String URL_LOGIN = "http://34.69.44.48/instantm/login.php";
 
 
     @Override
@@ -61,13 +67,13 @@ public class LoginCommunication extends Observable implements Response.Listener<
         notifyObservers(new Tupla<>(ERROR,error.getMessage()));
     }
 
-    public void login(final String username, final String password ) {
+    void login(final String username, final String password) {
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_LOGIN, this, this) {
             @Override
             protected Map<String, String> getParams() {
                 // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("name", username);
                 params.put("password", password);
 

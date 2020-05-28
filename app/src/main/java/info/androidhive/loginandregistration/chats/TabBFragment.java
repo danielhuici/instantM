@@ -27,7 +27,13 @@ import info.androidhive.loginandregistration.utils.SQLiteHandler;
 
 import info.androidhive.loginandregistration.contact.Contact;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Fragmento que muestra los contactos de un usuario
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class TabBFragment extends Fragment implements Observer, AdapterView.OnItemClickListener {
     private ArrayList<Contact> vContacts;
     private ContactAdapter contactAdapter;

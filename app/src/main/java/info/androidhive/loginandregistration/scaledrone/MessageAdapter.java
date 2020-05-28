@@ -16,6 +16,13 @@ import java.util.List;
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.scaledrone.Message;
 
+/**
+ * Adaptador para la visa personalizada de listas de mensajes.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class MessageAdapter extends BaseAdapter {
 
     List<Message> messages = new ArrayList<Message>();

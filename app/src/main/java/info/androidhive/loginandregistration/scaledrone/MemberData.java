@@ -2,6 +2,13 @@ package info.androidhive.loginandregistration.scaledrone;
 
 import java.util.Random;
 
+/**
+ * Define las propiedades de un miembro de un grupo
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class MemberData {
     private String name;
     private String color;

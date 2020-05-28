@@ -22,7 +22,13 @@ import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
-
+/**
+ * Clase controladora de la ventana de inserción de contactos.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class AddContactActivity extends AppCompatActivity implements TextWatcher, AdapterView.OnItemClickListener, Observer {
     private ArrayList<Contact> contacts;
     private ContactAdapter contactAdapter;

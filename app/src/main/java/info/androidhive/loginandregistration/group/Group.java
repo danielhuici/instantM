@@ -14,7 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.loginandregistration.chats.Chat;
-
+/**
+ * Define las propiedades de un grupo
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class Group extends Chat implements Serializable {
     private String description;
     private int id;

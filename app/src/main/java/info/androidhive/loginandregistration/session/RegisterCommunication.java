@@ -9,13 +9,14 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Observable;
 
-import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.utils.Tupla;
 
 public class RegisterCommunication extends Observable implements Response.Listener<String>, Response.ErrorListener {
@@ -32,9 +33,11 @@ public class RegisterCommunication extends Observable implements Response.Listen
                 JSONObject jsonResponse = jObj.getJSONObject("user");
                 String name = jsonResponse.getString("name");
                 String email = jsonResponse.getString("mail");
+                String birthday = jsonResponse.getString("birthday");
+                System.out.println(birthday);
                 int id = jsonResponse.getInt("id_user");
                 User user = new User(name, email, id);
-
+                user.setBirthday(birthday);
                 setChanged();
                 notifyObservers(new Tupla<>(OK,  user));
             } else {
@@ -42,7 +45,7 @@ public class RegisterCommunication extends Observable implements Response.Listen
                 setChanged();
                 notifyObservers(new Tupla<>(ERROR, "JSON RESPONSE"));
             }
-        } catch (JSONException e) {
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
             setChanged();
             notifyObservers(new Tupla<>(ERROR, "JSON ERROR"));

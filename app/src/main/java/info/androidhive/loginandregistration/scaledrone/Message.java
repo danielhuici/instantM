@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.loginandregistration.group.Group;
-
+/**
+ * Define las propiedades de un mensaje.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class Message {
     private String text; // message body
     private MemberData user; // data of the user that sent this message

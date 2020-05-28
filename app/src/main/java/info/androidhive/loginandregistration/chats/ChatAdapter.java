@@ -16,7 +16,13 @@ import java.util.List;
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.contact.Contact;
 
-
+/**
+ * Adaptador para la visa personalizada de listas de chats.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class ChatAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mInflater;

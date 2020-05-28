@@ -7,7 +7,13 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
-
+/**
+ * Adaptador para la visa personalizada de listas de chats.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
     private DatePickerDialog.OnDateSetListener listener;
 

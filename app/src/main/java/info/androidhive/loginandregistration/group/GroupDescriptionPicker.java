@@ -9,6 +9,13 @@ import android.widget.EditText;
 
 import info.androidhive.loginandregistration.R;
 
+/**
+ * Controla la ventana dedicada a la obtención de la descripción de un grupo.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class GroupDescriptionPicker extends AppCompatActivity implements View.OnClickListener {
 
     private Button btOKGroupDescription;

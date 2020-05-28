@@ -1,7 +1,13 @@
 package info.androidhive.loginandregistration.profile;
 
 import android.graphics.Bitmap;
-
+/**
+ * Define las propiedades de una opción de perfil
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class ProfileOption {
     String title;
     Bitmap pic;

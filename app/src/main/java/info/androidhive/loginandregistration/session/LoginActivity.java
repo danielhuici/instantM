@@ -17,7 +17,13 @@ import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.chats.ChatsActivity;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Clase controladora de la ventana de inicio de sesión.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class LoginActivity extends Activity  implements Observer {
     private Button btnLogin;
     private TextView txtLinkToRegister;

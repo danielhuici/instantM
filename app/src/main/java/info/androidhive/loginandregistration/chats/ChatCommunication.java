@@ -16,9 +16,16 @@ import java.util.Observable;
 
 import info.androidhive.loginandregistration.contact.Contact;
 import info.androidhive.loginandregistration.group.Group;
-import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.utils.Tupla;
 
+/**
+ * Gestiona la comunicacion con el servider en el ámbito de los chats.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 class ChatCommunication extends Observable {
     static final String GET_CHATS_OK = "GET_PRIVATE_CHATS_OK";
     static final String GET_CHATS_ERROR = "GET_PRIVATE_CHATS_ERROR";

@@ -5,7 +5,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,25 +14,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
-import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.utils.Tupla;
 
+/**
+ * Gestiona la comunicacion con el servider en el ámbito de los contactos.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class ContactCommunication extends Observable {
 
 
-    protected static final String CREATE_CONTACT_OK = "CREATE_CONTACT_OK";
+    static final String CREATE_CONTACT_OK = "CREATE_CONTACT_OK";
     public static final String GET_USER_CONTACTS_ERROR = "GET_USER_CONTACTS_ERROR";
     public static final String GET_USER_CONTACTS_OK = "GET_USER_CONTACTS_OK";
-    protected static final String CREATE_CONTACT_ERROR = "CREATE_CONTACT_ERROR";
+    static final String CREATE_CONTACT_ERROR = "CREATE_CONTACT_ERROR";
 
     public static final String DELETE_CONTACT_OK = "DELETE_CONTACT_OK";
     public static final String DELETE_CONTACT_ERROR = "DELETE_CONTACT_ERROR";
 
-    protected static final String GET_CONTACTS_OK = "GET_CONTACTS_OK";
-    protected static final String GET_CONTACTS_ERROR = "GET_CONTACTS_ERROR";
+    static final String GET_CONTACTS_OK = "GET_CONTACTS_OK";
+    private static final String GET_CONTACTS_ERROR = "GET_CONTACTS_ERROR";
 
     public static final String GET_ROOMNAME_OK = "GET_ROOMNAME_OK";
-    public static final String GET_ROOMNAME_ERROR = "GET_ROOMNAME_ERROR";
+    private static final String GET_ROOMNAME_ERROR = "GET_ROOMNAME_ERROR";
 
     private static final String URL_ADD_CONTACT = "http://34.69.44.48/instantm/anadir_contacto.php";
     private static final String URL_GET_CONTACTS = "http://34.69.44.48/instantm/obtener_contactos.php";

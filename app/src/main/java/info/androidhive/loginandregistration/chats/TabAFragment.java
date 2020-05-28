@@ -26,7 +26,13 @@ import info.androidhive.loginandregistration.group.GroupCommunication;
 import info.androidhive.loginandregistration.group.Group;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Fragmento que muestra los chats.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class TabAFragment extends Fragment implements Observer, AdapterView.OnItemClickListener, TextWatcher {
     private ArrayList<Chat> vChats;
     private ChatAdapter chatsAdapter;

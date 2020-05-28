@@ -14,16 +14,22 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Observable;
 
-import info.androidhive.loginandregistration.scaledrone.AppController;
+import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.session.User;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Gestiona la comunicacion con el servider en el ámbito del perfil de usuario.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 class ProfileCommunication extends Observable implements Response.Listener<String>, Response.ErrorListener {
     private static final String PROFILE_UPDATE = "http://34.69.44.48/instantm/actualizar_perfil.php";
-    protected static final String UPDATE_OK = "UPDATE_OK";
-    protected static final String UPDATE_ERROR = "UPDATE_ERROR";
+    static final String UPDATE_OK = "UPDATE_OK";
+    static final String UPDATE_ERROR = "UPDATE_ERROR";
 
-    public void updateProfile(final User user) {
+    void updateProfile(final User user) {
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 PROFILE_UPDATE, this, this) {
 
@@ -54,12 +60,6 @@ class ProfileCommunication extends Observable implements Response.Listener<Strin
                 JSONObject jObj = new JSONObject(response);
                 boolean error = jObj.getBoolean("error");
                 if (!error) {
-                    /*JSONObject jsonResponse = jObj.getJSONObject("user");
-                    String name = jsonResponse.getString("name");
-                    String email = jsonResponse.getString("mail");
-                    int id = jsonResponse.getInt("id_user");
-                    User user = new User(name, email, id);*/
-
                     setChanged();
                     notifyObservers(new Tupla<>(UPDATE_OK,  /*user*/ null));
                 } else {

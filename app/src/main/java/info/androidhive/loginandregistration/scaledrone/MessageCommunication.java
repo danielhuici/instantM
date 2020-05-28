@@ -11,7 +11,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scaledrone.lib.Listener;
-import com.scaledrone.lib.Member;
 import com.scaledrone.lib.Room;
 import com.scaledrone.lib.RoomListener;
 import com.scaledrone.lib.Scaledrone;
@@ -25,12 +24,19 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Random;
 
+import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
 
+/**
+ * Gestiona la comunicacion con el servidor en el ámbito del intercambio de mensajes.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class MessageCommunication extends Observable implements RoomListener {
-    Scaledrone scaledrone;
-    private String channelID = "1NVeBVoez27uLnQ9";
+    private Scaledrone scaledrone;
     private String roomName = ""; // Nombre de la sala. Variable a cambiar
     public static final String RECEIVED_MESSAGE = "RECEIVED_MESSAGE";
     public static final String RECOVER_MESSAGES = "RECOVER_MESSAGES";
@@ -41,8 +47,7 @@ public class MessageCommunication extends Observable implements RoomListener {
     private static final String URL_SAVE_PRIVATE_MESSAGE = "http://34.69.44.48/instantm/guardar_mensaje_privado.php";
     private static final String URL_RECOVER_PRIVATE_MESSAGES = "http://34.69.44.48/instantm/recuperar_mensajes_privados.php";
 
-    public MessageCommunication(Activity context, final String roomName, final String groupId,
-                                final String receiverId) {
+    public MessageCommunication(Activity context, final String roomName, final String groupId) {
         db = new SQLiteHandler(context);
         this.roomName = roomName;
 
@@ -58,6 +63,7 @@ public class MessageCommunication extends Observable implements RoomListener {
 
     private void scaledroneConnectionManager() {
         MemberData data = new MemberData(db.getCurrentUsername(), getRandomColor());
+        String channelID = "1NVeBVoez27uLnQ9";
         scaledrone = new Scaledrone(channelID, data);
         scaledrone.connect(new Listener() {
             @Override
@@ -106,7 +112,6 @@ public class MessageCommunication extends Observable implements RoomListener {
             boolean belongsToCurrentUser = receivedMessage.getClientID().equals(scaledrone.getClientID());
             final Message message = new Message(receivedMessage.getData().asText(), data, belongsToCurrentUser);
             System.out.println("Mensaje recibido" + receivedMessage.getData().asText());
-            // TODO: Si falla el nombre del que se muestra, quizá sea aquí el problema
             setChanged();
             notifyObservers(new Tupla<>(RECEIVED_MESSAGE, message));
 
@@ -115,11 +120,7 @@ public class MessageCommunication extends Observable implements RoomListener {
         }
     }
 
-    private String getRandomName() {
-        return db.getCurrentUsername();
-    }
 
-    //TODO: Corregir
     public Scaledrone getScaledrone() {
         return scaledrone;
     }
@@ -267,7 +268,7 @@ public class MessageCommunication extends Observable implements RoomListener {
                 URL_RECOVER_PRIVATE_MESSAGES, recoverPrivateMessagesDb, recoverPrivateMessagesDb) {
             protected Map<String, String> getParams() {
                 // Parámetros para la consulta POST <columna_db, variables>
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("room_name", roomName.substring(11));
                 return params;
             }

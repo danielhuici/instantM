@@ -13,7 +13,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import info.androidhive.loginandregistration.R;
-
+/**
+ * Adaptador para la visa personalizada de listas de opciones.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class OptionAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mInflater;

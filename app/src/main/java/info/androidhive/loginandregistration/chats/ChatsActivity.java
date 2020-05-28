@@ -26,6 +26,13 @@ import info.androidhive.loginandregistration.group.EditGroupActivity;
 import info.androidhive.loginandregistration.session.LoginActivity;
 import info.androidhive.loginandregistration.session.SessionManager;
 
+/**
+ * Clase controladora de la ventana principal de la aplicación.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class ChatsActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide

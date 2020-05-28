@@ -19,7 +19,13 @@ import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.chats.ChatsActivity;
 import info.androidhive.loginandregistration.utils.SQLiteHandler;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Clase controladora de la ventana de registro de usuarios.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class RegisterActivity extends AppCompatActivity implements Observer {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private Button buttonRegister;
@@ -150,6 +156,7 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         switch (tupla.a){
             case RegisterCommunication.OK:
                 User user = (User) tupla.b;
+                System.out.println("EEEEEEEEERERERE" + user.getBirthdate());
                 db.addUser(user);
 
                 Toast.makeText(getApplicationContext(), "¡Usuario registrado exitosamente!", Toast.LENGTH_LONG).show();

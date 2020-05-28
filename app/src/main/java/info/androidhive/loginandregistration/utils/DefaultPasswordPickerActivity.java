@@ -10,7 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import info.androidhive.loginandregistration.R;
-
+/**
+ * Clase genérica que controla la ventana dedicada a la obtención de contraseñas.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class DefaultPasswordPickerActivity extends AppCompatActivity implements TextWatcher, View.OnClickListener {
     private Button btOK;
     private EditText etTypePassword;
