@@ -16,13 +16,12 @@ public class SessionManager {
 	private static String TAG = SessionManager.class.getSimpleName();
 
 	// Shared Preferences
-	SharedPreferences pref;
+	private SharedPreferences pref;
 
-	Editor editor;
-	Context _context;
+	private Editor editor;
 
 	// Shared pref mode
-	int PRIVATE_MODE = 0;
+	private int PRIVATE_MODE = 0;
 
 	// Shared preferences file name
 	private static final String PREF_NAME = "AndroidHiveLogin";
@@ -30,11 +29,14 @@ public class SessionManager {
 	private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
 	public SessionManager(Context context) {
-		this._context = context;
-		pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+		pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
 		editor = pref.edit();
 	}
 
+	/**
+	 * indica que hay un usuario loggeado o no
+	 * @param isLoggedIn .
+	 */
 	public void setLogin(boolean isLoggedIn) {
 
 		editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
@@ -44,8 +46,12 @@ public class SessionManager {
 
 		Log.d(TAG, "User login session modified!");
 	}
-	
-	public boolean isLoggedIn(){
+
+	/**
+	 * Retorna true si hay un usuario loggeado.
+	 * @return .
+	 */
+	boolean isLoggedIn(){
 		return pref.getBoolean(KEY_IS_LOGGED_IN, false);
 	}
 }

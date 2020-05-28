@@ -95,18 +95,25 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
 
     }
 
+    /**
+     * añade escuchadores a los componentes de la interfaz.
+     */
     private void addListeners() {
         btEditGroup.setOnClickListener(this);
         tvLeaveGroup.setOnClickListener(this);
         btDeleteGroup.setOnClickListener(this);
         tvGroupName.setOnClickListener(this);
         tvGroupDescription.setOnClickListener(this);
-        if(!activityMode.equals(VIEW_MODE))ivProfile.setOnClickListener(this);
+        if(!activityMode.equals(VIEW_MODE))
+            ivProfile.setOnClickListener(this);
         ivEditGroupName.setOnClickListener(this);
         ivEditGroupDescription.setOnClickListener(this);
         lvMembers.setOnItemClickListener(this);
     }
 
+    /**
+     * Inicializa los componentes.
+     */
     private void initComponents() {
         btEditGroup = findViewById(R.id.btEditGroup);
 
@@ -153,6 +160,9 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         setListViewHeightBasedOnChildren(lvMembers, contactAdapter);
     }
 
+    /**
+     * Carga la información del grupo.
+     */
     private void loadGroup() {
         extra = getIntent().getExtras();
 
@@ -300,6 +310,11 @@ public class EditGroupActivity extends Activity implements Observer, View.OnClic
         }
     }
 
+    /**
+     * Transforma una uri en bitmap
+     * @param uri .
+     * @return
+     */
     public Bitmap decodeUri(Uri uri) {
         ParcelFileDescriptor parcelFD = null;
         try {

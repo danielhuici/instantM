@@ -29,13 +29,17 @@ class ProfileCommunication extends Observable implements Response.Listener<Strin
     static final String UPDATE_OK = "UPDATE_OK";
     static final String UPDATE_ERROR = "UPDATE_ERROR";
 
+    /**
+     * Actualiza la información de perfil de usuario.
+     * @param user información del perfil.
+     */
     void updateProfile(final User user) {
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 PROFILE_UPDATE, this, this) {
 
             protected Map<String, String> getParams() {
                 // Parámetros para la consulta POST <columna_db, variables>
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("name", user.getUsername());
                 if (user.getPassword() != null)
                     params.put("password", user.getPassword());

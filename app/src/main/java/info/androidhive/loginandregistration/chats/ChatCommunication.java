@@ -31,6 +31,10 @@ class ChatCommunication extends Observable {
     static final String GET_CHATS_ERROR = "GET_PRIVATE_CHATS_ERROR";
     private static final String URL_GET_CHATS = "http://34.69.44.48/instantm/obtener_chats.php";
 
+    /**
+     * Solicita al servidor el conjunto de chats del usuario
+     * @param userId id del usuario para el que se quieren rescatar sus grupos
+     */
     void getUserChats(final int userId) {
         GetUserChats getUserPrivateChats = new GetUserChats();
 
@@ -45,7 +49,13 @@ class ChatCommunication extends Observable {
         };
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
-
+    /**
+     * Gestiona la comunicacion para la obtención de chats de un usuario.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class GetUserChats implements Response.Listener<String>, Response.ErrorListener{
         List<Chat> chats;
 

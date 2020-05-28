@@ -17,6 +17,7 @@ import info.androidhive.loginandregistration.scaledrone.Message;
  * @version 1.0
  */
 
+
 public abstract class Chat implements Serializable {
     protected String name;
     protected Bitmap pic;

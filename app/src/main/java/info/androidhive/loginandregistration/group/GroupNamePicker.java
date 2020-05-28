@@ -19,16 +19,14 @@ import info.androidhive.loginandregistration.R;
  */
 public class GroupNamePicker extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btOKGroupName;
-    private Button btCancelGroupName;
     private EditText etName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group_name);
 
-        btCancelGroupName = findViewById(R.id.btCancelGroupName);
-        btOKGroupName = findViewById(R.id.btOkGroupName);
+        Button btCancelGroupName = findViewById(R.id.btCancelGroupName);
+        Button btOKGroupName = findViewById(R.id.btOkGroupName);
         etName = findViewById(R.id.etGroupName);
         btOKGroupName.setOnClickListener(this);
         btCancelGroupName.setOnClickListener(this);
@@ -54,6 +52,10 @@ public class GroupNamePicker extends AppCompatActivity implements View.OnClickLi
                 }
         }
     }
+
+    /**
+     * Termina la actividad con el resultado de cancelación.
+     */
     private void returnNoOk(){
         setResult(RESULT_CANCELED, null);
         finish();

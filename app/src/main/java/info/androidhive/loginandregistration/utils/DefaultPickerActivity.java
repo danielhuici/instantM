@@ -54,6 +54,10 @@ public class DefaultPickerActivity extends AppCompatActivity implements View.OnC
                 }
         }
     }
+
+    /**
+     * Retorna el valor que indica que se ha cancelado la operación relativa a la activity.
+     */
     private void returnNoOk(){
         setResult(RESULT_CANCELED, null);
         finish();

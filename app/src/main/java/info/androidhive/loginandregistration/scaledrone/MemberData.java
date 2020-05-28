@@ -40,6 +40,10 @@ public class MemberData {
         return sb.toString().substring(0, 7);
     }
 
+    /**
+     *
+     * @return cadena hexadecimal que representa un color aleatorio.
+     */
     private String getRandomColor() {
         Random r = new Random();
         StringBuffer sb = new StringBuffer("#");

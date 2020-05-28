@@ -38,6 +38,13 @@ public class Group extends Chat implements Serializable {
         return vGroups;
     }
 
+    /**
+     /**
+     * Convierte un objeto json en un grupo.
+     * @param groupsListJSON json con la información del grupo.
+     * @return Un objeto de grupo.
+     * @throws JSONException
+     */
     private static Group JSONToGroup(JSONObject groupsListJSON) throws JSONException {
             JSONObject data = groupsListJSON.getJSONObject("data");
             Group g = new Group();

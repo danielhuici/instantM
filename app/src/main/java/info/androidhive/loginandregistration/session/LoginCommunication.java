@@ -67,6 +67,11 @@ public class LoginCommunication extends Observable implements Response.Listener<
         notifyObservers(new Tupla<>(ERROR,error.getMessage()));
     }
 
+    /**
+     * Inicia sesión.
+     * @param username nombre del usuario que desea iniciar sesión.
+     * @param password contraseña del usuario que desea iniciar sesión.
+     */
     void login(final String username, final String password) {
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_LOGIN, this, this) {

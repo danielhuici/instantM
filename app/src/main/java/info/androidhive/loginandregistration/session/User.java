@@ -26,7 +26,7 @@ public class User {
     private Date birthday;
 
 
-    public User(String username, String email, int id) {
+    User(String username, String email, int id) {
         this.username = username;
         this.email = email;
         this.id = id;
@@ -53,10 +53,6 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public boolean nameLike(String name) {
-        return this.username.toLowerCase().startsWith(name.toLowerCase()) || name.equals("");
     }
 
     public int getId() {

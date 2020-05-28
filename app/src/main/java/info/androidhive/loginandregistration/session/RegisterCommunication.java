@@ -18,11 +18,17 @@ import java.util.Observable;
 
 import info.androidhive.loginandregistration.utils.AppController;
 import info.androidhive.loginandregistration.utils.Tupla;
-
+/**
+ * Gestiona la comunicacion con el servidor en el ámbito del registro de usuarios.
+ * @author Martín Gascón
+ * @author Eduardo Ruiz
+ * @author Daniel Huici
+ * @version 1.0
+ */
 public class RegisterCommunication extends Observable implements Response.Listener<String>, Response.ErrorListener {
-    public static final String ERROR = "ERROR";
-    public static final String OK = "OK";
-    public static String URL_REGISTER = "http://34.69.44.48/instantm/registrar.php";
+    static final String ERROR = "ERROR";
+    static final String OK = "OK";
+    private static String URL_REGISTER = "http://34.69.44.48/instantm/registrar.php";
 
     @Override
     public void onResponse(String response) {
@@ -59,13 +65,17 @@ public class RegisterCommunication extends Observable implements Response.Listen
         notifyObservers(new Tupla<>(ERROR,error.getMessage()));
     }
 
-    public void register(final User user) {
+    /**
+     * Registra un usuario en la aplicación.
+     * @param user usuario a registrar.
+     */
+    void register(final User user) {
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_REGISTER, this, this){
 
         protected Map<String, String> getParams() {
             // Parámetros para la consulta POST <columna_db, variables>
-            Map<String, String> params = new HashMap<String, String>();
+            Map<String, String> params = new HashMap<>();
             params.put("name", user.getUsername());
             params.put("password", user.getPassword());
             params.put("mail", user.getEmail());

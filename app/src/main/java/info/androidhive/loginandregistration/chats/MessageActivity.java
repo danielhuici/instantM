@@ -32,7 +32,6 @@ import info.androidhive.loginandregistration.utils.Tupla;
  * @version 1.0
  */
 public class MessageActivity extends AppCompatActivity implements Observer, Serializable {
-    private String channelID = "1NVeBVoez27uLnQ9";
     private String roomName = "observable-"; // Nombre de la sala. Variable a cambiar
     private String groupId;
     private String receiverId;

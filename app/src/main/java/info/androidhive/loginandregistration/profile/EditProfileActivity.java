@@ -88,6 +88,10 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
 
     }
 
+    /**
+     * Carga la información del perfil en los componentes de la interfaz.
+     * @param u Perfil del usuario.
+     */
     private void populateFields(User u) {
         tvProfileName.setText(u.getUsername());
         tvProfileState.setText(u.getState());
@@ -102,6 +106,9 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
         setListViewHeightBasedOnChildren(lvOptions, optionAdapter);
     }
 
+    /**
+     * Añade los escuchadores a los componentes de la interfaz.
+     */
     private void addListeners() {
         btEditProfile.setOnClickListener(this);
         tvProfileName.setOnClickListener(this);
@@ -111,6 +118,9 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
         lvOptions.setOnItemClickListener(this);
     }
 
+    /**
+     * Inicializa los componentes.
+     */
     private void initComponents() {
         btEditProfile = findViewById(R.id.btEditProfile);
         btEditProfile.setVisibility(View.INVISIBLE);
@@ -128,7 +138,11 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
 
     }
 
-
+    /**
+     * Redimensiona el tamaño de la vista en función del numero de elementos que contenga la lista
+     * @param listView
+     * @param optionAdapter
+     */
     public static void setListViewHeightBasedOnChildren(ListView listView, OptionAdapter optionAdapter) {
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
                 View.MeasureSpec.UNSPECIFIED);
@@ -238,6 +252,11 @@ public class EditProfileActivity extends AppCompatActivity implements Observer, 
         }
     }
 
+    /**
+     * Transforma una uri en un bitmap.
+     * @param uri
+     * @return
+     */
     public Bitmap decodeUri(Uri uri) {
         ParcelFileDescriptor parcelFD = null;
         try {

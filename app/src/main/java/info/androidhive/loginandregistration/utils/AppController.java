@@ -43,6 +43,4 @@ public class AppController extends Application {
 		req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
 		getRequestQueue().add(req);
 	}
-
-
 }

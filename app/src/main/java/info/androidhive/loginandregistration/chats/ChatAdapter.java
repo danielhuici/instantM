@@ -30,7 +30,7 @@ public class ChatAdapter extends BaseAdapter {
     private ArrayList<Chat> vFilteredChats;
     private Filter nameFilter = new ChatAdapter.GroupFilter();
 
-    public ChatAdapter(Activity context, ArrayList<Chat> vChats) {
+    ChatAdapter(Activity context, ArrayList<Chat> vChats) {
         this.context = context;
         this.vChats = vChats;
         this.vFilteredChats = vChats;

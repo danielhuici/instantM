@@ -20,7 +20,7 @@ public class Message {
     private MemberData user; // data of the user that sent this message
     private boolean belongsToCurrentUser; // is this message sent by us?
 
-    public Message(String text, MemberData user, boolean belongsToCurrentUser) {
+    Message(String text, MemberData user, boolean belongsToCurrentUser) {
         this.text = text;
         this.user = user;
         this.belongsToCurrentUser = belongsToCurrentUser;
@@ -46,6 +46,13 @@ public class Message {
         return vMessages;
     }
 
+    /**
+     * Convierte un objeto json en un objeto del tipo Message.
+     * @param messageListJSON json que contiene la información de un mensaje.
+     * @param currentUser  id del usuario (que ejecuta la aplicación)
+     * @return Objeto Message con la información del mensaje.
+     * @throws JSONException
+     */
     private static Message JSONToMessages(JSONObject messageListJSON, String currentUser) throws JSONException {
         JSONObject data = messageListJSON.getJSONObject("data");
         String message = data.getString("message");

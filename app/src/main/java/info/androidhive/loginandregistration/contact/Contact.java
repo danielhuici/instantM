@@ -36,6 +36,13 @@ public class Contact extends Chat implements Serializable  {
         this.userId = userId;
         super.isGroup = false;
     }
+
+    /**
+     * Convierte un objeto json en un una lista de contactos.
+     * @param contactsListJSON lista de usuarios en formato json
+     * @return lista de contactos.
+     * @throws JSONException
+     */
     public static List<Contact> JSONToContacts(JSONArray contactsListJSON) throws JSONException {
         List<Contact> vContacts = new ArrayList<>();
         for (int i = 0; i< contactsListJSON.length(); i++) {
@@ -66,7 +73,6 @@ public class Contact extends Chat implements Serializable  {
     public String getLastConnectionText() {
         DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
         return "";
-        //return dateFormat.format(lastConnection);
     }
 
     public void setLastConnection(Date lastConnection) {

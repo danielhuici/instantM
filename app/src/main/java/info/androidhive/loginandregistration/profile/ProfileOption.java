@@ -9,9 +9,9 @@ import android.graphics.Bitmap;
  * @version 1.0
  */
 public class ProfileOption {
-    String title;
-    Bitmap pic;
-    String value;
+    private String title;
+    private Bitmap pic;
+    private String value;
 
     public ProfileOption(String title, Bitmap pic, String value) {
         this.title = title;

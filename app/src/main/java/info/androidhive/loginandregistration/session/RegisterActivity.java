@@ -27,15 +27,12 @@ import info.androidhive.loginandregistration.utils.Tupla;
  * @version 1.0
  */
 public class RegisterActivity extends AppCompatActivity implements Observer {
-    private static final String TAG = RegisterActivity.class.getSimpleName();
-    private Button buttonRegister;
     private EditText inputUsername;
     private EditText inputEmail;
     private EditText inputPassword;
     private EditText inputRepeatPassword;
     private EditText birthdayDate;
     private ProgressDialog pDialog;
-    private SessionManager session;
     private SQLiteHandler db;
     private RegisterCommunication communication;
     @Override
@@ -48,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         inputPassword = findViewById(R.id.register_password);
         inputRepeatPassword = findViewById(R.id.register_repeat_password);
         birthdayDate = findViewById(R.id.birthdayDate);
-        buttonRegister = findViewById(R.id.btnRegister);
+        Button buttonRegister = findViewById(R.id.btnRegister);
 
         communication = new RegisterCommunication();
         communication.addObserver(this);
@@ -58,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         pDialog.setCancelable(false);
 
         // Session manager
-        session = new SessionManager(getApplicationContext());
+        SessionManager session = new SessionManager(getApplicationContext());
 
         // SQLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -116,20 +113,18 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
 
     }
 
-    /*
-     * Función para registrar al usuario en la base de datos MySQL
+    /**
+     * Función para registrar al usuario en el servidor
+     * @param user usuario a registrar
      */
     private void registerUser(final User user) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_register";
-
         pDialog.setMessage("Registrando.. ...");
-
-
         communication.register(user);
-
     }
 
+    /**
+     * Musestra un dialogo con un calendario para selecccionar una fecha.
+     */
     private void showDatePickerDialog() {
         DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -156,9 +151,7 @@ public class RegisterActivity extends AppCompatActivity implements Observer {
         switch (tupla.a){
             case RegisterCommunication.OK:
                 User user = (User) tupla.b;
-                System.out.println("EEEEEEEEERERERE" + user.getBirthdate());
                 db.addUser(user);
-
                 Toast.makeText(getApplicationContext(), "¡Usuario registrado exitosamente!", Toast.LENGTH_LONG).show();
 
                 // Launch chat activity

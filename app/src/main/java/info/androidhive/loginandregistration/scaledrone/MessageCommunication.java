@@ -35,6 +35,7 @@ import info.androidhive.loginandregistration.utils.Tupla;
  * @author Daniel Huici
  * @version 1.0
  */
+
 public class MessageCommunication extends Observable implements RoomListener {
     private Scaledrone scaledrone;
     private String roomName = ""; // Nombre de la sala. Variable a cambiar
@@ -69,7 +70,6 @@ public class MessageCommunication extends Observable implements RoomListener {
             @Override
             public void onOpen() {
                 System.out.println("Scaledrone connection open to room: " + roomName);
-                // Since the MainActivity itself already implement RoomListener we can pass it as a target
                 scaledrone.subscribe(roomName, MessageCommunication.this);
             }
 
@@ -219,7 +219,7 @@ public class MessageCommunication extends Observable implements RoomListener {
         public void onErrorResponse(VolleyError error) { }
     }
 
-    public void recoverMessagesGroupDb(final String groupId) {
+    private void recoverMessagesGroupDb(final String groupId) {
         RecoverGroupMessagesListener recoverGroupMessagesListener = new RecoverGroupMessagesListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_RECOVER_MESSAGES, recoverGroupMessagesListener, recoverGroupMessagesListener) {

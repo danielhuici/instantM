@@ -47,7 +47,11 @@ public class ContactCommunication extends Observable {
     private static final String URL_DELETE_CONTACT = "http://34.69.44.48/instantm/eliminar_contacto.php";
     private static final String URL_ROOM_CONTACT = "http://34.69.44.48/instantm/obtener_sala.php";
 
-
+    /**
+     * Asocia un usuario a otro como su contacto (Un contacto es un usuario relacionado con otro).
+     * @param userId    id del usuario que solicita la relación
+     * @param contactId id del usuario a relacionar.
+     */
     void createContact(final int userId, final int contactId) {
         CreateContactListener listener = new CreateContactListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -64,6 +68,10 @@ public class ContactCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
+    /**
+     * Obtiene los usuarios de la aplicación.
+     * @param userId .
+     */
     void getContacts(final int userId) {
         GetContactListener getContactListener = new GetContactListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -79,6 +87,10 @@ public class ContactCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
+    /**
+     * Obtiene los contactos de un usuario.
+     * @param userId id del usuario para el que buscar contactos.
+     */
     public void getContactsFromUser(final int userId) {
         GetUserContactsListener getContactListener = new GetUserContactsListener();
 
@@ -96,7 +108,13 @@ public class ContactCommunication extends Observable {
 
 
 
-
+    /**
+     * Gestiona la comunicacion para la obtención de contactos de un usuario.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class GetContactListener implements Response.Listener<String>, Response.ErrorListener{
 
         @Override
@@ -127,7 +145,13 @@ public class ContactCommunication extends Observable {
     }
 
 
-
+    /**
+     * Gestiona la comunicacion para la creación de contactos para un usuario.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class CreateContactListener implements Response.Listener<String>, Response.ErrorListener{
 
         @Override
@@ -157,7 +181,13 @@ public class ContactCommunication extends Observable {
         }
 
     }
-
+    /**
+     * Gestiona la comunicacion para la obtención de contactos de un usuario.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class GetUserContactsListener implements Response.Listener<String>, Response.ErrorListener {
         @Override
         public void onResponse(String response) {
@@ -191,6 +221,12 @@ public class ContactCommunication extends Observable {
             notifyObservers(new Tupla<>(GET_USER_CONTACTS_ERROR, "RESPONSE ERROR"));
         }
     }
+
+    /**
+     * Elimina un contacto
+     * @param username nombre del uno de los usuarios relacionados como contacto.
+     * @param contact nombre del otro de los usuarios relacionados como contacto.
+     */
     public void deleteContact(final String username, final Contact contact) {
         DeleteContactsListener deleteContactListener = new DeleteContactsListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -206,6 +242,14 @@ public class ContactCommunication extends Observable {
         };
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
+
+    /**
+     * Gestiona la comunicacion para la eliminación de contactos de un usuario.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class DeleteContactsListener implements Response.Listener<String>, Response.ErrorListener{
         @Override
         public void onResponse(String response) {
@@ -236,6 +280,11 @@ public class ContactCommunication extends Observable {
         }
     }
 
+    /**
+     * Obtiene el nombre de la sala de chat privada.
+     * @param userId id del particpante en el chat.
+     * @param myId id del particpante en el chat.
+     */
     public void getContactRoom(final int userId, final int myId) {
         GetContactRoomListener getContactRoomListener = new GetContactRoomListener();
 
@@ -252,6 +301,13 @@ public class ContactCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
+    /**
+     * Gestiona la comunicacion para la obtención de usuarios de una sala de chat.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class GetContactRoomListener implements Response.Listener<String>, Response.ErrorListener{
         @Override
         public void onResponse(String response) {

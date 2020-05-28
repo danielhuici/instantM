@@ -74,8 +74,8 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
     }
 
     /**
-     * Obtener grupos desde MySQL
-     * */
+     * Obtener grupos desde el servidor
+     */
     private void getChats() {
         chatCommunication.getUserChats(db.getCurrentID());
     }
@@ -133,6 +133,10 @@ public class TabAFragment extends Fragment implements Observer, AdapterView.OnIt
 
     }
 
+    /**
+     * Abre la ventana de chat.
+     * @param roomName nombre de la sala de chat.
+     */
     private void createMessageActivity(String roomName) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
         intent.putExtra("roomName",  roomName);

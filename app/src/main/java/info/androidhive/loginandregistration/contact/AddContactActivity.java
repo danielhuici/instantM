@@ -58,6 +58,9 @@ public class AddContactActivity extends AppCompatActivity implements TextWatcher
 
     }
 
+    /**
+     * Obtiene todos los usuarios del servidor.
+     */
     private void getContactsFromServer() {
         communication.getContacts(db.getCurrentID());
 

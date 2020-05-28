@@ -43,9 +43,7 @@ public class TabBFragment extends Fragment implements Observer, AdapterView.OnIt
     Activity mActivity;
 
     ContactCommunication communication;
-    public TabBFragment() {
-        // Required empty public constructor
-    }
+    public TabBFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,10 +73,17 @@ public class TabBFragment extends Fragment implements Observer, AdapterView.OnIt
         return v;
     }
 
+    /**
+     * Obtiene los contactos del usuario desde el servidor.
+     */
     private void getContactsFromServer() {
         communication.getContactsFromUser(db.getCurrentID());
     }
 
+    /**
+     * obtiene los contactos desde la base de datos local
+     * @return lista de contactos.
+     */
     private ArrayList<Contact> showContacts() {
         List<String> contacts;
         contacts = db.getContacts();
@@ -146,6 +151,10 @@ public class TabBFragment extends Fragment implements Observer, AdapterView.OnIt
         communication.getContactRoom(currentSelectedContact.getUserId(), db.getCurrentID());
     }
 
+    /**
+     * Crea una sala de chat de grupo
+     * @param roomName nombre de la sala del grupo.
+     */
     private void createMessageActivity(String roomName) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
         intent.putExtra("roomName",  roomName);

@@ -99,7 +99,7 @@ public class LoginActivity extends Activity  implements Observer {
     }
 
     /**
-     * Comprobar datos conrrectos con MySQL
+     * Comprobar datos conrrectos con el servidor
      * */
     private void checkLogin(final String username, final String password) {
         // Tag used to cancel the request

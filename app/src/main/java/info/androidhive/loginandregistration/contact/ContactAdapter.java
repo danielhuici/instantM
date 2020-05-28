@@ -51,6 +51,7 @@ public class ContactAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
     public int getSelectedConctactId(int position){
         return contacts.get(position).getUserId();
     }

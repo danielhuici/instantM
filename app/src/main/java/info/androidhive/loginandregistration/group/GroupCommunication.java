@@ -41,19 +41,23 @@ public class GroupCommunication extends Observable {
 
     private static final String URL_GET_MEMBERS = "http://34.69.44.48/instantm/obtener_integrantes.php" ;
     private static final String URL_CREATE_GROUP = "http://34.69.44.48/instantm/crear_grupo.php";
-    private static final String URL_GET_GROUPS = "http://34.69.44.48/instantm/obtener_grupos.php";
     private static final String URL_LEAVE_GROUP = "http://34.69.44.48/instantm/abandonar_grupo.php";
     private static final String URL_INSERT_MEMBERS = "http://34.69.44.48/instantm/insertar_integrantes.php";
     private static final String URL_DELETE_GROUP = "http://34.69.44.48/instantm/eliminar_grupo.php";
 
-
-    public void crateGroup(final Group groupToCreate, final int userId, final String mode) {
+    /**
+     * Crea un grupo.
+     * @param groupToCreate Grupo que quieres insertar.
+     * @param userId Id del usuario que desea crear el grupo.
+     * @param mode [WRITE, OBERWRITE] escribe o modifica.
+     */
+    void crateGroup(final Group groupToCreate, final int userId, final String mode) {
         CreateGroupListener createGroupListener = new CreateGroupListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_CREATE_GROUP, createGroupListener, createGroupListener) {
 
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("id", String.valueOf(groupToCreate.getId()));
                 params.put("mode", mode);
                 params.put("name", groupToCreate.getName());
@@ -68,24 +72,12 @@ public class GroupCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
-    public void getUserGroups(final int userId) {
-        GetUserGroupsListener getUserGroupsListener = new GetUserGroupsListener();
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                URL_GET_GROUPS, getUserGroupsListener, getUserGroupsListener) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Parámetros para la solicitud POST <columna_db, variable>
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", String.valueOf(userId));
-
-                return params;
-            }
-        };
-
-        AppController.getInstance().addToRequestQueue(strReq, "");
-    }
-
-    public void insertMembers(final List<Contact> vMembers, final int id_grupo) {
+    /**
+     * Inserta usuarios en grupos.
+     * @param vMembers lista de miembros.
+     * @param id_grupo id del grupo donde insertar los miembros.
+     */
+    void insertMembers(final List<Contact> vMembers, final int id_grupo) {
         InsertMembersListener insertMembersListener = new InsertMembersListener();
         String members = "";
         for (Contact c : vMembers)
@@ -98,7 +90,7 @@ public class GroupCommunication extends Observable {
                 URL_INSERT_MEMBERS, insertMembersListener, insertMembersListener) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("id_group", String.valueOf(id_grupo));
                 params.put("members", membersToInsert);
 
@@ -110,13 +102,17 @@ public class GroupCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
-    public void getMembers(final int group_id) {
+    /**
+     * Obtiene los miembros de un grupo
+     * @param group_id id del grupo del cual recuperar mensajes.
+     */
+    void getMembers(final int group_id) {
         GetMembersListener getMembersListener = new GetMembersListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_GET_MEMBERS, getMembersListener, getMembersListener) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("group_id", String.valueOf(group_id));
                 return params;
             }
@@ -125,13 +121,18 @@ public class GroupCommunication extends Observable {
         AppController.getInstance().addToRequestQueue(strReq, "");
     }
 
-    public void leaveGroup(final int userId, final int groupId) {
+    /**
+     * Saca (Elimina) a un usuario de un grupo.
+     * @param userId id del usuario que desea abandonar el grupo.
+     * @param groupId id del grupo a abandonar.
+     */
+    void leaveGroup(final int userId, final int groupId) {
             LeaveGroupListener leaveGroupListener = new LeaveGroupListener();
             StringRequest strReq = new StringRequest(Request.Method.POST,
                     URL_LEAVE_GROUP, leaveGroupListener, leaveGroupListener) {
 
                 protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
+                    Map<String, String> params = new HashMap<>();
                     params.put("user_id", String.valueOf(userId));
                     params.put("group_id", String.valueOf(groupId));
 
@@ -143,13 +144,17 @@ public class GroupCommunication extends Observable {
 
     }
 
-    public void deleteGroup(final int groupId) {
+    /**
+     * Elimina un grupo.
+     * @param groupId id del grupo a eliminar.
+     */
+    void deleteGroup(final int groupId) {
         DeleteGroupListener deleteGroupListener = new DeleteGroupListener();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_DELETE_GROUP, deleteGroupListener, deleteGroupListener) {
 
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("id_chat_group", String.valueOf(groupId));
 
                 return params;
@@ -160,6 +165,13 @@ public class GroupCommunication extends Observable {
     }
 
 
+    /**
+     * Gestiona la comunicacion con el servidor para eliminar un grupo.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class DeleteGroupListener implements Response.Listener<String>, Response.ErrorListener{
 
         @Override
@@ -185,6 +197,13 @@ public class GroupCommunication extends Observable {
         }
     }
 
+    /**
+     * Gestiona la comunicacion con el servidor para que un usuario abandone un grupo.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class LeaveGroupListener implements Response.Listener<String>, Response.ErrorListener{
 
         @Override
@@ -210,7 +229,13 @@ public class GroupCommunication extends Observable {
         }
     }
 
-
+    /**
+     * Gestiona la comunicacion con el servidor para obtener los usuarios que pertenecen a un grupo.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class GetMembersListener implements Response.Listener<String>, Response.ErrorListener{
 
         @Override
@@ -244,6 +269,13 @@ public class GroupCommunication extends Observable {
         }
     }
 
+    /**
+     * Gestiona la comunicacion con el servidor para insertar un usuario a un grupo.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class InsertMembersListener implements Response.Listener<String>, Response.ErrorListener{
 
         @Override
@@ -272,6 +304,13 @@ public class GroupCommunication extends Observable {
         }
     }
 
+    /**
+     * Gestiona la comunicacion con el servidor para crear un grupo.
+     * @author Martín Gascón
+     * @author Eduardo Ruiz
+     * @author Daniel Huici
+     * @version 1.0
+     */
     class CreateGroupListener implements Response.Listener<String>, Response.ErrorListener{
 
         @Override
@@ -299,38 +338,6 @@ public class GroupCommunication extends Observable {
         public void onErrorResponse(VolleyError error) {
             setChanged();
             notifyObservers(new Tupla<>(CREATE_GROUP_ERROR,"ERROR RESPONSE"));
-        }
-    }
-
-    class GetUserGroupsListener implements Response.Listener<String>, Response.ErrorListener{
-
-        @Override
-        public void onResponse(String response) {
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-                if (!error) {
-
-                    List<Group> groups = Group.JSONToGroups(jObj.getJSONArray("groups"));
-                    setChanged();
-                    notifyObservers(new Tupla<>(GET_USER_GROUPS_OK, groups));
-
-                } else {
-                    setChanged();
-                    notifyObservers(new Tupla<>(GET_USER_GROUPS_ERROR, "ERROR"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                setChanged();
-                notifyObservers(new Tupla<>(GET_USER_GROUPS_ERROR, "JSON ERROR"));
-            }
-        }
-
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            setChanged();
-            notifyObservers(new Tupla<>(GET_USER_GROUPS_ERROR, "RESPONSE ERROR"));
         }
     }
 }

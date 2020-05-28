@@ -34,16 +34,6 @@ import info.androidhive.loginandregistration.session.SessionManager;
  * @version 1.0
  */
 public class ChatsActivity extends AppCompatActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private  static final String CREATE_GROUP = "Crear grupo";
-    private  static final String LOGOUT = "Salir de sesión";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private static final int MENU_CREATE_GROUP_ID = Menu.FIRST;
@@ -51,15 +41,10 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
     private static final int MENU_ADD_CONTACT_ID = Menu.FIRST + 2;
     private static final int MENU_VIEW_PROFILE_ID = Menu.FIRST + 3;
 
-    /**
-     * The {@link android.support.v4.view.ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
     private SQLiteHandler db;
     private SessionManager session;
 
-    private ProgressDialog pDialog;
-    private static final String TAG = "CHATS";
     private TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,20 +53,20 @@ public class ChatsActivity extends AppCompatActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats);
         session = new SessionManager(getApplicationContext());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         // Progress dialog
-        pDialog = new ProgressDialog(this);
+        ProgressDialog pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
         // SQLite database handler
@@ -215,9 +200,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 }
 
     /**
-     * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
-     * */
+     * inicia un usuario en la aplicación.
+     */
     private void logoutUser() {
         session.setLogin(false);
 

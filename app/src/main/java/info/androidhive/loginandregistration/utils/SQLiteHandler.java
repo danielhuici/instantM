@@ -102,6 +102,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
 	/**
 	 * Storing user details in database
+	 * @param user usuario a insertar
 	 * */
 	public void addUser(User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -119,6 +120,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 				e.printStackTrace();
 			}
 		}
+
 		values.put(KEY_STATE, user.getState());
 		values.put(KEY_ID_USER, user.getId());
 		values.put(KEY_BIRTHDAY, new SimpleDateFormat("dd-mm-yyyy").format(user.getBirthdate()));
@@ -128,6 +130,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 		Log.d(TAG, "New user inserted into sqlite: " + id);
 	}
+
+	/**
+	 * Actualiza la información de un usuario en la base de datos (local)
+	 * @param user usuario a actualizar.
+	 */
 	public void updateUser(User user){
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -152,7 +159,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 	}
 	/**
-	 * Getting user data from database
+	 * Getting user data from database.
+	 * @return usuario.
 	 * */
 	public User getUserDetails() {
 		User user = new User();
@@ -181,6 +189,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		return user;
 	}
 
+	/**
+	 * Retorna el nombre de usuario del usuario que está utilizando la aplicación.
+	 * @return
+	 */
 	public String getCurrentUsername() {
 		String username;
 		String selectQuery = "SELECT * FROM " + TABLE_USER;
@@ -202,6 +214,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		return username;
 	}
 
+	/**
+	 * Retorna el id del usuario que está utilizando la aplicación.
+	 * @return
+	 */
 	public int getCurrentID() {
 		int id = -1;
 		String selectQuery = "SELECT  " + KEY_ID_USER + " FROM " + TABLE_USER;
@@ -212,8 +228,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		cursor.moveToFirst();
 		if (cursor.getCount() > 0) {
 			id = cursor.getInt(0);
-		} else {
-			id = -1;
 		}
 		cursor.close();
 		db.close();
@@ -245,7 +259,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         Log.d(TAG, "Deleted all user info from sqlite");
     }
 
-	public void addGroup(Group group) {
+	/**
+	 * Añade un grupo a la base de datos.
+	 * @param group grupo a insertar.
+	 */
+	private void addGroup(Group group) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -259,37 +277,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		Log.d(TAG, "New group inserted into sqlite: " + id);
 	}
 
-	/*
+	/**
 	 * Add multiple groups to SQLite
+	 * @param vGroups lista de grupos a insertar.
 	 */
 	public void addGroups(List<Group> vGroups) {
 		for (Group g: vGroups)
 			addGroup(g);
 	}
-	public List<Group> getGroups() {
-		String selectQuery = "SELECT " + KEY_GROUP_ID + ", " + KEY_GROUP_NAME + ", " + KEY_GROUP_DESCRIPTION
-							+ " FROM " + TABLE_GROUP;
-		List<Group> groups = new ArrayList<>();
 
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
-		Group g;
-        while (cursor.moveToNext()) {
-        	g = new Group();
-        	g.setId(cursor.getInt(0));
-        	g.setName(cursor.getString(1));
-        	g.setDescription(cursor.getString(2));
-        	groups.add(g);
-        }
-
-		cursor.close();
-		db.close();
-
-		Log.v(TAG, "Groups: " + groups);
-
-		return groups;
-	}
-
+	/**
+	 * Retorna los contactos del usuario con sesión iniciada.
+	 * @return lista de contactos.
+	 */
 	public List<String> getContacts() {
 		String selectQuery = "SELECT " + KEY_CONTACT_NAME + " FROM " + TABLE_CONTACT;
 		List<String> contacts = new ArrayList<>();
